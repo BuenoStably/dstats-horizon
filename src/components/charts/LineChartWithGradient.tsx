@@ -25,8 +25,8 @@ const LineChartWithGradient = ({
       <LineChart data={data}>
         <defs>
           <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor={color} stopOpacity={0.2}/>
-            <stop offset="95%" stopColor={color} stopOpacity={0}/>
+            <stop offset="5%" stopColor={color} stopOpacity={0.4}/>
+            <stop offset="95%" stopColor={color} stopOpacity={0.1}/>
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" stroke="#333" />
