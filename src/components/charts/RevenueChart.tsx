@@ -21,18 +21,18 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
         <CartesianGrid strokeDasharray="3 3" stroke="#333" />
         <XAxis
           dataKey="date"
-          stroke="#a0a0a0"
+          stroke="#ffffff"
           tickFormatter={(value) => new Date(value).toLocaleDateString()}
         />
         <YAxis
           yAxisId="left"
-          stroke="#a0a0a0"
+          stroke="#ffffff"
           tickFormatter={(value) => formatCurrency(value)}
         />
         <YAxis
           yAxisId="right"
           orientation="right"
-          stroke="#a0a0a0"
+          stroke="#ffffff"
           tickFormatter={(value) => `${value}%`}
         />
         <Tooltip

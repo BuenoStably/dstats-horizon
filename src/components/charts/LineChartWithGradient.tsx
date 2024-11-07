@@ -32,11 +32,11 @@ const LineChartWithGradient = ({
         <CartesianGrid strokeDasharray="3 3" stroke="#333" />
         <XAxis
           dataKey="date"
-          stroke="#a0a0a0"
+          stroke="#ffffff"
           tickFormatter={(value) => new Date(value).toLocaleDateString()}
         />
         <YAxis
-          stroke="#a0a0a0"
+          stroke="#ffffff"
           tickFormatter={valueFormatter}
         />
         <Tooltip

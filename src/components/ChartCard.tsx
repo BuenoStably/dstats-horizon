@@ -23,7 +23,7 @@ const ChartCard = ({ title, children, onTimeframeChange, className }: ChartCardP
   return (
     <div className={`chart-card ${className || ''}`}>
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-lg font-semibold">{title}</h3>
+        <h3 className="text-lg font-semibold text-white">{title}</h3>
         <div className="flex space-x-2">
           {timeframes.map((tf) => (
             <Button
