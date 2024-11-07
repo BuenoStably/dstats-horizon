@@ -15,41 +15,10 @@ import {
   ComposedChart,
 } from "recharts";
 import { Coins, Wallet, Percent, Gift } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-// Mock data - replace with actual API calls
-const mockData = {
-  tvl: Array.from({ length: 30 }, (_, i) => ({
-    date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
-    value: 14350000 + Math.random() * 1000000,
-  })),
-  supply: Array.from({ length: 30 }, (_, i) => ({
-    date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
-    value: 3000000 + Math.random() * 200000,
-  })),
-  apy: Array.from({ length: 30 }, (_, i) => ({
-    date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
-    value: 5.39 + Math.random() * 1,
-  })),
-  users: Array.from({ length: 30 }, (_, i) => ({
-    date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
-    value: 300 + i * 10 + Math.random() * 20,
-  })),
-  revenue: Array.from({ length: 30 }, (_, i) => ({
-    date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
-    revenue: 50000 + Math.random() * 10000,
-    percentage: (Math.random() * 2).toFixed(2),
-  })),
-};
-
-const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    notation: "compact",
-    maximumFractionDigits: 2,
-  }).format(value);
-
-const Index = () => {
+// Split the metrics data into a separate component
+const MetricsSection = () => {
   const metrics = [
     {
       value: "$14.35M",
@@ -84,127 +53,186 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <main className="container mx-auto px-6 py-8">
-        <div className="grid grid-cols-5 gap-4 mb-8">
-          {metrics.map((metric, index) => (
-            <MetricCard key={index} {...metric} />
-          ))}
-        </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+      {metrics.map((metric, index) => (
+        <MetricCard key={index} {...metric} />
+      ))}
+    </div>
+  );
+};
 
-        <div className="grid grid-cols-2 gap-6 mb-6">
-          <ChartCard title="Total Protocol TVL">
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={mockData.tvl}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis
-                  dataKey="date"
-                  stroke="#a0a0a0"
-                  tickFormatter={(value) => new Date(value).toLocaleDateString()}
-                />
-                <YAxis
-                  stroke="#a0a0a0"
-                  tickFormatter={(value) => formatCurrency(value)}
-                />
-                <Tooltip
-                  contentStyle={{ background: "#242424", border: "none" }}
-                  formatter={(value: number) => formatCurrency(value)}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="value"
-                  stroke="#8702ff"
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </ChartCard>
+// Split the charts section into a separate component
+const ChartsSection = () => {
+  const mockData = {
+    tvl: Array.from({ length: 30 }, (_, i) => ({
+      date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
+      value: 14350000 + Math.random() * 1000000,
+    })),
+    supply: Array.from({ length: 30 }, (_, i) => ({
+      date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
+      value: 3000000 + Math.random() * 200000,
+    })),
+    apy: Array.from({ length: 30 }, (_, i) => ({
+      date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
+      value: 5.39 + Math.random() * 1,
+    })),
+    users: Array.from({ length: 30 }, (_, i) => ({
+      date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
+      value: 300 + i * 10 + Math.random() * 20,
+    })),
+    revenue: Array.from({ length: 30 }, (_, i) => ({
+      date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
+      revenue: 50000 + Math.random() * 10000,
+      percentage: (Math.random() * 2).toFixed(2),
+    })),
+  };
 
-          <ChartCard title="Total dUSD Supply">
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={mockData.supply}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis
-                  dataKey="date"
-                  stroke="#a0a0a0"
-                  tickFormatter={(value) => new Date(value).toLocaleDateString()}
-                />
-                <YAxis
-                  stroke="#a0a0a0"
-                  tickFormatter={(value) => formatCurrency(value)}
-                />
-                <Tooltip
-                  contentStyle={{ background: "#242424", border: "none" }}
-                  formatter={(value: number) => formatCurrency(value)}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="value"
-                  stroke="#8702ff"
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </ChartCard>
+  const formatCurrency = (value: number) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      notation: "compact",
+      maximumFractionDigits: 2,
+    }).format(value);
 
-          <ChartCard title="Net dUSD Borrow APY">
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={mockData.apy}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis
-                  dataKey="date"
-                  stroke="#a0a0a0"
-                  tickFormatter={(value) => new Date(value).toLocaleDateString()}
-                />
-                <YAxis
-                  stroke="#a0a0a0"
-                  tickFormatter={(value) => `${value.toFixed(2)}%`}
-                />
-                <Tooltip
-                  contentStyle={{ background: "#242424", border: "none" }}
-                  formatter={(value: number) => `${value.toFixed(2)}%`}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="value"
-                  stroke="#8702ff"
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </ChartCard>
+  return (
+    <>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <ChartCard title="Total Protocol TVL">
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={mockData.tvl}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+              <XAxis
+                dataKey="date"
+                stroke="#a0a0a0"
+                tickFormatter={(value) => new Date(value).toLocaleDateString()}
+              />
+              <YAxis
+                stroke="#a0a0a0"
+                tickFormatter={(value) => formatCurrency(value)}
+              />
+              <Tooltip
+                contentStyle={{ background: "#242424", border: "none" }}
+                formatter={(value: number) => formatCurrency(value)}
+              />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke="#8702ff"
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartCard>
 
-          <ChartCard title="Total Users">
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={mockData.users}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                <XAxis
-                  dataKey="date"
-                  stroke="#a0a0a0"
-                  tickFormatter={(value) => new Date(value).toLocaleDateString()}
-                />
-                <YAxis stroke="#a0a0a0" />
-                <Tooltip
-                  contentStyle={{ background: "#242424", border: "none" }}
-                  formatter={(value: number) => value.toFixed(0)}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="value"
-                  stroke="#8702ff"
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </ChartCard>
-        </div>
+        <ChartCard title="Total dUSD Supply">
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={mockData.supply}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+              <XAxis
+                dataKey="date"
+                stroke="#a0a0a0"
+                tickFormatter={(value) => new Date(value).toLocaleDateString()}
+              />
+              <YAxis
+                stroke="#a0a0a0"
+                tickFormatter={(value) => formatCurrency(value)}
+              />
+              <Tooltip
+                contentStyle={{ background: "#242424", border: "none" }}
+                formatter={(value: number) => formatCurrency(value)}
+              />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke="#8702ff"
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartCard>
 
-        <ChartCard title="Protocol Revenue">
+        <ChartCard title="Net dUSD Borrow APY">
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={mockData.apy}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+              <XAxis
+                dataKey="date"
+                stroke="#a0a0a0"
+                tickFormatter={(value) => new Date(value).toLocaleDateString()}
+              />
+              <YAxis
+                stroke="#a0a0a0"
+                tickFormatter={(value) => `${value.toFixed(2)}%`}
+              />
+              <Tooltip
+                contentStyle={{ background: "#242424", border: "none" }}
+                formatter={(value: number) => `${value.toFixed(2)}%`}
+              />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke="#8702ff"
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartCard>
+
+        <ChartCard title="Total Users">
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={mockData.users}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+              <XAxis
+                dataKey="date"
+                stroke="#a0a0a0"
+                tickFormatter={(value) => new Date(value).toLocaleDateString()}
+              />
+              <YAxis stroke="#a0a0a0" />
+              <Tooltip
+                contentStyle={{ background: "#242424", border: "none" }}
+                formatter={(value: number) => value.toFixed(0)}
+              />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke="#8702ff"
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartCard>
+      </div>
+    </>
+  );
+};
+
+// Split the revenue chart into a separate component
+const RevenueChart = () => {
+  const mockData = {
+    revenue: Array.from({ length: 30 }, (_, i) => ({
+      date: `2024-${(i + 1).toString().padStart(2, "0")}-01`,
+      revenue: 50000 + Math.random() * 10000,
+      percentage: (Math.random() * 2).toFixed(2),
+    })),
+  };
+
+  const formatCurrency = (value: number) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      notation: "compact",
+      maximumFractionDigits: 2,
+    }).format(value);
+
+  return (
+    <ChartCard title="Protocol Revenue">
+      <ScrollArea className="w-full">
+        <div className="min-w-[800px]">
           <ResponsiveContainer width="100%" height={300}>
             <ComposedChart data={mockData.revenue}>
               <CartesianGrid strokeDasharray="3 3" stroke="#333" />
@@ -248,7 +276,20 @@ const Index = () => {
               />
             </ComposedChart>
           </ResponsiveContainer>
-        </ChartCard>
+        </div>
+      </ScrollArea>
+    </ChartCard>
+  );
+};
+
+const Index = () => {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <main className="container mx-auto px-4 sm:px-6 py-8">
+        <MetricsSection />
+        <ChartsSection />
+        <RevenueChart />
       </main>
     </div>
   );
