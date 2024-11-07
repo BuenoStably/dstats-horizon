@@ -1,13 +1,23 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 interface ChartCardProps {
   title: string;
   children: React.ReactNode;
+  onTimeframeChange?: (timeframe: string) => void;
 }
 
-const ChartCard = ({ title, children }: ChartCardProps) => {
+const ChartCard = ({ title, children, onTimeframeChange }: ChartCardProps) => {
   const timeframes = ["7D", "30D", "6M", "1Y", "All"];
+  const [selectedTimeframe, setSelectedTimeframe] = useState("7D");
+
+  const handleTimeframeClick = (tf: string) => {
+    setSelectedTimeframe(tf);
+    if (onTimeframeChange) {
+      onTimeframeChange(tf);
+    }
+  };
 
   return (
     <div className="chart-card">
@@ -17,8 +27,9 @@ const ChartCard = ({ title, children }: ChartCardProps) => {
           {timeframes.map((tf) => (
             <Button
               key={tf}
-              variant="ghost"
-              className="h-8 px-3 text-sm hover:text-primary"
+              variant={selectedTimeframe === tf ? "default" : "ghost"}
+              className="h-8 px-3 text-sm"
+              onClick={() => handleTimeframeClick(tf)}
             >
               {tf}
             </Button>
