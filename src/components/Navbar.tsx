@@ -8,11 +8,11 @@ const Navbar = () => {
 
   return (
     <nav className="bg-surface border-b border-white/10 px-6 py-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         <div className="text-2xl font-bold text-primary">dTRINITY</div>
         
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6">
+        <div className="hidden md:flex space-x-6 ml-8">
           {menuItems.map((item) => (
             <Link
               key={item}
@@ -26,7 +26,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-text-primary"
+          className="md:hidden text-text-primary ml-auto"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
