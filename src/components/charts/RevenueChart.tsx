@@ -8,6 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { format } from "date-fns";
 
 interface RevenueChartProps {
   data: any[];
@@ -15,6 +16,14 @@ interface RevenueChartProps {
 }
 
 const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
+  const formatXAxis = (dateStr: string) => {
+    const date = new Date(dateStr);
+    const isJanFirst = date.getMonth() === 0 && date.getDate() === 1;
+    return isJanFirst 
+      ? format(date, "MMM d, yyyy") // Show full date with year for Jan 1
+      : format(date, "MMM d"); // Show only month and day otherwise
+  };
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <ComposedChart data={data}>
@@ -22,7 +31,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
         <XAxis
           dataKey="date"
           stroke="#ffffff"
-          tickFormatter={(value) => new Date(value).toLocaleDateString()}
+          tickFormatter={formatXAxis}
         />
         <YAxis
           yAxisId="left"
@@ -41,6 +50,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             if (name === "revenue") return formatCurrency(value);
             return `${value}%`;
           }}
+          labelFormatter={formatXAxis}
         />
         <Bar
           yAxisId="left"

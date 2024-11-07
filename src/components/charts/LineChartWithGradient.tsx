@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
   Area,
 } from "recharts";
+import { format } from "date-fns";
 
 interface LineChartWithGradientProps {
   data: any[];
@@ -20,6 +21,14 @@ const LineChartWithGradient = ({
   valueFormatter,
   color = "#8702ff"
 }: LineChartWithGradientProps) => {
+  const formatXAxis = (dateStr: string) => {
+    const date = new Date(dateStr);
+    const isJanFirst = date.getMonth() === 0 && date.getDate() === 1;
+    return isJanFirst 
+      ? format(date, "MMM d, yyyy") // Show full date with year for Jan 1
+      : format(date, "MMM d"); // Show only month and day otherwise
+  };
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={data}>
@@ -33,7 +42,7 @@ const LineChartWithGradient = ({
         <XAxis
           dataKey="date"
           stroke="#ffffff"
-          tickFormatter={(value) => new Date(value).toLocaleDateString()}
+          tickFormatter={formatXAxis}
         />
         <YAxis
           stroke="#ffffff"
@@ -42,6 +51,7 @@ const LineChartWithGradient = ({
         <Tooltip
           contentStyle={{ background: "#242424", border: "none" }}
           formatter={valueFormatter}
+          labelFormatter={(label) => formatXAxis(label as string)}
         />
         <Area
           type="monotone"
