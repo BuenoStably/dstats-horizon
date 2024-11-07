@@ -13,17 +13,17 @@ export default {
     extend: {
       colors: {
         primary: "#8702ff",
-        background: "#090909",
-        surface: "#1e1e1e",
-        card: "#242424",
-        "card-hover": "#2a2a2a",
+        background: "transparent",
+        surface: "rgba(255, 255, 255, 0.05)",
+        card: "rgba(255, 255, 255, 0.05)",
+        "card-hover": "rgba(255, 255, 255, 0.08)",
         text: {
           primary: "#ffffff",
           secondary: "#a0a0a0",
         },
       },
-      fontFamily: {
-        sans: ["Inter", "sans-serif"],
+      backgroundImage: {
+        'gradient-main': 'linear-gradient(to top, #8702ff 0%, #13111C 20%)',
       },
     },
   },
