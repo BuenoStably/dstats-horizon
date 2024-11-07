@@ -3,7 +3,10 @@ import Navbar from "@/components/Navbar";
 import MetricCard from "@/components/MetricCard";
 import { ChartSection } from "@/components/ChartSection";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Coins, Wallet, Percent, Gift } from "lucide-react";
+import { Coins, Wallet, Percent, Gift, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import html2pdf from 'html2pdf.js';
+import { toast } from "sonner";
 
 // Split the metrics data into a separate component
 const MetricsSection = () => {
@@ -80,13 +83,44 @@ const generateMockData = () => {
 const Index = () => {
   const mockData = generateMockData();
 
+  const handleExportPDF = () => {
+    const element = document.getElementById('dashboard-content');
+    const opt = {
+      margin: 1,
+      filename: 'horizon-dashboard.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+    };
+
+    toast.promise(
+      html2pdf().set(opt).from(element).save(),
+      {
+        loading: 'Generating PDF...',
+        success: 'PDF downloaded successfully!',
+        error: 'Failed to generate PDF'
+      }
+    );
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <main className="container mx-auto px-4 sm:px-6 py-8">
-        <MetricsSection />
-        <ChartSection mockData={mockData} />
-        {/* Revenue chart component would go here */}
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <Button 
+            onClick={handleExportPDF}
+            className="flex items-center gap-2"
+          >
+            <Download className="w-4 h-4" />
+            Export PDF
+          </Button>
+        </div>
+        <div id="dashboard-content">
+          <MetricsSection />
+          <ChartSection mockData={mockData} />
+        </div>
       </main>
     </div>
   );
