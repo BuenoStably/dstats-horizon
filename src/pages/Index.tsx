@@ -53,24 +53,24 @@ const generateMockData = () => {
   const mockData = {
     tvl: Array.from({ length: 365 }, (_, i) => ({
       date: new Date(today.getTime() - (364 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      value: 14350000 + Math.random() * 1000000,
+      value: 10000000 + (i * 25000) + (Math.random() * 500000), // Steady growth from 10M with some variance
     })),
     supply: Array.from({ length: 365 }, (_, i) => ({
       date: new Date(today.getTime() - (364 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      value: 3000000 + Math.random() * 200000,
+      value: 2000000 + (i * 5000) + (Math.random() * 100000), // Steady growth from 2M
     })),
     apy: Array.from({ length: 365 }, (_, i) => ({
       date: new Date(today.getTime() - (364 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      value: 5.39 + Math.random() * 1,
+      value: 4 + (i * 0.01) + (Math.random() * 0.5), // Gradual APY increase
     })),
     users: Array.from({ length: 365 }, (_, i) => ({
       date: new Date(today.getTime() - (364 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      value: 300 + i * 10 + Math.random() * 20,
+      value: 100 + (i * 2) + Math.floor(Math.random() * 10), // Linear user growth
     })),
     revenue: Array.from({ length: 365 }, (_, i) => ({
       date: new Date(today.getTime() - (364 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      revenue: 50000 + Math.random() * 10000,
-      percentage: (Math.random() * 2).toFixed(2),
+      revenue: 30000 + (i * 100) + (Math.random() * 5000), // Growing revenue
+      percentage: 2 + (i * 0.01) + (Math.random() * 0.5), // Growing percentage
     })),
   };
   return mockData;
