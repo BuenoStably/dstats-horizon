@@ -23,7 +23,7 @@ export default {
         },
       },
       backgroundImage: {
-        'gradient-main': 'linear-gradient(to top, #8702ff 0%, rgba(19, 17, 28, 0.2) 20%)',
+        'gradient-main': 'linear-gradient(to top, #8702ff 0%, #13111C 20%)',
       },
     },
   },
