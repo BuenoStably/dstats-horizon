@@ -80,9 +80,9 @@ const Index = () => {
   const mockData = generateMockData();
 
   return (
-    <div className="min-h-screen bg-gradient-main">
+    <div className="min-h-screen bg-surface">
       <Navbar />
-      <main className="container mx-auto px-4 sm:px-6 py-8 bg-surface min-h-[calc(100vh-73px)] rounded-t-3xl">
+      <main className="container mx-auto px-4 sm:px-6 py-8 min-h-[calc(100vh-73px)]">
         <h1 className="text-2xl font-bold mb-6">Key Metrics</h1>
         <MetricsSection />
         <ChartSection mockData={mockData} />

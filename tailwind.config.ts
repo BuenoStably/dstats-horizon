@@ -22,9 +22,6 @@ export default {
           secondary: "#a0a0a0",
         },
       },
-      backgroundImage: {
-        'gradient-main': 'linear-gradient(to top, #8702ff 0%, #13111C 20%)',
-      },
     },
   },
   plugins: [require("tailwindcss-animate")],
