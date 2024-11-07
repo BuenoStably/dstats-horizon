@@ -17,7 +17,7 @@ const MetricCard = ({ value, label, tooltip, icon }: MetricCardProps) => {
   return (
     <div className="metric-card">
       <div className="flex items-center justify-between mb-2">
-        <div className="text-2xl font-bold text-text-primary">{value}</div>
+        <div className="text-2xl font-bold text-primary">{value}</div>
         {icon && <div className="text-primary">{icon}</div>}
       </div>
       <div className="flex items-center space-x-1">
