@@ -24,3 +24,8 @@ body {
 .recharts-default-tooltip {
   @apply bg-surface border border-white/10 rounded-lg !important;
 }
+
+/* Update tooltip styles for better readability */
+[data-radix-popper-content-wrapper] [role="tooltip"] {
+  @apply bg-gray-900 text-white border-gray-800 !important;
+}
