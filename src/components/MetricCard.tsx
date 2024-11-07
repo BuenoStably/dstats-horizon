@@ -21,7 +21,7 @@ const MetricCard = ({ value, label, tooltip, icon }: MetricCardProps) => {
         {icon && <div className="text-primary">{icon}</div>}
       </div>
       <div className="flex items-center space-x-1">
-        <span className="text-white text-sm">{label}</span>
+        <span className="text-white font-normal text-sm">{label}</span>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
