@@ -13,7 +13,7 @@ export default {
     extend: {
       colors: {
         primary: "#8702ff",
-        background: "#121212",
+        background: "#0f0f0f",
         surface: "#1e1e1e",
         card: "#242424",
         "card-hover": "#2a2a2a",
