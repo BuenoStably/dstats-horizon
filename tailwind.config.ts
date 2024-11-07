@@ -13,7 +13,7 @@ export default {
     extend: {
       colors: {
         primary: "#8702ff",
-        background: "#1211C", // Updated background color
+        background: "#1211CC",
         surface: "rgba(255, 255, 255, 0.05)",
         card: "rgba(255, 255, 255, 0.05)",
         "card-hover": "rgba(255, 255, 255, 0.08)",
