@@ -1,16 +1,7 @@
 import { useState } from "react";
 import ChartCard from "./ChartCard";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Bar,
-  ComposedChart,
-} from "recharts";
+import LineChartWithGradient from "./charts/LineChartWithGradient";
+import RevenueChart from "./charts/RevenueChart";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
 
 interface ChartSectionProps {
@@ -38,116 +29,38 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
       maximumFractionDigits: 2,
     }).format(value);
 
+  const formatPercentage = (value: number) => `${value.toFixed(2)}%`;
+  const formatNumber = (value: number) => value.toFixed(0);
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ChartCard title="Total Protocol TVL" onTimeframeChange={setTvlTimeframe}>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={filterDataByTimeframe(mockData.tvl, tvlTimeframe)}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis
-                dataKey="date"
-                stroke="#a0a0a0"
-                tickFormatter={(value) => new Date(value).toLocaleDateString()}
-              />
-              <YAxis
-                stroke="#a0a0a0"
-                tickFormatter={(value) => formatCurrency(value)}
-              />
-              <Tooltip
-                contentStyle={{ background: "#242424", border: "none" }}
-                formatter={(value: number) => formatCurrency(value)}
-              />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#8702ff"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          <LineChartWithGradient
+            data={filterDataByTimeframe(mockData.tvl, tvlTimeframe)}
+            valueFormatter={formatCurrency}
+          />
         </ChartCard>
 
         <ChartCard title="Total dUSD Supply" onTimeframeChange={setSupplyTimeframe}>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis
-                dataKey="date"
-                stroke="#a0a0a0"
-                tickFormatter={(value) => new Date(value).toLocaleDateString()}
-              />
-              <YAxis
-                stroke="#a0a0a0"
-                tickFormatter={(value) => formatCurrency(value)}
-              />
-              <Tooltip
-                contentStyle={{ background: "#242424", border: "none" }}
-                formatter={(value: number) => formatCurrency(value)}
-              />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#8702ff"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          <LineChartWithGradient
+            data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
+            valueFormatter={formatCurrency}
+          />
         </ChartCard>
 
         <ChartCard title="Net dUSD Borrow APY" onTimeframeChange={setApyTimeframe}>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={filterDataByTimeframe(mockData.apy, apyTimeframe)}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis
-                dataKey="date"
-                stroke="#a0a0a0"
-                tickFormatter={(value) => new Date(value).toLocaleDateString()}
-              />
-              <YAxis
-                stroke="#a0a0a0"
-                tickFormatter={(value) => `${value.toFixed(2)}%`}
-              />
-              <Tooltip
-                contentStyle={{ background: "#242424", border: "none" }}
-                formatter={(value: number) => `${value.toFixed(2)}%`}
-              />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#8702ff"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          <LineChartWithGradient
+            data={filterDataByTimeframe(mockData.apy, apyTimeframe)}
+            valueFormatter={formatPercentage}
+          />
         </ChartCard>
 
         <ChartCard title="Total Users" onTimeframeChange={setUsersTimeframe}>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={filterDataByTimeframe(mockData.users, usersTimeframe)}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis
-                dataKey="date"
-                stroke="#a0a0a0"
-                tickFormatter={(value) => new Date(value).toLocaleDateString()}
-              />
-              <YAxis stroke="#a0a0a0" />
-              <Tooltip
-                contentStyle={{ background: "#242424", border: "none" }}
-                formatter={(value: number) => value.toFixed(0)}
-              />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#8702ff"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          <LineChartWithGradient
+            data={filterDataByTimeframe(mockData.users, usersTimeframe)}
+            valueFormatter={formatNumber}
+          />
         </ChartCard>
       </div>
 
@@ -156,49 +69,10 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
         onTimeframeChange={setRevenueTimeframe}
         className="col-span-full"
       >
-        <ResponsiveContainer width="100%" height={300}>
-          <ComposedChart data={filterDataByTimeframe(mockData.revenue, revenueTimeframe)}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-            <XAxis
-              dataKey="date"
-              stroke="#a0a0a0"
-              tickFormatter={(value) => new Date(value).toLocaleDateString()}
-            />
-            <YAxis
-              yAxisId="left"
-              stroke="#a0a0a0"
-              tickFormatter={(value) => formatCurrency(value)}
-            />
-            <YAxis
-              yAxisId="right"
-              orientation="right"
-              stroke="#a0a0a0"
-              tickFormatter={(value) => `${value}%`}
-            />
-            <Tooltip
-              contentStyle={{ background: "#242424", border: "none" }}
-              formatter={(value: number, name: string) => {
-                if (name === "revenue") return formatCurrency(value);
-                return `${value}%`;
-              }}
-            />
-            <Bar
-              yAxisId="left"
-              dataKey="revenue"
-              fill="#8702ff"
-              opacity={0.3}
-              barSize={30}
-            />
-            <Line
-              yAxisId="right"
-              type="monotone"
-              dataKey="percentage"
-              stroke="#8702ff"
-              strokeWidth={2}
-              dot={false}
-            />
-          </ComposedChart>
-        </ResponsiveContainer>
+        <RevenueChart 
+          data={filterDataByTimeframe(mockData.revenue, revenueTimeframe)}
+          formatCurrency={formatCurrency}
+        />
       </ChartCard>
     </div>
   );
