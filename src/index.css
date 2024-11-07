@@ -28,4 +28,7 @@ body {
 /* Update tooltip styles for better readability */
 [data-radix-popper-content-wrapper] [role="tooltip"] {
   @apply bg-gray-900 text-white border-gray-800 !important;
+  background-color: #111827 !important;
+  color: white !important;
+  border: 1px solid #374151 !important;
 }
