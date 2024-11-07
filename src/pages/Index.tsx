@@ -50,29 +50,51 @@ const MetricsSection = () => {
 
 const generateMockData = () => {
   const today = new Date();
+  
+  // Helper function to generate growing values with natural variations
+  const generateGrowingValues = (
+    startValue: number,
+    daysCount: number,
+    dailyGrowthMin: number,
+    dailyGrowthMax: number,
+    volatility: number
+  ) => {
+    let currentValue = startValue;
+    return Array.from({ length: daysCount }, (_, i) => {
+      // Calculate daily growth with random variation
+      const dailyGrowth = 
+        Math.random() * (dailyGrowthMax - dailyGrowthMin) + dailyGrowthMin;
+      
+      // Add some volatility
+      const variation = (Math.random() - 0.5) * volatility;
+      
+      // Ensure value never goes below zero and grows over time
+      currentValue = Math.max(0, currentValue + (currentValue * dailyGrowth) + variation);
+      
+      return {
+        date: new Date(today.getTime() - (daysCount - 1 - i) * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split('T')[0],
+        value: currentValue,
+      };
+    });
+  };
+
   const mockData = {
-    tvl: Array.from({ length: 365 }, (_, i) => ({
-      date: new Date(today.getTime() - (364 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      value: 10000000 + (i * 25000) + (Math.random() * 500000), // Steady growth from 10M with some variance
+    tvl: generateGrowingValues(0, 365, 0.001, 0.003, 50000),
+    supply: generateGrowingValues(0, 365, 0.001, 0.002, 10000),
+    apy: generateGrowingValues(0, 365, 0.0001, 0.0003, 0.1),
+    users: generateGrowingValues(0, 365, 0.002, 0.004, 2).map(item => ({
+      ...item,
+      value: Math.floor(item.value), // Round to whole numbers for users
     })),
-    supply: Array.from({ length: 365 }, (_, i) => ({
-      date: new Date(today.getTime() - (364 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      value: 2000000 + (i * 5000) + (Math.random() * 100000), // Steady growth from 2M
-    })),
-    apy: Array.from({ length: 365 }, (_, i) => ({
-      date: new Date(today.getTime() - (364 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      value: 4 + (i * 0.01) + (Math.random() * 0.5), // Gradual APY increase
-    })),
-    users: Array.from({ length: 365 }, (_, i) => ({
-      date: new Date(today.getTime() - (364 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      value: 100 + (i * 2) + Math.floor(Math.random() * 10), // Linear user growth
-    })),
-    revenue: Array.from({ length: 365 }, (_, i) => ({
-      date: new Date(today.getTime() - (364 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      revenue: 30000 + (i * 100) + (Math.random() * 5000), // Growing revenue
-      percentage: 2 + (i * 0.01) + (Math.random() * 0.5), // Growing percentage
+    revenue: generateGrowingValues(0, 365, 0.001, 0.003, 1000).map(item => ({
+      date: item.date,
+      revenue: item.value,
+      percentage: (Math.random() * 2) + 3, // Random percentage between 3-5%
     })),
   };
+
   return mockData;
 };
 
