@@ -6,9 +6,10 @@ interface ChartCardProps {
   title: string;
   children: React.ReactNode;
   onTimeframeChange?: (timeframe: string) => void;
+  className?: string;
 }
 
-const ChartCard = ({ title, children, onTimeframeChange }: ChartCardProps) => {
+const ChartCard = ({ title, children, onTimeframeChange, className }: ChartCardProps) => {
   const timeframes = ["7D", "30D", "6M", "1Y", "All"];
   const [selectedTimeframe, setSelectedTimeframe] = useState("7D");
 
@@ -20,7 +21,7 @@ const ChartCard = ({ title, children, onTimeframeChange }: ChartCardProps) => {
   };
 
   return (
-    <div className="chart-card">
+    <div className={`chart-card ${className || ''}`}>
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-semibold">{title}</h3>
         <div className="flex space-x-2">
