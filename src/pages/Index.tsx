@@ -51,25 +51,25 @@ const MetricsSection = () => {
 const generateMockData = () => {
   const today = new Date();
   
-  // Helper function to generate growing values with natural variations
   const generateGrowingValues = (
     startValue: number,
     daysCount: number,
-    dailyGrowthMin: number,
-    dailyGrowthMax: number,
-    volatility: number
+    growthFactor: number,
+    volatilityFactor: number,
+    baselineValue: number = 0
   ) => {
     let currentValue = startValue;
     return Array.from({ length: daysCount }, (_, i) => {
-      // Calculate daily growth with random variation
-      const dailyGrowth = 
-        Math.random() * (dailyGrowthMax - dailyGrowthMin) + dailyGrowthMin;
+      // Add significant random variations
+      const randomGrowth = Math.random() * growthFactor;
+      const volatility = (Math.random() - 0.5) * volatilityFactor;
       
-      // Add some volatility
-      const variation = (Math.random() - 0.5) * volatility;
-      
-      // Ensure value never goes below zero and grows over time
-      currentValue = Math.max(0, currentValue + (currentValue * dailyGrowth) + variation);
+      // Ensure overall upward trend with occasional dips
+      const trend = Math.sin(i / 20) * volatilityFactor * 0.5; // Adds wave-like pattern
+      currentValue = Math.max(
+        baselineValue,
+        currentValue * (1 + randomGrowth) + volatility + trend
+      );
       
       return {
         date: new Date(today.getTime() - (daysCount - 1 - i) * 24 * 60 * 60 * 1000)
@@ -81,17 +81,20 @@ const generateMockData = () => {
   };
 
   const mockData = {
-    tvl: generateGrowingValues(0, 365, 0.001, 0.003, 50000),
-    supply: generateGrowingValues(0, 365, 0.001, 0.002, 10000),
-    apy: generateGrowingValues(0, 365, 0.0001, 0.0003, 0.1),
-    users: generateGrowingValues(0, 365, 0.002, 0.004, 2).map(item => ({
+    tvl: generateGrowingValues(100000, 365, 0.03, 50000, 100000),
+    supply: generateGrowingValues(50000, 365, 0.025, 20000, 50000),
+    apy: generateGrowingValues(3, 365, 0.01, 0.5, 2).map(item => ({
+      ...item,
+      value: Math.min(12, item.value), // Cap APY at 12%
+    })),
+    users: generateGrowingValues(100, 365, 0.015, 10, 100).map(item => ({
       ...item,
       value: Math.floor(item.value), // Round to whole numbers for users
     })),
-    revenue: generateGrowingValues(0, 365, 0.001, 0.003, 1000).map(item => ({
+    revenue: generateGrowingValues(10000, 365, 0.02, 5000, 10000).map(item => ({
       date: item.date,
       revenue: item.value,
-      percentage: (Math.random() * 2) + 3, // Random percentage between 3-5%
+      percentage: Math.min(8, 2 + Math.random() * 3 + Math.sin(item.value / 10000) * 2),
     })),
   };
 
