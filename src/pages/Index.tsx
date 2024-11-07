@@ -83,7 +83,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main className="container mx-auto px-4 sm:px-6 py-8">
-        <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
+        <h1 className="text-2xl font-bold mb-6">Key Metrics</h1>
         <MetricsSection />
         <ChartSection mockData={mockData} />
       </main>
