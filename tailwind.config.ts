@@ -13,7 +13,7 @@ export default {
     extend: {
       colors: {
         primary: "#8702ff",
-        background: "rgba(19, 17, 28, 0.2)",
+        background: "transparent",
         surface: "rgba(255, 255, 255, 0.05)",
         card: "rgba(255, 255, 255, 0.05)",
         "card-hover": "rgba(255, 255, 255, 0.08)",
@@ -21,6 +21,9 @@ export default {
           primary: "#ffffff",
           secondary: "#a0a0a0",
         },
+      },
+      backgroundImage: {
+        'gradient-main': 'linear-gradient(to top, #8702ff 0%, #13111C 20%)',
       },
     },
   },
