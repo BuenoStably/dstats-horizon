@@ -21,11 +21,11 @@ const MetricCard = ({ value, label, tooltip, icon }: MetricCardProps) => {
         {icon && <div className="text-primary">{icon}</div>}
       </div>
       <div className="flex items-center space-x-1">
-        <span className="text-text-secondary text-sm">{label}</span>
+        <span className="text-white text-sm">{label}</span>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <HelpCircle className="w-4 h-4 text-text-secondary" />
+              <HelpCircle className="w-4 h-4 text-white" />
             </TooltipTrigger>
             <TooltipContent>
               <p className="max-w-xs">{tooltip}</p>
