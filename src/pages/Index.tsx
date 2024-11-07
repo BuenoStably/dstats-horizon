@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import MetricCard from "@/components/MetricCard";
 import { ChartSection } from "@/components/ChartSection";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Coins, Wallet, Percent, Gift } from "lucide-react";
+import { DollarSign, Wallet, Percent, Gift } from "lucide-react";
 
 const MetricsSection = () => {
   const metrics = [
@@ -11,7 +11,7 @@ const MetricsSection = () => {
       value: "$14.35M",
       label: "Total Protocol TVL",
       tooltip: "Total Value Locked across all protocol products",
-      icon: <Coins className="w-6 h-6" />,
+      icon: <DollarSign className="w-6 h-6" />,
     },
     {
       value: "$3.00M",
