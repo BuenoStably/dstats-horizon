@@ -47,8 +47,16 @@ const LineChartWithGradient = ({
           type="monotone"
           dataKey="value"
           stroke={color}
+          strokeWidth={2}
           fill="url(#colorGradient)"
           fillOpacity={1}
+        />
+        <Line
+          type="monotone"
+          dataKey="value"
+          stroke={color}
+          strokeWidth={2}
+          dot={false}
         />
       </LineChart>
     </ResponsiveContainer>
