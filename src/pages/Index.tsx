@@ -11,36 +11,36 @@ const MetricsSection = () => {
       value: "$14.35M",
       label: "Total Protocol TVL",
       tooltip: "Total Value Locked across all protocol products",
-      icon: <DollarSign className="w-6 h-6" />,
+      icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
       value: "$3.00M",
       label: "Total dUSD Supply",
       tooltip: "Current total supply of dUSD in circulation",
-      icon: <Wallet className="w-6 h-6" />,
+      icon: <Wallet className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
       value: "5.39%",
       label: "Net Borrow APY",
       tooltip: "Current net borrowing annual percentage yield",
-      icon: <Percent className="w-6 h-6" />,
+      icon: <Percent className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
       value: "50x",
       label: "Lending Rewards",
       tooltip: "Current lending reward multiplier",
-      icon: <Gift className="w-6 h-6" />,
+      icon: <Gift className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
       value: "50x",
       label: "LP Rewards",
       tooltip: "Current liquidity provider reward multiplier",
-      icon: <Gift className="w-6 h-6" />,
+      icon: <Gift className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
       {metrics.map((metric, index) => (
         <MetricCard key={index} {...metric} />
       ))}
@@ -107,8 +107,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-surface">
       <Navbar />
-      <main className="container mx-auto px-4 sm:px-6 py-8 min-h-[calc(100vh-73px)]">
-        <h1 className="text-2xl font-bold mb-6">Key Metrics</h1>
+      <main className="container mx-auto px-3 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-73px)]">
+        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Key Metrics</h1>
         <MetricsSection />
         <ChartSection mockData={mockData} />
       </main>
