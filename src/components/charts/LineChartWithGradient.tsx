@@ -43,7 +43,7 @@ const LineChartWithGradient = ({
           stroke="#ffffff"
           tickFormatter={formatXAxis}
           tickLine={false}
-          style={{ fontSize: '10px' }}
+          style={{ fontSize: '11px' }}
         />
         <YAxis
           stroke="#ffffff"
@@ -51,7 +51,7 @@ const LineChartWithGradient = ({
           axisLine={false}
           tickLine={false}
           domain={[0, 'auto']}
-          style={{ fontSize: '10px' }}
+          style={{ fontSize: '11px' }}
         />
         <Tooltip
           contentStyle={{ background: "#242424", border: "none" }}

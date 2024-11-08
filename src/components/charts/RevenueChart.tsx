@@ -33,14 +33,14 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
           stroke="#ffffff"
           tickFormatter={formatXAxis}
           tickLine={false}
-          style={{ fontSize: '10px' }}
+          style={{ fontSize: '11px' }}
         />
         <YAxis
           yAxisId="left"
           stroke="#ffffff"
           tickFormatter={(value) => formatCurrency(value)}
           tickLine={false}
-          style={{ fontSize: '10px' }}
+          style={{ fontSize: '11px' }}
         />
         <YAxis
           yAxisId="right"
@@ -48,7 +48,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
           stroke="#ffffff"
           tickFormatter={(value) => `${value}%`}
           tickLine={false}
-          style={{ fontSize: '10px' }}
+          style={{ fontSize: '11px' }}
         />
         <Tooltip
           contentStyle={{ background: "#242424", border: "none" }}
