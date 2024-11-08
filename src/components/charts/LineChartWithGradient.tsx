@@ -54,7 +54,12 @@ const LineChartWithGradient = ({
           style={{ fontSize: '11px' }}
         />
         <Tooltip
-          contentStyle={{ background: "#242424", border: "none", opacity: 1 }}
+          contentStyle={{ 
+            backgroundColor: "rgb(36, 36, 36)", 
+            border: "none", 
+            opacity: 1,
+            boxShadow: "0 0 10px rgba(0,0,0,0.5)"
+          }}
           formatter={valueFormatter}
           labelFormatter={(label) => formatXAxis(label as string)}
         />

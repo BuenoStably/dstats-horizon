@@ -51,7 +51,12 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
           style={{ fontSize: '11px' }}
         />
         <Tooltip
-          contentStyle={{ background: "#242424", border: "none", opacity: 1 }}
+          contentStyle={{ 
+            backgroundColor: "rgb(36, 36, 36)", 
+            border: "none", 
+            opacity: 1,
+            boxShadow: "0 0 10px rgba(0,0,0,0.5)"
+          }}
           formatter={(value: number, name: string) => {
             if (name === "revenue") return formatCurrency(value);
             return `${value}%`;
