@@ -52,7 +52,7 @@ const generateMockData = () => {
   const today = new Date();
   
   const generateGrowingValues = (
-    startValue: number,
+    targetValue: number,
     daysCount: number,
     growthFactor: number,
     volatilityFactor: number,
@@ -61,17 +61,16 @@ const generateMockData = () => {
     return Array.from({ length: daysCount }, (_, i) => {
       const progress = i / daysCount;
       
-      // Create stronger exponential growth with minimal starting value
-      const baseGrowth = (startValue * 0.1) + (startValue * Math.pow(1 + growthFactor, progress));
+      // Start very close to zero and grow exponentially towards target
+      const baseGrowth = targetValue * Math.pow(progress, growthFactor);
       
-      // Reduce volatility and make it proportional to progress
-      const wave = Math.sin(progress * Math.PI) * volatilityFactor * progress * 0.1;
-      const noise = (Math.random() - 0.5) * volatilityFactor * progress * 0.05;
+      // Minimal volatility that doesn't affect the trend
+      const noise = (Math.random() - 0.5) * volatilityFactor * progress * 0.01;
       
       // Ensure value never goes below baseline and maintains upward trend
       const value = Math.max(
         baselineValue,
-        baseGrowth + wave + noise
+        baseGrowth + noise
       );
 
       return {
@@ -84,17 +83,17 @@ const generateMockData = () => {
   };
 
   const mockData = {
-    tvl: generateGrowingValues(10000000, 365, 2.5, 100000),
-    supply: generateGrowingValues(3000000, 365, 2.2, 50000),
-    apy: generateGrowingValues(2, 365, 1.5, 0.3).map(item => ({
+    tvl: generateGrowingValues(14350000, 365, 3, 10000),
+    supply: generateGrowingValues(3000000, 365, 3, 5000),
+    apy: generateGrowingValues(5.39, 365, 2, 0.1).map(item => ({
       ...item,
-      value: Math.min(12, Math.max(2, item.value)),
+      value: Math.max(2, Math.min(12, item.value)),
     })),
-    users: generateGrowingValues(100, 365, 2.8, 20).map(item => ({
+    users: generateGrowingValues(1000, 365, 3, 2).map(item => ({
       ...item,
       value: Math.floor(item.value),
     })),
-    revenue: generateGrowingValues(50000, 365, 2.4, 10000).map(item => ({
+    revenue: generateGrowingValues(100000, 365, 3, 1000).map(item => ({
       date: item.date,
       revenue: item.value,
       percentage: Math.min(8, 2 + (item.value / 100000)),
