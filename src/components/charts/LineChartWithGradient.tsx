@@ -1,5 +1,5 @@
 import {
-  LineChart,
+  AreaChart,
   Area,
   XAxis,
   YAxis,
@@ -30,7 +30,7 @@ const LineChartWithGradient = ({
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={data}>
+      <AreaChart data={data}>
         <defs>
           <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor={color} stopOpacity={0.4}/>
@@ -60,7 +60,7 @@ const LineChartWithGradient = ({
           fill="url(#colorGradient)"
           fillOpacity={1}
         />
-      </LineChart>
+      </AreaChart>
     </ResponsiveContainer>
   );
 };
