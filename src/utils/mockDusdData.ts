@@ -23,7 +23,7 @@ const generateMockData = (
 export const generateDusdMockData = () => {
   return {
     price: generateMockData(365, 0.99, 0.999, 0.03), // Increased volatility from 0.003 to 0.03 (10x)
-    supply: generateMockData(365, 2800000, 3000000),
+    supply: generateMockData(365, 800000, 1800000),
     amoTvl: generateMockData(365, 2800000, 3200000),
     reserveTvl: generateMockData(365, 800000, 1100000),
     balanceSheet: {
