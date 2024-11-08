@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = ["Key Metrics", "dUSD", "dLEND", "Liquidity"];
+  const location = useLocation();
+
+  const isActive = (item: string) => {
+    const path = `/${item.toLowerCase().replace(" ", "-")}`;
+    return location.pathname === path || (location.pathname === "/" && item === "Key Metrics");
+  };
 
   return (
     <nav className="bg-surface border-b border-white/10 px-6 py-4">
@@ -17,7 +23,11 @@ const Navbar = () => {
             <Link
               key={item}
               to={`/${item.toLowerCase().replace(" ", "-")}`}
-              className="text-text-primary hover:text-primary transition-colors"
+              className={`transition-colors ${
+                isActive(item)
+                  ? "text-primary font-semibold"
+                  : "text-text-primary hover:text-primary"
+              }`}
             >
               {item}
             </Link>
@@ -41,7 +51,11 @@ const Navbar = () => {
               <Link
                 key={item}
                 to={`/${item.toLowerCase().replace(" ", "-")}`}
-                className="text-text-primary hover:text-primary transition-colors"
+                className={`transition-colors ${
+                  isActive(item)
+                    ? "text-primary font-semibold"
+                    : "text-text-primary hover:text-primary"
+                }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item}
