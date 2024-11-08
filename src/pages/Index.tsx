@@ -61,14 +61,14 @@ const generateMockData = () => {
     return Array.from({ length: daysCount }, (_, i) => {
       const progress = i / daysCount;
       
-      // Create exponential growth curve
-      const baseGrowth = startValue * Math.pow(1 + growthFactor, progress);
+      // Create stronger exponential growth with minimal starting value
+      const baseGrowth = (startValue * 0.1) + (startValue * Math.pow(1 + growthFactor, progress));
       
-      // Add natural variations
-      const wave = Math.sin(progress * Math.PI * 2) * volatilityFactor * progress;
-      const noise = (Math.random() - 0.5) * volatilityFactor * progress * 0.5;
+      // Reduce volatility and make it proportional to progress
+      const wave = Math.sin(progress * Math.PI) * volatilityFactor * progress * 0.1;
+      const noise = (Math.random() - 0.5) * volatilityFactor * progress * 0.05;
       
-      // Ensure value never goes below baseline
+      // Ensure value never goes below baseline and maintains upward trend
       const value = Math.max(
         baselineValue,
         baseGrowth + wave + noise
@@ -84,20 +84,20 @@ const generateMockData = () => {
   };
 
   const mockData = {
-    tvl: generateGrowingValues(1000000, 365, 1.5, 200000),
-    supply: generateGrowingValues(300000, 365, 1.2, 100000),
-    apy: generateGrowingValues(2, 365, 0.5, 0.8).map(item => ({
+    tvl: generateGrowingValues(10000000, 365, 2.5, 100000),
+    supply: generateGrowingValues(3000000, 365, 2.2, 50000),
+    apy: generateGrowingValues(2, 365, 1.5, 0.3).map(item => ({
       ...item,
       value: Math.min(12, Math.max(2, item.value)),
     })),
-    users: generateGrowingValues(100, 365, 1.8, 50).map(item => ({
+    users: generateGrowingValues(100, 365, 2.8, 20).map(item => ({
       ...item,
       value: Math.floor(item.value),
     })),
-    revenue: generateGrowingValues(50000, 365, 1.4, 20000).map(item => ({
+    revenue: generateGrowingValues(50000, 365, 2.4, 10000).map(item => ({
       date: item.date,
       revenue: item.value,
-      percentage: Math.min(8, 2 + Math.random() * 3 + Math.sin(item.value / 10000) * 2),
+      percentage: Math.min(8, 2 + (item.value / 100000)),
     })),
   };
 
