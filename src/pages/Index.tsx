@@ -59,17 +59,23 @@ const generateMockData = () => {
     baselineValue: number = 0
   ) => {
     let currentValue = startValue;
+    let previousValue = startValue;
+    
     return Array.from({ length: daysCount }, (_, i) => {
-      // Add significant random variations
-      const randomGrowth = Math.random() * growthFactor;
-      const volatility = (Math.random() - 0.5) * volatilityFactor;
+      // Add smoother variations with controlled randomness
+      const time = i / daysCount;
+      const trend = Math.sin(time * Math.PI * 4) * volatilityFactor * 0.3; // Smoother wave pattern
+      const randomFactor = (Math.random() - 0.5) * volatilityFactor * 0.2; // Reduced random noise
       
-      // Ensure overall upward trend with occasional dips
-      const trend = Math.sin(i / 20) * volatilityFactor * 0.5; // Adds wave-like pattern
-      currentValue = Math.max(
+      // Calculate new value with smoothing
+      const targetValue = Math.max(
         baselineValue,
-        currentValue * (1 + randomGrowth) + volatility + trend
+        currentValue * (1 + (growthFactor * 0.1)) + trend + randomFactor
       );
+      
+      // Apply smoothing between previous and target value
+      currentValue = previousValue * 0.7 + targetValue * 0.3;
+      previousValue = currentValue;
       
       return {
         date: new Date(today.getTime() - (daysCount - 1 - i) * 24 * 60 * 60 * 1000)
@@ -85,11 +91,11 @@ const generateMockData = () => {
     supply: generateGrowingValues(50000, 365, 0.025, 20000, 50000),
     apy: generateGrowingValues(3, 365, 0.01, 0.5, 2).map(item => ({
       ...item,
-      value: Math.min(12, item.value), // Cap APY at 12%
+      value: Math.min(12, item.value),
     })),
     users: generateGrowingValues(100, 365, 0.015, 10, 100).map(item => ({
       ...item,
-      value: Math.floor(item.value), // Round to whole numbers for users
+      value: Math.floor(item.value),
     })),
     revenue: generateGrowingValues(10000, 365, 0.02, 5000, 10000).map(item => ({
       date: item.date,

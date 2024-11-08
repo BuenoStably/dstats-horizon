@@ -30,7 +30,7 @@ const LineChartWithGradient = ({
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <AreaChart data={data}>
+      <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
         <defs>
           <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor={color} stopOpacity={0.4}/>
@@ -49,6 +49,7 @@ const LineChartWithGradient = ({
           tickFormatter={valueFormatter}
           axisLine={false}
           tickLine={false}
+          domain={[0, 'auto']}
         />
         <Tooltip
           contentStyle={{ background: "#242424", border: "none" }}
@@ -56,7 +57,7 @@ const LineChartWithGradient = ({
           labelFormatter={(label) => formatXAxis(label as string)}
         />
         <Area
-          type="monotone"
+          type="monotoneX"
           dataKey="value"
           stroke={color}
           strokeWidth={2}
