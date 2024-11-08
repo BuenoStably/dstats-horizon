@@ -15,7 +15,7 @@ const generateMockData = (
       date: new Date(today.getTime() - (daysCount - 1 - i) * 24 * 60 * 60 * 1000)
         .toISOString()
         .split("T")[0],
-      value: baseValue + noise,
+      value: Math.max(startValue, baseValue + noise), // Ensure value never goes below startValue
     };
   });
 };
