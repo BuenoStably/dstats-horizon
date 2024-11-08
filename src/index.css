@@ -12,7 +12,8 @@ body {
 }
 
 .metric-card {
-  @apply bg-card rounded-lg p-4 hover:bg-card-hover transition-colors duration-200;
+  @apply bg-card p-4 hover:bg-card-hover transition-colors duration-200;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.05);
@@ -20,7 +21,8 @@ body {
 }
 
 .chart-card {
-  @apply bg-card rounded-lg p-6;
+  @apply bg-card p-6;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.05);
@@ -28,7 +30,8 @@ body {
 }
 
 .recharts-default-tooltip {
-  @apply bg-surface border border-white/10 rounded-lg !important;
+  @apply bg-surface border border-white/10 !important;
+  border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
   background: rgba(255, 255, 255, 0.05) !important;
 }
@@ -36,6 +39,7 @@ body {
 /* Update tooltip styles for better readability */
 [data-radix-popper-content-wrapper] [role="tooltip"] {
   @apply bg-gray-900 text-white border-gray-800 !important;
+  border-radius: 12px !important;
   background-color: rgba(17, 24, 39, 0.8) !important;
   backdrop-filter: blur(10px) !important;
   color: white !important;
