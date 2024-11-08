@@ -32,17 +32,20 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
           dataKey="date"
           stroke="#ffffff"
           tickFormatter={formatXAxis}
+          tickLine={false}
         />
         <YAxis
           yAxisId="left"
           stroke="#ffffff"
           tickFormatter={(value) => formatCurrency(value)}
+          tickLine={false}
         />
         <YAxis
           yAxisId="right"
           orientation="right"
           stroke="#ffffff"
           tickFormatter={(value) => `${value}%`}
+          tickLine={false}
         />
         <Tooltip
           contentStyle={{ background: "#242424", border: "none" }}
