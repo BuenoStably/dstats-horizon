@@ -1,12 +1,11 @@
 import {
   LineChart,
-  Line,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Area,
 } from "recharts";
 import { format } from "date-fns";
 
@@ -60,13 +59,6 @@ const LineChartWithGradient = ({
           strokeWidth={2}
           fill="url(#colorGradient)"
           fillOpacity={1}
-        />
-        <Line
-          type="monotone"
-          dataKey="value"
-          stroke={color}
-          strokeWidth={2}
-          dot={false}
         />
       </LineChart>
     </ResponsiveContainer>
