@@ -46,6 +46,7 @@ const LineChartWithGradient = ({
         <YAxis
           stroke="#ffffff"
           tickFormatter={valueFormatter}
+          axisLine={false}
         />
         <Tooltip
           contentStyle={{ background: "#242424", border: "none" }}
