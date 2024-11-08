@@ -62,19 +62,20 @@ const generateMockData = () => {
     let previousValue = startValue;
     
     return Array.from({ length: daysCount }, (_, i) => {
-      // Add smoother variations with controlled randomness
-      const time = i / daysCount;
-      const trend = Math.sin(time * Math.PI * 4) * volatilityFactor * 0.3; // Smoother wave pattern
-      const randomFactor = (Math.random() - 0.5) * volatilityFactor * 0.2; // Reduced random noise
+      // Create a stronger upward trend with natural variations
+      const progress = i / daysCount;
+      const baseGrowth = Math.pow(1 + growthFactor, progress) - 1; // Exponential growth
+      const wave = Math.sin(progress * Math.PI * 6) * volatilityFactor * 0.15; // Gentle waves
+      const noise = (Math.random() - 0.5) * volatilityFactor * 0.1; // Subtle noise
       
-      // Calculate new value with smoothing
+      // Calculate target with stronger upward bias
       const targetValue = Math.max(
         baselineValue,
-        currentValue * (1 + (growthFactor * 0.1)) + trend + randomFactor
+        startValue * (1 + baseGrowth * 2) + wave + noise
       );
       
-      // Apply smoothing between previous and target value
-      currentValue = previousValue * 0.7 + targetValue * 0.3;
+      // Smooth transitions
+      currentValue = previousValue * 0.8 + targetValue * 0.2;
       previousValue = currentValue;
       
       return {
@@ -87,20 +88,20 @@ const generateMockData = () => {
   };
 
   const mockData = {
-    tvl: generateGrowingValues(100000, 365, 0.03, 50000, 100000),
-    supply: generateGrowingValues(50000, 365, 0.025, 20000, 50000),
-    apy: generateGrowingValues(3, 365, 0.01, 0.5, 2).map(item => ({
+    tvl: generateGrowingValues(10000000, 365, 0.8, 500000, 10000000),
+    supply: generateGrowingValues(3000000, 365, 0.6, 200000, 3000000),
+    apy: generateGrowingValues(3, 365, 0.3, 0.5, 2).map(item => ({
       ...item,
       value: Math.min(12, item.value),
     })),
-    users: generateGrowingValues(100, 365, 0.015, 10, 100).map(item => ({
+    users: generateGrowingValues(1000, 365, 0.5, 50, 1000).map(item => ({
       ...item,
       value: Math.floor(item.value),
     })),
-    revenue: generateGrowingValues(10000, 365, 0.02, 5000, 10000).map(item => ({
+    revenue: generateGrowingValues(500000, 365, 0.7, 50000, 500000).map(item => ({
       date: item.date,
       revenue: item.value,
-      percentage: Math.min(8, 2 + Math.random() * 3 + Math.sin(item.value / 10000) * 2),
+      percentage: Math.min(8, 2 + Math.random() * 3 + Math.sin(item.value / 100000) * 2),
     })),
   };
 
