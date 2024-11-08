@@ -119,7 +119,7 @@ const DUSDPage = () => {
             </ChartCard>
 
             <ChartCard title="dUSD Balance Sheet">
-              <div className="space-y-6">
+              <div className="space-y-2">
                 <HorizontalBarChart
                   data={mockData.balanceSheet.assets}
                   label="Assets"
@@ -129,6 +129,7 @@ const DUSDPage = () => {
                   data={mockData.balanceSheet.liabilities}
                   label="Liabilities"
                   formatValue={formatCurrency}
+                  showXAxis={true}
                 />
               </div>
             </ChartCard>

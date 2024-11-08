@@ -17,25 +17,38 @@ interface HorizontalBarChartProps {
   data: BarData[];
   label: string;
   formatValue: (value: number) => string;
+  showXAxis?: boolean;
 }
 
-const HorizontalBarChart = ({ data, label, formatValue }: HorizontalBarChartProps) => {
+const HorizontalBarChart = ({ 
+  data, 
+  label, 
+  formatValue, 
+  showXAxis = false 
+}: HorizontalBarChartProps) => {
   return (
     <ResponsiveContainer width="100%" height={80}>
       <BarChart
         data={data}
         layout="vertical"
-        margin={{ top: 5, right: 30, left: 80, bottom: 5 }}
+        margin={{ 
+          top: 5, 
+          right: 30, 
+          left: 80, 
+          bottom: showXAxis ? 20 : 5 
+        }}
       >
         <CartesianGrid strokeDasharray="3 3" stroke="#333" horizontal={false} />
-        <XAxis
-          type="number"
-          stroke="#ffffff"
-          tickFormatter={formatValue}
-          domain={[0, 3000000]}
-          tickCount={4}
-          style={{ fontSize: '11px' }}
-        />
+        {showXAxis && (
+          <XAxis
+            type="number"
+            stroke="#ffffff"
+            tickFormatter={formatValue}
+            domain={[0, 3000000]}
+            tickCount={4}
+            style={{ fontSize: '11px' }}
+          />
+        )}
         <YAxis
           type="category"
           dataKey="name"
