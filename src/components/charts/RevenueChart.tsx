@@ -20,8 +20,8 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
     const date = new Date(dateStr);
     const isJanFirst = date.getMonth() === 0 && date.getDate() === 1;
     return isJanFirst 
-      ? format(date, "MMM d, yyyy") // Show full date with year for Jan 1
-      : format(date, "MMM d"); // Show only month and day otherwise
+      ? format(date, "MMM d, yyyy")
+      : format(date, "MMM d");
   };
 
   return (
@@ -33,12 +33,14 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
           stroke="#ffffff"
           tickFormatter={formatXAxis}
           tickLine={false}
+          style={{ fontSize: '10px' }}
         />
         <YAxis
           yAxisId="left"
           stroke="#ffffff"
           tickFormatter={(value) => formatCurrency(value)}
           tickLine={false}
+          style={{ fontSize: '10px' }}
         />
         <YAxis
           yAxisId="right"
@@ -46,6 +48,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
           stroke="#ffffff"
           tickFormatter={(value) => `${value}%`}
           tickLine={false}
+          style={{ fontSize: '10px' }}
         />
         <Tooltip
           contentStyle={{ background: "#242424", border: "none" }}
