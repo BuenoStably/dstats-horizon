@@ -99,7 +99,14 @@ const DUSDPage = () => {
               />
             </ChartCard>
 
-            <ChartCard title="dUSD NAV" onTimeframeChange={setNavTimeframe}>
+            <ChartCard 
+              title="dUSD NAV" 
+              onTimeframeChange={setNavTimeframe}
+              legend={[
+                { color: "#4B5563", label: "AMO TVL" },
+                { color: "#22C55E", label: "Reserve TVL" }
+              ]}
+            >
               <LineChartWithGradient
                 data={filterDataByTimeframe(mockData.amoTvl, navTimeframe)}
                 valueFormatter={formatCurrency}
