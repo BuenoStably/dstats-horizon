@@ -5,7 +5,7 @@ import { ChartSection } from "@/components/ChartSection";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DollarSign, Wallet, Percent, Gift } from "lucide-react";
 import { useMetrics } from "@/hooks/useMetrics";
-import { generateMockData } from "@/utils/mockDusdData";
+import { generateDusdMockData } from "@/utils/mockDusdData";
 
 const MetricsSection = () => {
   const { data: metrics, isLoading, error } = useMetrics();
@@ -58,7 +58,7 @@ const MetricsSection = () => {
 };
 
 const Index = () => {
-  const mockData = generateMockData();
+  const mockData = generateDusdMockData();
 
   return (
     <div className="min-h-screen bg-surface">
