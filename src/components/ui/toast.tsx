@@ -1,4 +1,4 @@
-import { Snackbar, Alert, AlertTitle } from '@mui/material';
+import { Snackbar, Alert, AlertTitle, Box } from '@mui/material';
 
 export const Toast = Snackbar;
 export const ToastAction = Alert;

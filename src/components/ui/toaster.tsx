@@ -22,9 +22,9 @@ export function Toaster() {
               {description && (
                 <ToastDescription>{description}</ToastDescription>
               )}
+              {action}
+              <ToastClose />
             </Box>
-            {action}
-            <ToastClose />
           </Toast>
         )
       })}

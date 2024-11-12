@@ -1,5 +1,6 @@
 import * as React from "react"
-import { FormLabel, FormControl as MuiFormControl } from "@mui/material"
+import { FormControl as MuiFormControl } from "@mui/material"
+import MuiFormLabel from "@mui/material/FormLabel"
 import {
   Controller,
   ControllerProps,
@@ -84,12 +85,12 @@ FormItem.displayName = "FormItem"
 
 const FormLabel = React.forwardRef<
   HTMLLabelElement,
-  React.ComponentPropsWithoutRef<typeof FormLabel>
+  React.ComponentPropsWithoutRef<typeof MuiFormLabel>
 >(({ className, ...props }, ref) => {
   const { error, formItemId } = useFormField()
 
   return (
-    <FormLabel
+    <MuiFormLabel
       ref={ref}
       className={cn(error && "text-destructive", className)}
       htmlFor={formItemId}
