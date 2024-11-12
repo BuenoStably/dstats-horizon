@@ -1,14 +1,16 @@
 import { HelpOutline } from '@mui/icons-material';
-import { Card, CardContent, Typography, Box, Tooltip } from '@mui/material';
+import { Card, CardContent, Typography, Box, Tooltip, Skeleton } from '@mui/material';
 
 interface MetricCardProps {
   value: string;
   label: string;
   tooltip: string;
   icon?: React.ReactNode;
+  isLoading?: boolean;
+  error?: Error | null;
 }
 
-const MetricCard = ({ value, label, tooltip, icon }: MetricCardProps) => {
+const MetricCard = ({ value, label, tooltip, icon, isLoading, error }: MetricCardProps) => {
   return (
     <Card 
       sx={{
@@ -29,12 +31,18 @@ const MetricCard = ({ value, label, tooltip, icon }: MetricCardProps) => {
             variant="h5" 
             component="div" 
             sx={{ 
-              color: '#8702ff',
+              color: error ? 'error.main' : '#8702ff',
               fontWeight: 'bold',
               fontSize: { xs: '1.25rem', sm: '1.5rem' }
             }}
           >
-            {value}
+            {isLoading ? (
+              <Skeleton width={100} />
+            ) : error ? (
+              'Error'
+            ) : (
+              value
+            )}
           </Typography>
           {icon && <Box sx={{ color: '#8702ff' }}>{icon}</Box>}
         </Box>
@@ -49,7 +57,7 @@ const MetricCard = ({ value, label, tooltip, icon }: MetricCardProps) => {
             {label}
           </Typography>
           <Tooltip 
-            title={tooltip}
+            title={error ? error.message : tooltip}
             sx={{
               bgcolor: 'rgb(36, 36, 36)',
               '& .MuiTooltip-tooltip': {
