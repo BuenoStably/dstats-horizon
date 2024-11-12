@@ -1,5 +1,3 @@
-import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio"
+import { Box } from '@mui/material';
 
-const AspectRatio = AspectRatioPrimitive.Root
-
-export { AspectRatio }
+export const AspectRatio = Box;
