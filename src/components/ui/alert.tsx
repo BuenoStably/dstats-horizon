@@ -1,5 +1,5 @@
-import { Alert, AlertTitle } from '@mui/material';
+import { Alert as MuiAlert, AlertTitle as MuiAlertTitle } from '@mui/material';
 
-export const AlertTitle = AlertTitle;
-export const AlertDescription = Alert;
-export const Alert = Alert;
+export const AlertTitle = MuiAlertTitle;
+export const AlertDescription = MuiAlert;
+export const Alert = MuiAlert;
