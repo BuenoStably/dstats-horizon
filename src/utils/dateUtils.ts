@@ -19,7 +19,8 @@ export const getDateRange = (timeframe: string): Date => {
   }
 };
 
-export const filterDataByTimeframe = (data: any[], timeframe: string) => {
+export const filterDataByTimeframe = (data: any[] | undefined, timeframe: string) => {
+  if (!data) return [];
   const startDate = getDateRange(timeframe);
   return data.filter(item => new Date(item.date) >= startDate);
 };

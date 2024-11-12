@@ -15,25 +15,20 @@ const generateMockData = (
       date: new Date(today.getTime() - (daysCount - 1 - i) * 24 * 60 * 60 * 1000)
         .toISOString()
         .split("T")[0],
-      value: Math.max(startValue, baseValue + noise), // Ensure value never goes below startValue
+      value: Math.max(startValue, baseValue + noise),
     };
   });
 };
 
 export const generateDusdMockData = () => {
   return {
-    price: generateMockData(365, 0.99, 0.999, 0.03), // Increased volatility from 0.003 to 0.03 (10x)
+    tvl: generateMockData(365, 2800000, 3200000),
     supply: generateMockData(365, 800000, 1800000),
-    amoTvl: generateMockData(365, 2800000, 3200000),
-    reserveTvl: generateMockData(365, 800000, 1100000),
-    balanceSheet: {
-      assets: [
-        { name: "AMO TVL", value: 3200000 },
-        { name: "Reserve TVL", value: 1100000 },
-      ],
-      liabilities: [
-        { name: "dUSD Supply", value: 3000000 },
-      ],
-    },
+    apy: generateMockData(365, 5, 15),
+    users: generateMockData(365, 1000, 5000),
+    revenue: generateMockData(365, 10000, 50000).map(item => ({
+      ...item,
+      percentage: 5 + Math.random() * 10
+    }))
   };
 };
