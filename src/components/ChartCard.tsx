@@ -1,5 +1,4 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, Typography, Box, Button, Stack } from '@mui/material';
 import { useState } from "react";
 
 interface LegendItem {
@@ -27,39 +26,74 @@ const ChartCard = ({ title, children, onTimeframeChange, className, legend }: Ch
   };
 
   return (
-    <div className={`chart-card ${className || ''}`}>
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
-        <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-semibold text-white">{title}</h3>
-          {legend && (
-            <div className="flex gap-4">
-              {legend.map((item, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <div 
-                    className="w-3 h-3 rounded-sm"
-                    style={{ backgroundColor: item.color }}
-                  />
-                  <span className="text-sm text-gray-300">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {timeframes.map((tf) => (
-            <Button
-              key={tf}
-              variant={selectedTimeframe === tf ? "default" : "ghost"}
-              className="h-8 px-3 text-sm"
-              onClick={() => handleTimeframeClick(tf)}
-            >
-              {tf}
-            </Button>
-          ))}
-        </div>
-      </div>
-      {children}
-    </div>
+    <Card 
+      sx={{
+        bgcolor: 'rgba(255, 255, 255, 0.05)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        borderRadius: '12px',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        p: { xs: 2, sm: 3 }
+      }}
+      className={className}
+    >
+      <CardContent sx={{ p: 0 }}>
+        <Stack 
+          direction={{ xs: 'column', sm: 'row' }} 
+          justifyContent="space-between" 
+          alignItems={{ xs: 'flex-start', sm: 'center' }}
+          spacing={2}
+          mb={3}
+        >
+          <Box>
+            <Typography variant="h6" sx={{ color: 'white', fontWeight: 600, mb: legend ? 1 : 0 }}>
+              {title}
+            </Typography>
+            {legend && (
+              <Stack direction="row" spacing={2}>
+                {legend.map((item, index) => (
+                  <Stack key={index} direction="row" spacing={1} alignItems="center">
+                    <Box 
+                      sx={{ 
+                        width: '12px', 
+                        height: '12px', 
+                        borderRadius: '2px',
+                        bgcolor: item.color 
+                      }} 
+                    />
+                    <Typography variant="body2" sx={{ color: 'rgb(156, 163, 175)' }}>
+                      {item.label}
+                    </Typography>
+                  </Stack>
+                ))}
+              </Stack>
+            )}
+          </Box>
+          <Stack direction="row" spacing={1}>
+            {timeframes.map((tf) => (
+              <Button
+                key={tf}
+                variant={selectedTimeframe === tf ? "contained" : "text"}
+                size="small"
+                onClick={() => handleTimeframeClick(tf)}
+                sx={{
+                  minWidth: 0,
+                  px: 1.5,
+                  color: selectedTimeframe === tf ? 'white' : 'rgb(156, 163, 175)',
+                  bgcolor: selectedTimeframe === tf ? '#8702ff' : 'transparent',
+                  '&:hover': {
+                    bgcolor: selectedTimeframe === tf ? '#7002d6' : 'rgba(255, 255, 255, 0.1)'
+                  }
+                }}
+              >
+                {tf}
+              </Button>
+            ))}
+          </Stack>
+        </Stack>
+        {children}
+      </CardContent>
+    </Card>
   );
 };
 

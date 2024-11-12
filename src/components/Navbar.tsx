@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
+import { AppBar, Toolbar, Typography, IconButton, Box, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import { useState } from "react";
 
 const Navbar = () => {
@@ -13,58 +14,78 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-surface border-b border-white/10 px-6 py-4">
-      <div className="flex items-center">
-        <div className="text-2xl font-bold text-primary">dTRINITY</div>
+    <AppBar position="static" sx={{ bgcolor: 'rgb(18, 17, 28)', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+      <Toolbar sx={{ px: 3, py: 2 }}>
+        <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', color: '#8702ff' }}>
+          dTRINITY
+        </Typography>
         
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 ml-8">
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 4, gap: 3 }}>
           {menuItems.map((item) => (
             <Link
               key={item}
               to={`/${item.toLowerCase().replace(" ", "-")}`}
-              className={`transition-colors ${
-                isActive(item)
-                  ? "text-primary font-semibold"
-                  : "text-text-primary hover:text-primary"
-              }`}
+              style={{ 
+                textDecoration: 'none',
+                color: isActive(item) ? '#8702ff' : '#fff',
+                fontWeight: isActive(item) ? 600 : 400,
+                transition: 'color 0.2s'
+              }}
             >
               {item}
             </Link>
           ))}
-        </div>
+        </Box>
 
         {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-text-primary ml-auto"
+        <IconButton
+          sx={{ 
+            ml: 'auto', 
+            display: { md: 'none' },
+            color: 'white'
+          }}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+          {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+        </IconButton>
+      </Toolbar>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden pt-4 pb-2">
-          <div className="flex flex-col space-y-4">
-            {menuItems.map((item) => (
-              <Link
-                key={item}
-                to={`/${item.toLowerCase().replace(" ", "-")}`}
-                className={`transition-colors ${
-                  isActive(item)
-                    ? "text-primary font-semibold"
-                    : "text-text-primary hover:text-primary"
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </nav>
+      {/* Mobile Menu Drawer */}
+      <Drawer
+        anchor="right"
+        open={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        sx={{
+          display: { md: 'none' },
+          '& .MuiDrawer-paper': {
+            width: '100%',
+            bgcolor: 'rgb(18, 17, 28)',
+            color: 'white'
+          }
+        }}
+      >
+        <List>
+          {menuItems.map((item) => (
+            <ListItem 
+              key={item}
+              onClick={() => setIsMenuOpen(false)}
+              component={Link}
+              to={`/${item.toLowerCase().replace(" ", "-")}`}
+              sx={{
+                color: isActive(item) ? '#8702ff' : '#fff',
+                fontWeight: isActive(item) ? 600 : 400,
+                '&:hover': {
+                  color: '#8702ff'
+                }
+              }}
+            >
+              <ListItemText primary={item} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </AppBar>
   );
 };
 

@@ -1,10 +1,5 @@
-import { HelpCircle } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { HelpOutline } from '@mui/icons-material';
+import { Card, CardContent, Typography, Box, Tooltip } from '@mui/material';
 
 interface MetricCardProps {
   value: string;
@@ -15,25 +10,66 @@ interface MetricCardProps {
 
 const MetricCard = ({ value, label, tooltip, icon }: MetricCardProps) => {
   return (
-    <div className="metric-card">
-      <div className="flex items-center justify-between mb-2">
-        <div className="text-xl sm:text-2xl font-bold text-primary">{value}</div>
-        {icon && <div className="text-primary">{icon}</div>}
-      </div>
-      <div className="flex items-center space-x-1">
-        <span className="text-white font-normal text-xs sm:text-sm">{label}</span>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-            </TooltipTrigger>
-            <TooltipContent>
-              <p className="max-w-[200px] sm:max-w-xs text-xs sm:text-sm">{tooltip}</p>
-            </TooltipContent>
+    <Card 
+      sx={{
+        bgcolor: 'rgba(255, 255, 255, 0.05)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        borderRadius: '12px',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        transition: 'background-color 0.2s',
+        '&:hover': {
+          bgcolor: 'rgba(255, 255, 255, 0.08)'
+        }
+      }}
+    >
+      <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+          <Typography 
+            variant="h5" 
+            component="div" 
+            sx={{ 
+              color: '#8702ff',
+              fontWeight: 'bold',
+              fontSize: { xs: '1.25rem', sm: '1.5rem' }
+            }}
+          >
+            {value}
+          </Typography>
+          {icon && <Box sx={{ color: '#8702ff' }}>{icon}</Box>}
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              color: 'white',
+              fontSize: { xs: '0.75rem', sm: '0.875rem' }
+            }}
+          >
+            {label}
+          </Typography>
+          <Tooltip 
+            title={tooltip}
+            sx={{
+              bgcolor: 'rgb(36, 36, 36)',
+              '& .MuiTooltip-tooltip': {
+                bgcolor: 'rgb(36, 36, 36)',
+                color: 'white',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '8px',
+                fontSize: { xs: '0.75rem', sm: '0.875rem' }
+              }
+            }}
+          >
+            <HelpOutline sx={{ 
+              width: { xs: '0.75rem', sm: '1rem' }, 
+              height: { xs: '0.75rem', sm: '1rem' },
+              color: 'white'
+            }} />
           </Tooltip>
-        </TooltipProvider>
-      </div>
-    </div>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 
