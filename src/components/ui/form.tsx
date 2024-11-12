@@ -1,6 +1,5 @@
 import * as React from "react"
-import * as LabelPrimitive from "@radix-ui/react-label"
-import { Slot } from "@radix-ui/react-slot"
+import { FormLabel, FormControl as MuiFormControl } from "@mui/material"
 import {
   Controller,
   ControllerProps,
@@ -11,7 +10,6 @@ import {
 } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
-import { Label } from "@/components/ui/label"
 
 const Form = FormProvider
 
@@ -85,16 +83,17 @@ const FormItem = React.forwardRef<
 FormItem.displayName = "FormItem"
 
 const FormLabel = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
+  HTMLLabelElement,
+  React.ComponentPropsWithoutRef<typeof FormLabel>
 >(({ className, ...props }, ref) => {
   const { error, formItemId } = useFormField()
 
   return (
-    <Label
+    <FormLabel
       ref={ref}
       className={cn(error && "text-destructive", className)}
       htmlFor={formItemId}
+      error={error ? true : false}
       {...props}
     />
   )
@@ -102,13 +101,13 @@ const FormLabel = React.forwardRef<
 FormLabel.displayName = "FormLabel"
 
 const FormControl = React.forwardRef<
-  React.ElementRef<typeof Slot>,
-  React.ComponentPropsWithoutRef<typeof Slot>
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof MuiFormControl>
 >(({ ...props }, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
 
   return (
-    <Slot
+    <MuiFormControl
       ref={ref}
       id={formItemId}
       aria-describedby={
@@ -116,7 +115,7 @@ const FormControl = React.forwardRef<
           ? `${formDescriptionId}`
           : `${formDescriptionId} ${formMessageId}`
       }
-      aria-invalid={!!error}
+      error={!!error}
       {...props}
     />
   )

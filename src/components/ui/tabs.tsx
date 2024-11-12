@@ -1,4 +1,4 @@
-import { Tabs as MuiTabs, Tab } from '@mui/material';
+import { Tabs as MuiTabs, Tab, Box } from '@mui/material';
 
 export const Tabs = MuiTabs;
 export const TabsList = MuiTabs;
