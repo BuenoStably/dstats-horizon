@@ -7,7 +7,6 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import { CSSProperties } from "react";
 
 interface BarData {
   name: string;
@@ -32,6 +31,16 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
           bottom: 20
         }}
       >
+        <defs>
+          <linearGradient id="assetsGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#22C55E" />
+            <stop offset="33.33%" stopColor="#22C55E" />
+            <stop offset="33.33%" stopColor="#15803d" />
+            <stop offset="50%" stopColor="#15803d" />
+            <stop offset="50%" stopColor="#4B5563" />
+            <stop offset="100%" stopColor="#4B5563" />
+          </linearGradient>
+        </defs>
         <CartesianGrid 
           strokeDasharray="0" 
           stroke="rgba(255, 255, 255, 0.1)" 
@@ -76,13 +85,7 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
           fillOpacity={0.8}
           name="Balance"
           stroke="none"
-          fill="#22C55E"
-          onMouseEnter={(data) => {
-            const bar = document.querySelector('.recharts-bar-rectangle');
-            if (bar) {
-              bar.setAttribute('fill', data.name === "Assets" ? "#22C55E" : "#ef4444");
-            }
-          }}
+          fill={(entry) => entry.name === "Assets" ? "url(#assetsGradient)" : "#ef4444"}
         />
       </BarChart>
     </ResponsiveContainer>
