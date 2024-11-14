@@ -19,20 +19,16 @@ interface HorizontalBarChartProps {
 }
 
 const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
-  const getBarFill = (entry: BarData) => {
-    return entry.name === "Assets" ? "#22C55E" : "#ef4444";
-  };
-
   return (
-    <ResponsiveContainer width="100%" height={120}>
+    <ResponsiveContainer width="100%" height={300}>
       <BarChart
         data={data}
         layout="vertical"
         margin={{ 
-          top: 5,
+          top: 20,
           right: 30,
           left: 80,
-          bottom: 5
+          bottom: 20
         }}
       >
         <CartesianGrid 
@@ -73,7 +69,7 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
         />
         <Bar
           dataKey="value"
-          fill="#22C55E"
+          fill={(data: BarData) => data.name === "Assets" ? "#22C55E" : "#ef4444"}
           radius={[0, 4, 4, 0]}
           fillOpacity={0.8}
         />
