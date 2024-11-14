@@ -29,6 +29,21 @@ export const generateDusdMockData = () => {
     revenue: generateMockData(365, 10000, 50000).map(item => ({
       ...item,
       percentage: 5 + Math.random() * 10
-    }))
+    })),
+    // Add new properties needed for dUSD page
+    price: generateMockData(365, 0.98, 1.02, 0.001),
+    amoTvl: generateMockData(365, 2000000, 2500000),
+    reserveTvl: generateMockData(365, 800000, 1200000),
+    balanceSheet: {
+      assets: [
+        { name: "AMO Assets", value: 2500000 },
+        { name: "Reserve Assets", value: 1200000 },
+        { name: "Other Assets", value: 300000 }
+      ],
+      liabilities: [
+        { name: "dUSD Supply", value: 3000000 },
+        { name: "Other Liabilities", value: 200000 }
+      ]
+    }
   };
 };
