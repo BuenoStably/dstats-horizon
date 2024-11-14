@@ -194,13 +194,13 @@ const BalanceSheetTable = () => {
             <TableHead className="cursor-pointer" onClick={() => handleSort("network")}>
               Network <ArrowUpDown className="inline h-4 w-4 ml-1" />
             </TableHead>
-            <TableHead className="cursor-pointer text-right" onClick={() => handleSort("quantity")}>
+            <TableHead className="cursor-pointer" onClick={() => handleSort("quantity")}>
               Quantity <ArrowUpDown className="inline h-4 w-4 ml-1" />
             </TableHead>
-            <TableHead className="cursor-pointer text-right" onClick={() => handleSort("exchangeRate")}>
+            <TableHead className="cursor-pointer" onClick={() => handleSort("exchangeRate")}>
               Exchange Rate <ArrowUpDown className="inline h-4 w-4 ml-1" />
             </TableHead>
-            <TableHead className="cursor-pointer text-right" onClick={() => handleSort("value")}>
+            <TableHead className="cursor-pointer" onClick={() => handleSort("value")}>
               Value <ArrowUpDown className="inline h-4 w-4 ml-1" />
             </TableHead>
           </TableRow>
@@ -220,9 +220,9 @@ const BalanceSheetTable = () => {
               </TableCell>
               <TableCell>{entry.asset}</TableCell>
               <TableCell>{entry.network}</TableCell>
-              <TableCell className="text-right">{formatQuantity(entry.quantity)}</TableCell>
-              <TableCell className="text-right">{formatExchangeRate(entry.exchangeRate)}</TableCell>
-              <TableCell className="text-right">{formatValue(entry.value)}</TableCell>
+              <TableCell>{formatQuantity(entry.quantity)}</TableCell>
+              <TableCell>{formatExchangeRate(entry.exchangeRate)}</TableCell>
+              <TableCell>{formatValue(entry.value)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
