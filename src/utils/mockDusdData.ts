@@ -11,25 +11,36 @@ export interface DusdMockData {
 }
 
 export const generateDusdMockData = (): DusdMockData => {
-  const price = [
-    { date: "2023-11-01", value: 1.00 },
-    { date: "2023-11-30", value: 1.01 }
-  ];
+  // Generate dates for the last 30 days
+  const dates = Array.from({ length: 30 }, (_, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() - (29 - i));
+    return date.toISOString().split('T')[0];
+  });
 
-  const supply = [
-    { date: "2023-11-01", value: 3000000 },
-    { date: "2023-11-30", value: 3100000 }
-  ];
+  // Generate price data (fluctuating around 1.00)
+  const price = dates.map(date => ({
+    date,
+    value: 1 + (Math.random() * 0.02 - 0.01) // Random value between 0.99 and 1.01
+  }));
 
-  const amoTvl = [
-    { date: "2023-11-01", value: 2000000 },
-    { date: "2023-11-30", value: 2050000 }
-  ];
+  // Generate supply data (growing trend from 2.8M to 3.0M)
+  const supply = dates.map((date, i) => ({
+    date,
+    value: 2800000 + (i * 7000) + (Math.random() * 50000)
+  }));
 
-  const reserveTvl = [
-    { date: "2023-11-01", value: 1000000 },
-    { date: "2023-11-30", value: 1050000 }
-  ];
+  // Generate AMO TVL data (around 2M with fluctuations)
+  const amoTvl = dates.map(date => ({
+    date,
+    value: 2000000 + (Math.random() * 100000 - 50000)
+  }));
+
+  // Generate Reserve TVL data (around 1M with fluctuations)
+  const reserveTvl = dates.map(date => ({
+    date,
+    value: 1000000 + (Math.random() * 100000 - 50000)
+  }));
 
   const balanceSheet = [
     { name: "Assets", value: 3100000 },
