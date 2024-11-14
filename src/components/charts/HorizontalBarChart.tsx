@@ -7,6 +7,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
+import { CSSProperties } from "react";
 
 interface BarData {
   name: string;
@@ -75,10 +76,7 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
           fillOpacity={0.8}
           name="Balance"
           stroke="none"
-          fill="#22C55E"
-          style={(entry: BarData) => ({
-            fill: entry.name === "Assets" ? "#22C55E" : "#ef4444"
-          })}
+          fill={(entry: BarData) => entry.name === "Assets" ? "#22C55E" : "#ef4444"}
         />
       </BarChart>
     </ResponsiveContainer>
