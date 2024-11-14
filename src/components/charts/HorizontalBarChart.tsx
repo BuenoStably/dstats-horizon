@@ -71,12 +71,12 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
         />
         <Bar
           dataKey="value"
-          fill="#22C55E"
           radius={[0, 4, 4, 0]}
           fillOpacity={0.8}
           name="Balance"
           stroke="none"
-          fill={(entry: BarData) => entry.name === "Assets" ? "#22C55E" : "#ef4444"}
+          fill="#22C55E"
+          fillFunction={(entry: BarData) => entry.name === "Assets" ? "#22C55E" : "#ef4444"}
         />
       </BarChart>
     </ResponsiveContainer>
