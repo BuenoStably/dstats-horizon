@@ -18,16 +18,42 @@ export const generateDusdMockData = (): DusdMockData => {
     return date.toISOString().split('T')[0];
   });
 
-  // Generate price data (fluctuating around 1.00)
-  const price = dates.map(date => ({
+  // Generate TVL data (growing trend from 4.8M to 5.2M)
+  const tvl = dates.map((date, i) => ({
     date,
-    value: 1 + (Math.random() * 0.02 - 0.01) // Random value between 0.99 and 1.01
+    value: 4800000 + (i * 13333) + (Math.random() * 50000)
   }));
 
   // Generate supply data (growing trend from 2.8M to 3.0M)
   const supply = dates.map((date, i) => ({
     date,
     value: 2800000 + (i * 7000) + (Math.random() * 50000)
+  }));
+
+  // Generate APY data (fluctuating between 4% and 6%)
+  const apy = dates.map(date => ({
+    date,
+    value: 4 + (Math.random() * 2)
+  }));
+
+  // Generate users data (growing from 900 to 1000)
+  const users = dates.map((date, i) => ({
+    date,
+    value: 900 + Math.floor(i * 3.33) + Math.floor(Math.random() * 10)
+  }));
+
+  // Generate revenue data
+  const revenue = dates.map((date, i) => ({
+    date,
+    value: 45000 + (i * 500) + (Math.random() * 5000),
+    revenueTvl: 45000 + (i * 500) + (Math.random() * 5000),
+    annualizedRevenue: 0.15 + (Math.random() * 0.05)
+  }));
+
+  // Generate price data (fluctuating around 1.00)
+  const price = dates.map(date => ({
+    date,
+    value: 1 + (Math.random() * 0.02 - 0.01)
   }));
 
   // Generate AMO TVL data (around 2M with fluctuations)
@@ -45,27 +71,6 @@ export const generateDusdMockData = (): DusdMockData => {
   const balanceSheet = [
     { name: "Assets", value: 3100000 },
     { name: "Liabilities", value: 3000000 }
-  ];
-
-  // Add missing required data
-  const tvl = [
-    { date: "2023-11-01", value: 5000000 },
-    { date: "2023-11-30", value: 5150000 }
-  ];
-
-  const apy = [
-    { date: "2023-11-01", value: 0.05 },
-    { date: "2023-11-30", value: 0.055 }
-  ];
-
-  const users = [
-    { date: "2023-11-01", value: 1000 },
-    { date: "2023-11-30", value: 1200 }
-  ];
-
-  const revenue = [
-    { date: "2023-11-01", value: 50000 },
-    { date: "2023-11-30", value: 55000 }
   ];
 
   return {
