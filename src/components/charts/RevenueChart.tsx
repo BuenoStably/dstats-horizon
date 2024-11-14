@@ -7,8 +7,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from "recharts";
 import { format } from "date-fns";
+import { Box, Typography } from "@mui/material";
 
 interface RevenueChartProps {
   data: any[];
@@ -18,68 +20,91 @@ interface RevenueChartProps {
 const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
   const formatXAxis = (dateStr: string) => {
     const date = new Date(dateStr);
-    const isJanFirst = date.getMonth() === 0 && date.getDate() === 1;
-    return isJanFirst 
-      ? format(date, "MMM d, yyyy")
-      : format(date, "MMM d");
+    return format(date, "MMM d");
+  };
+
+  const formatPercentage = (value: number) => `${value}%`;
+
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <Box
+          sx={{
+            bgcolor: "background.paper",
+            p: 1.5,
+            border: 1,
+            borderColor: "divider",
+            borderRadius: 1,
+          }}
+        >
+          <Typography variant="body2" color="text.secondary">
+            {format(new Date(label), "MMM d, yyyy")}
+          </Typography>
+          <Typography variant="body2" color="primary">
+            Revenue/TVL: {formatCurrency(payload[0].value)}
+          </Typography>
+          <Typography variant="body2" color="success.main">
+            Annualized Revenue: {formatPercentage(payload[1].value)}%
+          </Typography>
+        </Box>
+      );
+    }
+    return null;
   };
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <ComposedChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-        <XAxis
-          dataKey="date"
-          stroke="#ffffff"
-          tickFormatter={formatXAxis}
-          tickLine={false}
-          style={{ fontSize: '11px' }}
-        />
-        <YAxis
-          yAxisId="left"
-          stroke="#ffffff"
-          tickFormatter={(value) => formatCurrency(value)}
-          tickLine={false}
-          style={{ fontSize: '11px' }}
-        />
-        <YAxis
-          yAxisId="right"
-          orientation="right"
-          stroke="#ffffff"
-          tickFormatter={(value) => `${value}%`}
-          tickLine={false}
-          style={{ fontSize: '11px' }}
-        />
-        <Tooltip
-          contentStyle={{ 
-            backgroundColor: "rgb(36, 36, 36)", 
-            border: "none", 
-            opacity: 1,
-            boxShadow: "0 0 10px rgba(0,0,0,0.5)"
-          }}
-          formatter={(value: number, name: string) => {
-            if (name === "revenue") return formatCurrency(value);
-            return `${value}%`;
-          }}
-          labelFormatter={formatXAxis}
-        />
-        <Bar
-          yAxisId="left"
-          dataKey="revenue"
-          fill="#8702ff"
-          opacity={0.3}
-          barSize={30}
-        />
-        <Line
-          yAxisId="right"
-          type="monotone"
-          dataKey="percentage"
-          stroke="#8702ff"
-          strokeWidth={2}
-          dot={false}
-        />
-      </ComposedChart>
-    </ResponsiveContainer>
+    <Box sx={{ width: "100%", height: 400, mt: 2 }}>
+      <ResponsiveContainer>
+        <ComposedChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="date"
+            tickFormatter={formatXAxis}
+            interval={0}
+            angle={-45}
+            textAnchor="end"
+            height={60}
+          />
+          <YAxis
+            yAxisId="left"
+            domain={[0, 80000]}
+            tickFormatter={(value) => `$${value.toLocaleString()}`}
+            ticks={[0, 20000, 40000, 60000, 80000]}
+          />
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            domain={[0, 0.5]}
+            tickFormatter={(value) => `${(value * 100).toFixed(2)}%`}
+            ticks={[0, 0.1, 0.2, 0.3, 0.4, 0.5]}
+          />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend
+            verticalAlign="top"
+            height={36}
+            formatter={(value) => {
+              return value === "revenueTvl" ? "Revenue/TVL" : "Annualized Revenue";
+            }}
+          />
+          <Line
+            yAxisId="left"
+            type="monotone"
+            dataKey="revenueTvl"
+            stroke="#8702ff"
+            strokeWidth={2}
+            dot={false}
+            name="revenueTvl"
+          />
+          <Bar
+            yAxisId="right"
+            dataKey="annualizedRevenue"
+            fill="#4caf50"
+            name="annualizedRevenue"
+            barSize={20}
+          />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </Box>
   );
 };
 

@@ -21,16 +21,22 @@ const generateMockData = (
 };
 
 export const generateDusdMockData = () => {
+  // Generate November dates
+  const novemberData = Array.from({ length: 30 }, (_, i) => {
+    const date = new Date(2023, 10, i + 1); // Month is 0-based, so 10 is November
+    return {
+      date: date.toISOString().split('T')[0],
+      revenueTvl: 60000 + Math.random() * 20000, // Revenue/TVL between 60k-80k
+      annualizedRevenue: (Math.random() * 0.5).toFixed(4), // 0-0.5%
+    };
+  });
+
   return {
     tvl: generateMockData(365, 2800000, 3200000),
     supply: generateMockData(365, 800000, 1800000),
     apy: generateMockData(365, 5, 15),
     users: generateMockData(365, 1000, 5000),
-    revenue: generateMockData(365, 10000, 50000).map(item => ({
-      ...item,
-      percentage: 5 + Math.random() * 10
-    })),
-    // Add new properties needed for dUSD page
+    revenue: novemberData,
     price: generateMockData(365, 0.98, 1.02, 0.001),
     amoTvl: generateMockData(365, 2000000, 2500000),
     reserveTvl: generateMockData(365, 800000, 1200000),
