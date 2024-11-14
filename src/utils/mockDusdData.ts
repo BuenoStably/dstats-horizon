@@ -21,13 +21,13 @@ const generateMockData = (
 };
 
 export const generateDusdMockData = () => {
-  // Generate November dates
+  // Generate November dates with specific revenue data
   const novemberData = Array.from({ length: 30 }, (_, i) => {
     const date = new Date(2023, 10, i + 1); // Month is 0-based, so 10 is November
     return {
       date: date.toISOString().split('T')[0],
-      revenueTvl: 60000 + Math.random() * 20000, // Revenue/TVL between 60k-80k
-      annualizedRevenue: (Math.random() * 0.5).toFixed(4), // 0-0.5%
+      revenueTvl: 60000 + (20000 * i / 29) + (Math.random() - 0.5) * 5000, // Revenue/TVL between 60k-80k with volatility
+      annualizedRevenue: (0.3 + (0.1 * i / 29) + (Math.random() - 0.5) * 0.02), // 0.3-0.4% with volatility
     };
   });
 
