@@ -4,6 +4,7 @@ import MetricCard from "@/components/MetricCard";
 import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import HorizontalBarChart from "@/components/charts/HorizontalBarChart";
+import BalanceSheetTable from "@/components/BalanceSheetTable";
 import { generateDusdMockData } from "@/utils/mockDusdData";
 import { useState } from "react";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
@@ -135,6 +136,10 @@ const DUSDPage = () => {
                 formatValue={formatCurrency}
               />
             </ChartCard>
+          </div>
+
+          <div className="mt-8">
+            <BalanceSheetTable />
           </div>
         </div>
       </main>
