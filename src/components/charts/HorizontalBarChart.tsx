@@ -76,7 +76,9 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
           name="Balance"
           stroke="none"
           fill="#22C55E"
-          fill={(entry) => entry.name === "Assets" ? "#22C55E" : "#ef4444"}
+          style={(entry: BarData) => ({
+            fill: entry.name === "Assets" ? "#22C55E" : "#ef4444"
+          })}
         />
       </BarChart>
     </ResponsiveContainer>
