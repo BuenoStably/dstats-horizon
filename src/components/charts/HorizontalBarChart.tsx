@@ -76,7 +76,13 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
           fillOpacity={0.8}
           name="Balance"
           stroke="none"
-          fill={(entry: BarData) => entry.name === "Assets" ? "#22C55E" : "#ef4444"}
+          fill="#22C55E"
+          onMouseEnter={(data) => {
+            const bar = document.querySelector('.recharts-bar-rectangle');
+            if (bar) {
+              bar.setAttribute('fill', data.name === "Assets" ? "#22C55E" : "#ef4444");
+            }
+          }}
         />
       </BarChart>
     </ResponsiveContainer>
