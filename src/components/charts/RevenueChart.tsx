@@ -54,7 +54,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
   return (
     <Box sx={{ width: "100%", height: 400, mt: 2 }}>
       <ResponsiveContainer>
-        <ComposedChart data={data} margin={{ left: 20, right: 20, top: 20, bottom: 20 }}>
+        <ComposedChart data={data} margin={{ left: 20, right: 20, top: 20, bottom: 40 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="date"
@@ -63,7 +63,10 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: '#ffffff' }}
             dy={10}
+            angle={-45}
+            textAnchor="end"
             height={60}
+            interval={0}
             style={{ fontFamily: 'Inter' }}
           />
           <YAxis
