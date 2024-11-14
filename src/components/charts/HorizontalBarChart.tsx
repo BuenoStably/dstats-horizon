@@ -85,7 +85,7 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
           fillOpacity={0.8}
           name="Balance"
           stroke="none"
-          fill="url(#assetsGradient)"
+          fill={(entry: BarData) => entry.name === "Assets" ? "url(#assetsGradient)" : "#dc2626"}
         />
       </BarChart>
     </ResponsiveContainer>
