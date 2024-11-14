@@ -121,6 +121,7 @@ const DUSDPage = () => {
 
             <ChartCard 
               title="dUSD Balance Sheet"
+              className="text-left"
               legend={[
                 { color: "#22C55E", label: "Yieldcoins" },
                 { color: "#15803d", label: "Stablecoins" },
