@@ -26,8 +26,8 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
         layout="vertical"
         margin={{ 
           top: 20,
-          right: 30,
-          left: 80,
+          right: 20,
+          left: 20,
           bottom: 20
         }}
       >
@@ -52,10 +52,12 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
           dataKey="name"
           stroke="#ffffff"
           tickLine={false}
+          axisLine={true}
           style={{ 
             fontSize: '12px',
             fontFamily: 'Inter'
           }}
+          width={80}
         />
         <Tooltip
           formatter={(value: number) => formatValue(value)}
@@ -69,9 +71,12 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
         />
         <Bar
           dataKey="value"
-          fill={(data: BarData) => data.name === "Assets" ? "#22C55E" : "#ef4444"}
+          fill="#22C55E"
           radius={[0, 4, 4, 0]}
           fillOpacity={0.8}
+          name="Balance"
+          stroke="none"
+          fill={(entry: BarData) => entry.name === "Assets" ? "#22C55E" : "#ef4444"}
         />
       </BarChart>
     </ResponsiveContainer>
