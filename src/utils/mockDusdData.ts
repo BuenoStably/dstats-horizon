@@ -8,6 +8,11 @@ export interface DusdMockData {
   apy: Array<{ date: string; value: number }>;
   users: Array<{ date: string; value: number }>;
   revenue: Array<{ date: string; value: number }>;
+  reserveRevenue: Array<{
+    date: string;
+    earnings: number;
+    apy: number;
+  }>;
 }
 
 export const generateDusdMockData = (): DusdMockData => {
@@ -68,6 +73,22 @@ export const generateDusdMockData = (): DusdMockData => {
     value: 1000000 + (Math.random() * 100000 - 50000)
   }));
 
+  // Generate reserve revenue data
+  const reserveRevenue = dates.map((date, i) => {
+    // APY starts at 45% and gradually decreases to 4.2% with some volatility
+    const baseApy = 0.45 - (i * 0.014);
+    const apy = Math.max(0.042, baseApy + (Math.random() * 0.05 - 0.025));
+    
+    // Earnings fluctuate between $250 and $1,250
+    const earnings = 250 + Math.random() * 1000;
+
+    return {
+      date,
+      earnings,
+      apy
+    };
+  });
+
   const balanceSheet = [
     { name: "Assets", value: 3100000 },
     { name: "Liabilities", value: 3000000 }
@@ -82,6 +103,7 @@ export const generateDusdMockData = (): DusdMockData => {
     tvl,
     apy,
     users,
-    revenue
+    revenue,
+    reserveRevenue
   };
 };

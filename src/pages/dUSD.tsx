@@ -4,6 +4,7 @@ import MetricCard from "@/components/MetricCard";
 import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import HorizontalBarChart from "@/components/charts/HorizontalBarChart";
+import ReserveRevenueChart from "@/components/charts/ReserveRevenueChart";
 import BalanceSheetTable from "@/components/BalanceSheetTable";
 import AmoTransactionsTable from "@/components/AmoTransactionsTable";
 import SmoTransactionsTable from "@/components/SmoTransactionsTable";
@@ -59,6 +60,7 @@ const DUSDPage = () => {
   const [priceTimeframe, setPriceTimeframe] = useState("7D");
   const [supplyTimeframe, setSupplyTimeframe] = useState("7D");
   const [navTimeframe, setNavTimeframe] = useState("7D");
+  const [reserveRevenueTimeframe, setReserveRevenueTimeframe] = useState("7D");
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-US", {
@@ -140,11 +142,24 @@ const DUSDPage = () => {
             </ChartCard>
           </div>
 
-          <div className="mt-8 space-y-8">
-            <BalanceSheetTable />
-            <AmoTransactionsTable />
-            <SmoTransactionsTable />
-          </div>
+          <BalanceSheetTable />
+          <AmoTransactionsTable />
+          <SmoTransactionsTable />
+          
+          <ChartCard 
+            title="dUSD Reserve Revenue (Yields + SMO Earnings)" 
+            onTimeframeChange={setReserveRevenueTimeframe}
+            className="col-span-full"
+            legend={[
+              { color: "#8702ff", label: "APY Estimate" },
+              { color: "#22C55E", label: "Earnings Estimate" }
+            ]}
+          >
+            <ReserveRevenueChart 
+              data={filterDataByTimeframe(mockData.reserveRevenue, reserveRevenueTimeframe)}
+              formatCurrency={formatCurrency}
+            />
+          </ChartCard>
         </div>
       </main>
     </div>
