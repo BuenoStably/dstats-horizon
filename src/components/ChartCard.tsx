@@ -12,9 +12,17 @@ interface ChartCardProps {
   onTimeframeChange?: (timeframe: string) => void;
   className?: string;
   legend?: LegendItem[];
+  showTimeframes?: boolean; // New prop to control timeframe visibility
 }
 
-const ChartCard = ({ title, children, onTimeframeChange, className, legend }: ChartCardProps) => {
+const ChartCard = ({ 
+  title, 
+  children, 
+  onTimeframeChange, 
+  className, 
+  legend,
+  showTimeframes = true // Default to true for backward compatibility
+}: ChartCardProps) => {
   const timeframes = ["7D", "30D", "6M", "1Y", "All"];
   const [selectedTimeframe, setSelectedTimeframe] = useState("7D");
 
@@ -69,27 +77,29 @@ const ChartCard = ({ title, children, onTimeframeChange, className, legend }: Ch
               </Stack>
             )}
           </Box>
-          <Stack direction="row" spacing={1}>
-            {timeframes.map((tf) => (
-              <Button
-                key={tf}
-                variant={selectedTimeframe === tf ? "contained" : "text"}
-                size="small"
-                onClick={() => handleTimeframeClick(tf)}
-                sx={{
-                  minWidth: 0,
-                  px: 1.5,
-                  color: selectedTimeframe === tf ? 'white' : 'rgb(156, 163, 175)',
-                  bgcolor: selectedTimeframe === tf ? '#8702ff' : 'transparent',
-                  '&:hover': {
-                    bgcolor: selectedTimeframe === tf ? '#7002d6' : 'rgba(255, 255, 255, 0.1)'
-                  }
-                }}
-              >
-                {tf}
-              </Button>
-            ))}
-          </Stack>
+          {showTimeframes && onTimeframeChange && (
+            <Stack direction="row" spacing={1}>
+              {timeframes.map((tf) => (
+                <Button
+                  key={tf}
+                  variant={selectedTimeframe === tf ? "contained" : "text"}
+                  size="small"
+                  onClick={() => handleTimeframeClick(tf)}
+                  sx={{
+                    minWidth: 0,
+                    px: 1.5,
+                    color: selectedTimeframe === tf ? 'white' : 'rgb(156, 163, 175)',
+                    bgcolor: selectedTimeframe === tf ? '#8702ff' : 'transparent',
+                    '&:hover': {
+                      bgcolor: selectedTimeframe === tf ? '#7002d6' : 'rgba(255, 255, 255, 0.1)'
+                    }
+                  }}
+                >
+                  {tf}
+                </Button>
+              ))}
+            </Stack>
+          )}
         </Stack>
         {children}
       </CardContent>
