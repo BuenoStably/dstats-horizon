@@ -6,6 +6,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
   Tooltip,
+  Cell,
 } from "recharts";
 
 interface BarData {
@@ -85,8 +86,14 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
           fillOpacity={0.8}
           name="Balance"
           stroke="none"
-          fill={(entry: BarData) => entry.name === "Assets" ? "url(#assetsGradient)" : "#dc2626"}
-        />
+        >
+          {data.map((entry, index) => (
+            <Cell 
+              key={`cell-${index}`} 
+              fill={entry.name === "Assets" ? "url(#assetsGradient)" : "#dc2626"}
+            />
+          ))}
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );
