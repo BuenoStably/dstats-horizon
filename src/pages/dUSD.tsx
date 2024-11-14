@@ -6,6 +6,7 @@ import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import HorizontalBarChart from "@/components/charts/HorizontalBarChart";
 import BalanceSheetTable from "@/components/BalanceSheetTable";
 import AmoTransactionsTable from "@/components/AmoTransactionsTable";
+import SmoTransactionsTable from "@/components/SmoTransactionsTable";
 import { generateDusdMockData } from "@/utils/mockDusdData";
 import { useState } from "react";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
@@ -142,6 +143,7 @@ const DUSDPage = () => {
           <div className="mt-8 space-y-8">
             <BalanceSheetTable />
             <AmoTransactionsTable />
+            <SmoTransactionsTable />
           </div>
         </div>
       </main>
