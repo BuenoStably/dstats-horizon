@@ -24,10 +24,20 @@ export const generateDusdMockData = () => {
   // Generate November dates with specific revenue data
   const novemberData = Array.from({ length: 30 }, (_, i) => {
     const date = new Date(2023, 10, i + 1); // Month is 0-based, so 10 is November
+    const progress = i / 29; // Progress from 0 to 1
+    
+    // Revenue/TVL: Start at 60000, end at 80000, with controlled volatility
+    const baseRevenueTvl = 60000 + (20000 * progress);
+    const revenueTvlNoise = (Math.random() - 0.5) * 3000; // Reduced volatility
+    
+    // Annualized Revenue: Start at 0.3 (30%), end at 0.4 (40%), with controlled volatility
+    const baseAnnualizedRevenue = 0.3 + (0.1 * progress);
+    const annualizedRevenueNoise = (Math.random() - 0.5) * 0.01; // Reduced volatility
+    
     return {
       date: date.toISOString().split('T')[0],
-      revenueTvl: 60000 + (20000 * i / 29) + (Math.random() - 0.5) * 5000, // Revenue/TVL between 60k-80k with volatility
-      annualizedRevenue: (0.3 + (0.1 * i / 29) + (Math.random() - 0.5) * 0.02), // 0.3-0.4% with volatility
+      revenueTvl: Math.round(baseRevenueTvl + revenueTvlNoise),
+      annualizedRevenue: Number((baseAnnualizedRevenue + annualizedRevenueNoise).toFixed(4)),
     };
   });
 

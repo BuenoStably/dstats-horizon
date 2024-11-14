@@ -19,8 +19,7 @@ interface RevenueChartProps {
 
 const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
   const formatXAxis = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return format(date, "MMM d");
+    return format(new Date(dateStr), "MMM d");
   };
 
   const formatPercentage = (value: number) => `${(value * 100).toFixed(2)}%`;
@@ -55,7 +54,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
   return (
     <Box sx={{ width: "100%", height: 400, mt: 2 }}>
       <ResponsiveContainer>
-        <ComposedChart data={data}>
+        <ComposedChart data={data} margin={{ left: 10, right: 10, top: 20, bottom: 20 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="date"
@@ -63,16 +62,14 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             stroke="#ffffff"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: '#ffffff' }}
-            interval={0}
-            angle={-45}
-            textAnchor="end"
+            dy={10}
             height={60}
             style={{ fontFamily: 'Inter' }}
           />
           <YAxis
             yAxisId="left"
             domain={[0, 80000]}
-            tickFormatter={(value) => `$${value.toLocaleString()}`}
+            tickFormatter={(value) => value.toLocaleString()}
             ticks={[0, 20000, 40000, 60000, 80000]}
             stroke="#ffffff"
             tick={{ fill: '#ffffff' }}
@@ -84,7 +81,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             yAxisId="right"
             orientation="right"
             domain={[0, 0.5]}
-            tickFormatter={(value) => `${(value * 100).toFixed(2)}%`}
+            tickFormatter={(value) => `${(value * 100)}%`}
             ticks={[0, 0.1, 0.2, 0.3, 0.4, 0.5]}
             stroke="#ffffff"
             tick={{ fill: '#ffffff' }}
@@ -99,7 +96,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             formatter={(value) => {
               return value === "revenueTvl" ? "Revenue/TVL" : "Annualized Revenue";
             }}
-            wrapperStyle={{ fontFamily: 'Inter' }}
+            wrapperStyle={{ fontFamily: 'Inter', color: '#ffffff' }}
           />
           <Line
             yAxisId="left"
