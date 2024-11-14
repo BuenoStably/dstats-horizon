@@ -102,6 +102,7 @@ const DUSDPage = () => {
             <ChartCard 
               title="dUSD NAV" 
               onTimeframeChange={setNavTimeframe}
+              className="text-left"
               legend={[
                 { color: "#4B5563", label: "AMO TVL" },
                 { color: "#22C55E", label: "Reserve TVL" }
