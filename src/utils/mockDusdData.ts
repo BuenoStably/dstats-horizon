@@ -52,13 +52,10 @@ export const generateDusdMockData = () => {
     reserveTvl: generateMockData(365, 800000, 1200000),
     balanceSheet: {
       assets: [
-        { name: "AMO Assets", value: 2500000 },
-        { name: "Reserve Assets", value: 1200000 },
-        { name: "Other Assets", value: 300000 }
+        { name: "Assets", value: 4000000 }
       ],
       liabilities: [
-        { name: "dUSD Supply", value: 3000000 },
-        { name: "Other Liabilities", value: 200000 }
+        { name: "dUSD Supply", value: 3000000 }
       ]
     }
   };

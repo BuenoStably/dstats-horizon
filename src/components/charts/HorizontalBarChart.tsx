@@ -15,52 +15,42 @@ interface BarData {
 
 interface HorizontalBarChartProps {
   data: BarData[];
-  label: string;
   formatValue: (value: number) => string;
-  showXAxis?: boolean;
 }
 
-const HorizontalBarChart = ({ 
-  data, 
-  label, 
-  formatValue, 
-  showXAxis = false 
-}: HorizontalBarChartProps) => {
+const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
   return (
-    <ResponsiveContainer width="100%" height={80}>
+    <ResponsiveContainer width="100%" height={200}>
       <BarChart
         data={data}
         layout="vertical"
         margin={{ 
-          top: 5, 
+          top: 20, 
           right: 30, 
           left: 80, 
-          bottom: showXAxis ? 20 : 5 
+          bottom: 20 
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" stroke="#333" horizontal={false} />
-        {showXAxis && (
-          <XAxis
-            type="number"
-            stroke="#ffffff"
-            tickFormatter={formatValue}
-            domain={[0, 3000000]}
-            tickCount={4}
-            style={{ fontSize: '11px' }}
-          />
-        )}
+        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" horizontal={false} />
+        <XAxis
+          type="number"
+          stroke="#ffffff"
+          tickFormatter={formatValue}
+          domain={[0, 4000000]}
+          tickCount={5}
+          style={{ 
+            fontSize: '12px',
+            fontFamily: 'Inter'
+          }}
+        />
         <YAxis
           type="category"
           dataKey="name"
           stroke="#ffffff"
           tickLine={false}
-          style={{ fontSize: '11px' }}
-          label={{ 
-            value: label,
-            position: 'left',
-            angle: -90,
-            offset: 60,
-            style: { textAnchor: 'middle', fill: '#ffffff' }
+          style={{ 
+            fontSize: '12px',
+            fontFamily: 'Inter'
           }}
         />
         <Tooltip
@@ -69,11 +59,12 @@ const HorizontalBarChart = ({
             backgroundColor: "rgb(36, 36, 36)",
             border: "none",
             borderRadius: "8px",
+            fontFamily: 'Inter'
           }}
         />
         <Bar
           dataKey="value"
-          fill={label === "Assets" ? "#8702ff" : "#4B5563"}
+          fill="#8702ff"
           radius={[0, 4, 4, 0]}
         />
       </BarChart>
