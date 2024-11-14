@@ -166,9 +166,9 @@ const BalanceSheetTable = () => {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-start">
-        <div>
-          <h2 className="text-xl font-semibold">Balance Sheet Details</h2>
-          <p className="text-sm text-gray-500 mt-1">
+        <div className="space-y-1">
+          <h2 className="text-xl font-semibold leading-none">Balance Sheet Details</h2>
+          <p className="text-sm text-gray-500">
             (Last updated: {formattedDate})
           </p>
         </div>
