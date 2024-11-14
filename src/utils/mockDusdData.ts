@@ -1,62 +1,54 @@
-import { subDays } from "date-fns";
-
-const generateMockData = (
-  daysCount: number,
-  startValue: number,
-  endValue: number,
-  volatility: number = 0.01
-) => {
-  const today = new Date();
-  return Array.from({ length: daysCount }, (_, i) => {
-    const progress = i / (daysCount - 1);
-    const baseValue = startValue + (endValue - startValue) * progress;
-    const noise = (Math.random() - 0.5) * 2 * volatility * baseValue;
-    return {
-      date: new Date(today.getTime() - (daysCount - 1 - i) * 24 * 60 * 60 * 1000)
-        .toISOString()
-        .split("T")[0],
-      value: Math.max(startValue, baseValue + noise),
-    };
-  });
-};
-
 export const generateDusdMockData = () => {
-  // Generate November dates with specific revenue data
-  const novemberData = Array.from({ length: 30 }, (_, i) => {
-    const date = new Date(2023, 10, i + 1); // Month is 0-based, so 10 is November
-    const progress = i / 29; // Progress from 0 to 1
-    
-    // Revenue/TVL: Start at 60000, end at 80000, with controlled volatility
-    const baseRevenueTvl = 60000 + (20000 * progress);
-    const revenueTvlNoise = (Math.random() - 0.5) * 3000; // Reduced volatility
-    
-    // Annualized Revenue: Start at 0.3 (30%), end at 0.4 (40%), with controlled volatility
-    const baseAnnualizedRevenue = 0.3 + (0.1 * progress);
-    const annualizedRevenueNoise = (Math.random() - 0.5) * 0.01; // Reduced volatility
-    
-    return {
-      date: date.toISOString().split('T')[0],
-      revenueTvl: Math.round(baseRevenueTvl + revenueTvlNoise),
-      annualizedRevenue: Number((baseAnnualizedRevenue + annualizedRevenueNoise).toFixed(4))
-    };
-  });
+  const price = [
+    { date: "2023-01-01", value: 1.00 },
+    { date: "2023-01-02", value: 1.01 },
+    { date: "2023-01-03", value: 1.02 },
+    { date: "2023-01-04", value: 1.03 },
+    { date: "2023-01-05", value: 1.01 },
+    { date: "2023-01-06", value: 1.00 },
+    { date: "2023-01-07", value: 0.99 },
+  ];
+
+  const supply = [
+    { date: "2023-01-01", value: 3000000 },
+    { date: "2023-01-02", value: 3100000 },
+    { date: "2023-01-03", value: 3200000 },
+    { date: "2023-01-04", value: 3300000 },
+    { date: "2023-01-05", value: 3400000 },
+    { date: "2023-01-06", value: 3500000 },
+    { date: "2023-01-07", value: 3600000 },
+  ];
+
+  const amoTvl = [
+    { date: "2023-01-01", value: 2000000 },
+    { date: "2023-01-02", value: 2050000 },
+    { date: "2023-01-03", value: 2100000 },
+    { date: "2023-01-04", value: 2150000 },
+    { date: "2023-01-05", value: 2200000 },
+    { date: "2023-01-06", value: 2250000 },
+    { date: "2023-01-07", value: 2300000 },
+  ];
+
+  const reserveTvl = [
+    { date: "2023-01-01", value: 1000000 },
+    { date: "2023-01-02", value: 1050000 },
+    { date: "2023-01-03", value: 1100000 },
+    { date: "2023-01-04", value: 1150000 },
+    { date: "2023-01-05", value: 1200000 },
+    { date: "2023-01-06", value: 1250000 },
+    { date: "2023-01-07", value: 1300000 },
+  ];
+
+  const balanceSheet = [
+    { name: "Assets", value: 3100000 },
+    { name: "Liabilities", value: 3000000 }
+  ];
 
   return {
-    tvl: generateMockData(365, 2800000, 3200000),
-    supply: generateMockData(365, 800000, 1800000),
-    apy: generateMockData(365, 5, 15),
-    users: generateMockData(365, 1000, 5000),
-    revenue: novemberData,
-    price: generateMockData(365, 0.98, 1.02, 0.001),
-    amoTvl: generateMockData(365, 2000000, 2500000),
-    reserveTvl: generateMockData(365, 800000, 1200000),
-    balanceSheet: {
-      assets: [
-        { name: "Assets", value: 4000000 }
-      ],
-      liabilities: [
-        { name: "dUSD Supply", value: 3000000 }
-      ]
-    }
+    price,
+    supply,
+    amoTvl,
+    reserveTvl,
+    balanceSheet
   };
 };

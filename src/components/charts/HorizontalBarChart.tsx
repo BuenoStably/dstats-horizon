@@ -20,18 +20,22 @@ interface HorizontalBarChartProps {
 
 const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
   return (
-    <ResponsiveContainer width="100%" height={200}>
+    <ResponsiveContainer width="100%" height={120}>
       <BarChart
         data={data}
         layout="vertical"
         margin={{ 
-          top: 20, 
-          right: 30, 
-          left: 80, 
-          bottom: 20 
+          top: 5,
+          right: 30,
+          left: 80,
+          bottom: 5
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" horizontal={false} />
+        <CartesianGrid 
+          strokeDasharray="0" 
+          stroke="rgba(255, 255, 255, 0.1)" 
+          horizontal={false} 
+        />
         <XAxis
           type="number"
           stroke="#ffffff"
@@ -56,15 +60,16 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
         <Tooltip
           formatter={(value: number) => formatValue(value)}
           contentStyle={{
-            backgroundColor: "rgb(36, 36, 36)",
-            border: "none",
+            backgroundColor: "rgba(255, 255, 255, 0.05)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
             borderRadius: "8px",
+            backdropFilter: "blur(10px)",
             fontFamily: 'Inter'
           }}
         />
         <Bar
           dataKey="value"
-          fill="#8702ff"
+          fill={(data) => data.name === "Assets" ? "#22C55E" : "#ef4444"}
           radius={[0, 4, 4, 0]}
         />
       </BarChart>
