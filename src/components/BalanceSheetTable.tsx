@@ -67,7 +67,6 @@ const mockData: BalanceSheetEntry[] = [
     exchangeRate: 1.0000,
     value: 400000.00
   },
-  // Additional mock data for expansion
   {
     id: "6",
     address: "0x6789...0123",
@@ -166,14 +165,13 @@ const BalanceSheetTable = () => {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h2 className="text-xl font-semibold mb-1">Balance Sheet Details</h2>
-        <p className="text-sm text-gray-500 mb-4">
-          (Last updated: {formattedDate})
-        </p>
-      </div>
-      
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-between items-start">
+        <div>
+          <h2 className="text-xl font-semibold mb-1">Balance Sheet Details</h2>
+          <p className="text-sm text-gray-500">
+            (Last updated: {formattedDate})
+          </p>
+        </div>
         <Input
           placeholder="Search Table"
           value={searchTerm}
