@@ -37,7 +37,7 @@ export const generateDusdMockData = () => {
     return {
       date: date.toISOString().split('T')[0],
       revenueTvl: Math.round(baseRevenueTvl + revenueTvlNoise),
-      annualizedRevenue: Number((baseAnnualizedRevenue + annualizedRevenueNoise).toFixed(4)),
+      annualizedRevenue: Number((baseAnnualizedRevenue + annualizedRevenueNoise).toFixed(4))
     };
   });
 
