@@ -185,22 +185,22 @@ const BalanceSheetTable = () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="cursor-pointer" onClick={() => handleSort("address")}>
+            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("address")}>
               Address <ArrowUpDown className="inline h-4 w-4 ml-1" />
             </TableHead>
-            <TableHead className="cursor-pointer" onClick={() => handleSort("asset")}>
+            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("asset")}>
               Asset <ArrowUpDown className="inline h-4 w-4 ml-1" />
             </TableHead>
-            <TableHead className="cursor-pointer" onClick={() => handleSort("network")}>
+            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("network")}>
               Network <ArrowUpDown className="inline h-4 w-4 ml-1" />
             </TableHead>
-            <TableHead className="cursor-pointer" onClick={() => handleSort("quantity")}>
+            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("quantity")}>
               Quantity <ArrowUpDown className="inline h-4 w-4 ml-1" />
             </TableHead>
-            <TableHead className="cursor-pointer" onClick={() => handleSort("exchangeRate")}>
+            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("exchangeRate")}>
               Exchange Rate <ArrowUpDown className="inline h-4 w-4 ml-1" />
             </TableHead>
-            <TableHead className="cursor-pointer" onClick={() => handleSort("value")}>
+            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("value")}>
               Value <ArrowUpDown className="inline h-4 w-4 ml-1" />
             </TableHead>
           </TableRow>
@@ -208,7 +208,7 @@ const BalanceSheetTable = () => {
         <TableBody>
           {displayedData.map((entry) => (
             <TableRow key={entry.id}>
-              <TableCell>
+              <TableCell className="text-left">
                 <a 
                   href={`https://explorer.fraxtal.io/address/${entry.address}`}
                   target="_blank"
@@ -218,11 +218,11 @@ const BalanceSheetTable = () => {
                   {entry.address}
                 </a>
               </TableCell>
-              <TableCell>{entry.asset}</TableCell>
-              <TableCell>{entry.network}</TableCell>
-              <TableCell>{formatQuantity(entry.quantity)}</TableCell>
-              <TableCell>{formatExchangeRate(entry.exchangeRate)}</TableCell>
-              <TableCell>{formatValue(entry.value)}</TableCell>
+              <TableCell className="text-left">{entry.asset}</TableCell>
+              <TableCell className="text-left">{entry.network}</TableCell>
+              <TableCell className="text-left">{formatQuantity(entry.quantity)}</TableCell>
+              <TableCell className="text-left">{formatExchangeRate(entry.exchangeRate)}</TableCell>
+              <TableCell className="text-left">{formatValue(entry.value)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
