@@ -19,6 +19,10 @@ interface HorizontalBarChartProps {
 }
 
 const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
+  const getBarFill = (entry: BarData) => {
+    return entry.name === "Assets" ? "#22C55E" : "#ef4444";
+  };
+
   return (
     <ResponsiveContainer width="100%" height={120}>
       <BarChart
@@ -69,8 +73,9 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
         />
         <Bar
           dataKey="value"
-          fill={(data) => data.name === "Assets" ? "#22C55E" : "#ef4444"}
+          fill="#22C55E"
           radius={[0, 4, 4, 0]}
+          fillOpacity={0.8}
         />
       </BarChart>
     </ResponsiveContainer>

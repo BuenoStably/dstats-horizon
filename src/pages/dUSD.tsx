@@ -120,7 +120,7 @@ const DUSDPage = () => {
 
             <ChartCard title="dUSD Balance Sheet">
               <HorizontalBarChart
-                data={[...mockData.balanceSheet.assets, ...mockData.balanceSheet.liabilities]}
+                data={mockData.balanceSheet}
                 formatValue={formatCurrency}
               />
             </ChartCard>
