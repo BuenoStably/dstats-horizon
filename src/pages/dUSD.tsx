@@ -119,7 +119,15 @@ const DUSDPage = () => {
               />
             </ChartCard>
 
-            <ChartCard title="dUSD Balance Sheet">
+            <ChartCard 
+              title="dUSD Balance Sheet"
+              legend={[
+                { color: "#22C55E", label: "Yieldcoins" },
+                { color: "#15803d", label: "Stablecoins" },
+                { color: "#dc2626", label: "dUSD" },
+                { color: "#4B5563", label: "Curve LP (AMO)" }
+              ]}
+            >
               <HorizontalBarChart
                 data={mockData.balanceSheet}
                 formatValue={formatCurrency}
