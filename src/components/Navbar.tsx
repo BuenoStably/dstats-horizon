@@ -16,9 +16,16 @@ const Navbar = () => {
   return (
     <AppBar position="static" sx={{ bgcolor: 'rgb(18, 17, 28)', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
       <Toolbar sx={{ px: 3, py: 2 }}>
-        <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', color: '#8702ff' }}>
-          dSTATS
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <img 
+            src="https://app.testnet.dtrinity.org/dlend/trinity.svg" 
+            alt="Trinity Logo" 
+            style={{ height: '24px', width: 'auto' }}
+          />
+          <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'white' }}>
+            dSTATS
+          </Typography>
+        </Box>
         
         {/* Desktop Menu */}
         <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 4, gap: 3 }}>
