@@ -18,11 +18,11 @@ function App() {
               <Route path="/dusd" element={<DUSDPage />} />
             </Routes>
           </div>
-          <footer className="py-8 flex justify-center items-center">
+          <footer className="py-8 mb-4 flex justify-center items-center">
             <img 
               src="https://app.testnet.dtrinity.org/dlend/dTrinity-White-Logo.png" 
               alt="dTrinity Logo" 
-              className="h-12 object-contain"
+              className="h-9 object-contain"
             />
           </footer>
         </div>
