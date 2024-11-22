@@ -18,7 +18,7 @@ function App() {
               <Route path="/dusd" element={<DUSDPage />} />
             </Routes>
           </div>
-          <div className="absolute bottom-0 w-full h-[10%] bg-gradient-to-t from-primary/80 to-transparent pointer-events-none" />
+          <div className="absolute bottom-[120px] w-full h-[10%] bg-gradient-to-t from-primary/80 to-transparent pointer-events-none" />
           <footer className="py-8 mb-8 flex justify-center items-center relative">
             <img 
               src="https://app.testnet.dtrinity.org/dlend/dTrinity-White-Logo.png" 
