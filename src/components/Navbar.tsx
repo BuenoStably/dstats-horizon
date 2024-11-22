@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Menu as MenuIcon, Close as CloseIcon, OpenInNew } from '@mui/icons-material';
-import { AppBar, Toolbar, Typography, IconButton, Box, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Box, Drawer, List, ListItem } from '@mui/material';
 import { useState } from "react";
 
 const Navbar = () => {
@@ -27,19 +27,14 @@ const Navbar = () => {
           </Typography>
         </Box>
         
-        {/* Desktop Menu */}
         <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 4, gap: 3 }}>
           {menuItems.map((item) => (
             <Link
               key={item}
               to={`/${item.toLowerCase().replace(" ", "-")}`}
-              style={{ 
-                textDecoration: 'none',
-                color: isActive(item) ? '#8702ff' : '#fff',
-                fontWeight: isActive(item) ? 600 : 400,
-                transition: 'all 0.2s ease-in-out'
-              }}
-              className="hover:text-primary"
+              className={`transition-colors duration-200 ${
+                isActive(item) ? 'text-primary' : 'text-white hover:text-primary'
+              }`}
             >
               {item}
             </Link>
@@ -48,22 +43,13 @@ const Navbar = () => {
             href="https://app.testnet.dtrinity.org"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ 
-              textDecoration: 'none',
-              color: '#fff',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-              transition: 'all 0.2s ease-in-out'
-            }}
-            className="hover:text-primary"
+            className="text-white hover:text-primary transition-colors duration-200 flex items-center gap-1"
           >
             dTRINITY App
             <OpenInNew sx={{ fontSize: 16 }} />
           </a>
         </Box>
 
-        {/* Mobile Menu Button */}
         <IconButton
           sx={{ 
             ml: 'auto', 
@@ -76,7 +62,6 @@ const Navbar = () => {
         </IconButton>
       </Toolbar>
 
-      {/* Mobile Menu Drawer */}
       <Drawer
         anchor="right"
         open={isMenuOpen}
@@ -97,16 +82,11 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
               component={Link}
               to={`/${item.toLowerCase().replace(" ", "-")}`}
-              sx={{
-                color: isActive(item) ? '#8702ff' : '#fff',
-                fontWeight: isActive(item) ? 600 : 400,
-                transition: 'all 0.2s ease-in-out',
-                '&:hover': {
-                  color: '#8702ff'
-                }
-              }}
+              className={`transition-colors duration-200 ${
+                isActive(item) ? 'text-primary' : 'text-white hover:text-primary'
+              }`}
             >
-              <ListItemText primary={item} />
+              {item}
             </ListItem>
           ))}
           <ListItem 
@@ -115,16 +95,10 @@ const Navbar = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setIsMenuOpen(false)}
-            sx={{
-              color: '#fff',
-              transition: 'all 0.2s ease-in-out',
-              '&:hover': {
-                color: '#8702ff'
-              }
-            }}
+            className="text-white hover:text-primary transition-colors duration-200 flex items-center gap-1"
           >
-            <ListItemText primary="dTRINITY App" />
-            <OpenInNew sx={{ fontSize: 16, ml: 1 }} />
+            dTRINITY App
+            <OpenInNew sx={{ fontSize: 16 }} />
           </ListItem>
         </List>
       </Drawer>
