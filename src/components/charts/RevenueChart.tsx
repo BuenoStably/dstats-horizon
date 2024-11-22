@@ -29,20 +29,21 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
       return (
         <Box
           sx={{
-            bgcolor: "rgba(255, 255, 255, 0.05)",
+            bgcolor: "rgba(23, 22, 36, 0.95)",
             p: 1.5,
             border: "1px solid rgba(255, 255, 255, 0.1)",
             borderRadius: 1,
             backdropFilter: "blur(10px)",
+            color: "#ffffff",
           }}
         >
-          <Typography variant="body2" sx={{ color: "rgb(156, 163, 175)" }}>
+          <Typography variant="body2" sx={{ color: "#ffffff" }}>
             {format(new Date(label), "MMM d, yyyy")}
           </Typography>
-          <Typography variant="body2" sx={{ color: "#8702ff" }}>
+          <Typography variant="body2" sx={{ color: "#ffffff" }}>
             Revenue/TVL: {formatCurrency(payload[0].value)}
           </Typography>
-          <Typography variant="body2" sx={{ color: "#22C55E" }}>
+          <Typography variant="body2" sx={{ color: "#ffffff" }}>
             Annualized Revenue: {formatPercentage(payload[1].value)}
           </Typography>
         </Box>
