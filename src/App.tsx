@@ -11,10 +11,21 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/dusd" element={<DUSDPage />} />
-        </Routes>
+        <div className="min-h-screen flex flex-col">
+          <div className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/dusd" element={<DUSDPage />} />
+            </Routes>
+          </div>
+          <footer className="py-8 flex justify-center items-center">
+            <img 
+              src="https://app.testnet.dtrinity.org/dlend/dTrinity-White-Logo.png" 
+              alt="dTrinity Logo" 
+              className="h-12 object-contain"
+            />
+          </footer>
+        </div>
       </BrowserRouter>
     </QueryClientProvider>
   );
