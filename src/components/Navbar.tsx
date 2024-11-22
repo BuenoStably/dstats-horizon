@@ -37,8 +37,9 @@ const Navbar = () => {
                 textDecoration: 'none',
                 color: isActive(item) ? '#8702ff' : '#fff',
                 fontWeight: isActive(item) ? 600 : 400,
-                transition: 'color 0.2s'
+                transition: 'all 0.2s ease-in-out'
               }}
+              className="hover:text-primary"
             >
               {item}
             </Link>
@@ -52,8 +53,10 @@ const Navbar = () => {
               color: '#fff',
               display: 'flex',
               alignItems: 'center',
-              gap: '4px'
+              gap: '4px',
+              transition: 'all 0.2s ease-in-out'
             }}
+            className="hover:text-primary"
           >
             dTRINITY App
             <OpenInNew sx={{ fontSize: 16 }} />
@@ -97,6 +100,7 @@ const Navbar = () => {
               sx={{
                 color: isActive(item) ? '#8702ff' : '#fff',
                 fontWeight: isActive(item) ? 600 : 400,
+                transition: 'all 0.2s ease-in-out',
                 '&:hover': {
                   color: '#8702ff'
                 }
@@ -113,6 +117,7 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen(false)}
             sx={{
               color: '#fff',
+              transition: 'all 0.2s ease-in-out',
               '&:hover': {
                 color: '#8702ff'
               }
