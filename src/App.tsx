@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import DUSDPage from "./pages/dUSD";
+import DLENDPage from "./pages/dLEND";
+import LiquidityPage from "./pages/Liquidity";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -17,6 +19,8 @@ function App() {
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/dusd" element={<DUSDPage />} />
+                <Route path="/dlend" element={<DLENDPage />} />
+                <Route path="/liquidity" element={<LiquidityPage />} />
               </Routes>
             </div>
           </main>
