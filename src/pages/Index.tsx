@@ -61,9 +61,9 @@ const Index = () => {
   const mockData = generateDusdMockData();
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-transparent">
       <Navbar />
-      <main className="container mx-auto px-3 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-73px)]">
+      <main className="container mx-auto px-3 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-73px)] bg-transparent">
         <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Key Metrics</h1>
         <MetricsSection />
         <ChartSection mockData={mockData} />
