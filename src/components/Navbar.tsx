@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu as MenuIcon, Close as CloseIcon, ExternalLink } from '@mui/icons-material';
+import { Menu as MenuIcon, Close as CloseIcon, OpenInNew } from '@mui/icons-material';
 import { AppBar, Toolbar, Typography, IconButton, Box, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import { useState } from "react";
 
@@ -56,7 +56,7 @@ const Navbar = () => {
             }}
           >
             dTRINITY App
-            <ExternalLink sx={{ fontSize: 16 }} />
+            <OpenInNew sx={{ fontSize: 16 }} />
           </a>
         </Box>
 
@@ -119,7 +119,7 @@ const Navbar = () => {
             }}
           >
             <ListItemText primary="dTRINITY App" />
-            <ExternalLink sx={{ fontSize: 16, ml: 1 }} />
+            <OpenInNew sx={{ fontSize: 16, ml: 1 }} />
           </ListItem>
         </List>
       </Drawer>
