@@ -37,6 +37,12 @@ body {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
 }
 
+.recharts-default-tooltip .recharts-tooltip-label,
+.recharts-default-tooltip .recharts-tooltip-item-list,
+.recharts-default-tooltip .recharts-tooltip-item {
+  color: #ffffff !important;
+}
+
 /* Update tooltip styles for better readability */
 [data-radix-popper-content-wrapper] [role="tooltip"],
 .MuiTooltip-tooltip {
@@ -48,4 +54,5 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   padding: 8px 12px !important;
   font-size: 0.875rem !important;
+  color: #ffffff !important;
 }
