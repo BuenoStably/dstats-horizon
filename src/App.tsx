@@ -11,14 +11,15 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col relative">
           <div className="flex-grow">
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/dusd" element={<DUSDPage />} />
             </Routes>
           </div>
-          <footer className="py-8 mb-4 flex justify-center items-center">
+          <div className="absolute bottom-0 w-full h-[20%] bg-gradient-to-t from-primary/30 to-transparent pointer-events-none" />
+          <footer className="py-8 mb-4 flex justify-center items-center relative">
             <img 
               src="https://app.testnet.dtrinity.org/dlend/dTrinity-White-Logo.png" 
               alt="dTrinity Logo" 
