@@ -1,6 +1,9 @@
 import * as React from "react"
-import { FormControl as MuiFormControl } from "@mui/material"
-import MuiFormLabel from "@mui/material/FormLabel"
+import { 
+  FormControl as MuiFormControl, 
+  FormLabel as MuiFormLabel,
+  FormHelperText
+} from "@mui/material"
 import {
   Controller,
   ControllerProps,
@@ -125,12 +128,12 @@ FormControl.displayName = "FormControl"
 
 const FormDescription = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
+  React.ComponentPropsWithoutRef<typeof FormHelperText>
 >(({ className, ...props }, ref) => {
   const { formDescriptionId } = useFormField()
 
   return (
-    <p
+    <FormHelperText
       ref={ref}
       id={formDescriptionId}
       className={cn("text-sm text-muted-foreground", className)}
@@ -142,7 +145,7 @@ FormDescription.displayName = "FormDescription"
 
 const FormMessage = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
+  React.ComponentPropsWithoutRef<typeof FormHelperText>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField()
   const body = error ? String(error?.message) : children
@@ -152,14 +155,15 @@ const FormMessage = React.forwardRef<
   }
 
   return (
-    <p
+    <FormHelperText
       ref={ref}
       id={formMessageId}
       className={cn("text-sm font-medium text-destructive", className)}
+      error
       {...props}
     >
       {body}
-    </p>
+    </FormHelperText>
   )
 })
 FormMessage.displayName = "FormMessage"
