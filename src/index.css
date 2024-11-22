@@ -43,8 +43,6 @@ body {
   color: #ffffff !important;
 }
 
-/* Update tooltip styles for better readability */
-[data-radix-popper-content-wrapper] [role="tooltip"],
 .MuiTooltip-tooltip {
   @apply bg-surface text-white border-white/10 !important;
   border-radius: 12px !important;
