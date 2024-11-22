@@ -30,18 +30,22 @@ body {
 }
 
 .recharts-default-tooltip {
-  @apply bg-surface border border-white/10 !important;
+  @apply bg-surface text-white border border-white/10 !important;
   border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: rgba(23, 22, 36, 0.95) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Update tooltip styles for better readability */
-[data-radix-popper-content-wrapper] [role="tooltip"] {
-  @apply bg-gray-900 text-white border-gray-800 !important;
+[data-radix-popper-content-wrapper] [role="tooltip"],
+.MuiTooltip-tooltip {
+  @apply bg-surface text-white border-white/10 !important;
   border-radius: 12px !important;
-  background-color: rgba(17, 24, 39, 0.8) !important;
+  background-color: rgba(23, 22, 36, 0.95) !important;
   backdrop-filter: blur(10px) !important;
-  color: white !important;
-  border: 1px solid rgba(55, 65, 81, 0.3) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 8px 12px !important;
+  font-size: 0.875rem !important;
 }
