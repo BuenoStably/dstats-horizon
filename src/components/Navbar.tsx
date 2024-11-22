@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
+import { Menu as MenuIcon, Close as CloseIcon, ExternalLink } from '@mui/icons-material';
 import { AppBar, Toolbar, Typography, IconButton, Box, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import { useState } from "react";
 
@@ -43,6 +43,21 @@ const Navbar = () => {
               {item}
             </Link>
           ))}
+          <a
+            href="https://app.testnet.dtrinity.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ 
+              textDecoration: 'none',
+              color: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}
+          >
+            dTRINITY App
+            <ExternalLink sx={{ fontSize: 16 }} />
+          </a>
         </Box>
 
         {/* Mobile Menu Button */}
@@ -90,6 +105,22 @@ const Navbar = () => {
               <ListItemText primary={item} />
             </ListItem>
           ))}
+          <ListItem 
+            component="a"
+            href="https://app.testnet.dtrinity.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsMenuOpen(false)}
+            sx={{
+              color: '#fff',
+              '&:hover': {
+                color: '#8702ff'
+              }
+            }}
+          >
+            <ListItemText primary="dTRINITY App" />
+            <ExternalLink sx={{ fontSize: 16, ml: 1 }} />
+          </ListItem>
         </List>
       </Drawer>
     </AppBar>
