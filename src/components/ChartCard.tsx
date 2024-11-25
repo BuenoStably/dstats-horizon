@@ -12,7 +12,7 @@ interface ChartCardProps {
   onTimeframeChange?: (timeframe: string) => void;
   className?: string;
   legend?: LegendItem[];
-  showTimeframes?: boolean; // New prop to control timeframe visibility
+  showTimeframes?: boolean;
 }
 
 const ChartCard = ({ 
@@ -21,7 +21,7 @@ const ChartCard = ({
   onTimeframeChange, 
   className, 
   legend,
-  showTimeframes = true // Default to true for backward compatibility
+  showTimeframes = true
 }: ChartCardProps) => {
   const timeframes = ["7D", "30D", "6M", "1Y", "All"];
   const [selectedTimeframe, setSelectedTimeframe] = useState("7D");
@@ -53,12 +53,20 @@ const ChartCard = ({
           spacing={2}
           mb={3}
         >
-          <Box>
-            <Typography variant="h6" sx={{ color: 'white', fontWeight: 600, mb: legend ? 1 : 0 }}>
+          <Box sx={{ width: '100%' }}>
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                color: 'white', 
+                fontWeight: 600, 
+                mb: legend ? 1 : 0,
+                pl: 0 // Explicitly set padding-left to 0
+              }}
+            >
               {title}
             </Typography>
             {legend && (
-              <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={2} sx={{ pl: 0 }}> {/* Explicitly set padding-left to 0 */}
                 {legend.map((item, index) => (
                   <Stack key={index} direction="row" spacing={1} alignItems="center">
                     <Box 
