@@ -23,6 +23,8 @@ interface LineChartWithGradientProps {
   secondLineData?: DataPoint[];
   secondLineKey?: string;
   secondLineColor?: string;
+  color?: string;  // Added this prop
+  yAxisDomain?: number[];  // Added this prop
 }
 
 const LineChartWithGradient = ({ 
@@ -31,10 +33,19 @@ const LineChartWithGradient = ({
   showSecondLine,
   secondLineData,
   secondLineKey = "ethereumValue",
-  secondLineColor = "#22C55E"
+  secondLineColor = "#22C55E",
+  color = "#8702ff",  // Default color
+  yAxisDomain,  // New prop
 }: LineChartWithGradientProps) => {
-  // Calculate dynamic domain with 10% padding
+  // Calculate dynamic domain with 10% padding if yAxisDomain is not provided
   const { minDomain, maxDomain } = useMemo(() => {
+    if (yAxisDomain) {
+      return {
+        minDomain: yAxisDomain[0],
+        maxDomain: yAxisDomain[1]
+      };
+    }
+
     const values = data.map(d => d.value);
     if (showSecondLine && secondLineData) {
       values.push(...secondLineData.map(d => d[secondLineKey as keyof typeof d] as number));
@@ -49,7 +60,7 @@ const LineChartWithGradient = ({
       minDomain: min - padding,
       maxDomain: max + padding
     };
-  }, [data, showSecondLine, secondLineData, secondLineKey]);
+  }, [data, showSecondLine, secondLineData, secondLineKey, yAxisDomain]);
 
   return (
     <ResponsiveContainer width="100%" height={400}>
@@ -59,8 +70,8 @@ const LineChartWithGradient = ({
       >
         <defs>
           <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#8702ff" stopOpacity={0.2} />
-            <stop offset="95%" stopColor="#8702ff" stopOpacity={0} />
+            <stop offset="5%" stopColor={color} stopOpacity={0.2} />
+            <stop offset="95%" stopColor={color} stopOpacity={0} />
           </linearGradient>
           <linearGradient id="colorEthereum" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor={secondLineColor} stopOpacity={0.2} />
@@ -118,7 +129,7 @@ const LineChartWithGradient = ({
           type="monotone"
           dataKey="value"
           name="Fraxtal TVL"
-          stroke="#8702ff"
+          stroke={color}
           strokeWidth={2}
           fill="url(#colorValue)"
         />
