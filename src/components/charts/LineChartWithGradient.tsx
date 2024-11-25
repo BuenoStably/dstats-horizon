@@ -21,14 +21,18 @@ interface LineChartWithGradientProps {
 }
 
 const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientProps) => {
-  // Calculate dynamic domain
+  // Calculate dynamic domain with 10% padding
   const { minDomain, maxDomain } = useMemo(() => {
     const values = data.map(d => d.value);
     const min = Math.min(...values);
     const max = Math.max(...values);
+    
+    // Calculate 10% of the range
+    const padding = (max - min) * 0.1;
+    
     return {
-      minDomain: min - 0.1,
-      maxDomain: max + 0.1
+      minDomain: min - padding,
+      maxDomain: max + padding
     };
   }, [data]);
 
