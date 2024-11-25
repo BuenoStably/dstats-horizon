@@ -38,7 +38,10 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
 
   return (
     <ResponsiveContainer width="100%" height={400}>
-      <AreaChart data={data}>
+      <AreaChart 
+        data={data}
+        margin={{ top: 20, right: 30, left: 60, bottom: 20 }} // Added proper margins
+      >
         <defs>
           <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8702ff" stopOpacity={0.2} />
@@ -52,6 +55,7 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
           stroke="#ffffff"
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
+          dy={10} // Add padding between axis and labels
         />
         <YAxis
           domain={[minDomain, maxDomain]}
@@ -59,6 +63,8 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
           stroke="#ffffff"
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
+          dx={-10} // Add padding between axis and labels
+          tickMargin={10} // Add margin for tick labels
         />
         <Tooltip
           content={({ active, payload, label }) => {
@@ -69,7 +75,7 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
                     {format(new Date(label), "MMM d, yyyy")}
                   </p>
                   <p className="text-white font-medium">
-                    {valueFormatter ? valueFormatter(payload[0].value) : payload[0].value}
+                    {valueFormatter ? valueFormatter(payload[0].value as number) : payload[0].value}
                   </p>
                 </div>
               );
