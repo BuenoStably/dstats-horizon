@@ -54,3 +54,11 @@ body {
   font-size: 0.875rem !important;
   color: #ffffff !important;
 }
+
+.candlestick-up {
+  --candlestick-color: #22C55E;
+}
+
+.candlestick-down {
+  --candlestick-color: #EF4444;
+}

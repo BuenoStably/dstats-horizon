@@ -5,6 +5,7 @@ import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import HorizontalBarChart from "@/components/charts/HorizontalBarChart";
 import ReserveRevenueChart from "@/components/charts/ReserveRevenueChart";
+import CandlestickChart from "@/components/charts/CandlestickChart";
 import BalanceSheetTable from "@/components/BalanceSheetTable";
 import AmoTransactionsTable from "@/components/AmoTransactionsTable";
 import SmoTransactionsTable from "@/components/SmoTransactionsTable";
@@ -66,8 +67,8 @@ const DUSDPage = () => {
     new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-      notation: "compact",
-      maximumFractionDigits: 2,
+      minimumFractionDigits: 4,
+      maximumFractionDigits: 4,
     }).format(value);
 
   const formatPrice = (value: number) =>
@@ -88,7 +89,7 @@ const DUSDPage = () => {
         <div className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <ChartCard title="dUSD Price (USD)" onTimeframeChange={setPriceTimeframe}>
-              <LineChartWithGradient
+              <CandlestickChart
                 data={filterDataByTimeframe(mockData.price, priceTimeframe)}
                 valueFormatter={formatPrice}
                 yAxisDomain={[0.97, 1.02]}
