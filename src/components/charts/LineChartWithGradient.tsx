@@ -13,17 +13,32 @@ import { format } from "date-fns";
 interface DataPoint {
   date: string;
   value: number;
+  ethereumValue?: number;
 }
 
 interface LineChartWithGradientProps {
   data: DataPoint[];
   valueFormatter?: (value: number) => string;
+  showSecondLine?: boolean;
+  secondLineData?: DataPoint[];
+  secondLineKey?: string;
+  secondLineColor?: string;
 }
 
-const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientProps) => {
+const LineChartWithGradient = ({ 
+  data, 
+  valueFormatter,
+  showSecondLine,
+  secondLineData,
+  secondLineKey = "ethereumValue",
+  secondLineColor = "#22C55E"
+}: LineChartWithGradientProps) => {
   // Calculate dynamic domain with 10% padding
   const { minDomain, maxDomain } = useMemo(() => {
     const values = data.map(d => d.value);
+    if (showSecondLine && secondLineData) {
+      values.push(...secondLineData.map(d => d[secondLineKey as keyof typeof d] as number));
+    }
     const min = Math.min(...values);
     const max = Math.max(...values);
     
@@ -34,18 +49,22 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
       minDomain: min - padding,
       maxDomain: max + padding
     };
-  }, [data]);
+  }, [data, showSecondLine, secondLineData, secondLineKey]);
 
   return (
     <ResponsiveContainer width="100%" height={400}>
       <AreaChart 
-        data={data}
-        margin={{ top: 10, right: 10, left: 35, bottom: 10 }} // Reduced margins
+        data={showSecondLine ? secondLineData : data}
+        margin={{ top: 10, right: 10, left: 35, bottom: 10 }}
       >
         <defs>
           <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8702ff" stopOpacity={0.2} />
             <stop offset="95%" stopColor="#8702ff" stopOpacity={0} />
+          </linearGradient>
+          <linearGradient id="colorEthereum" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor={secondLineColor} stopOpacity={0.2} />
+            <stop offset="95%" stopColor={secondLineColor} stopOpacity={0} />
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
@@ -55,7 +74,7 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
           stroke="#ffffff"
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
-          dy={5} // Reduced padding between axis and labels
+          dy={5}
         />
         <YAxis
           domain={[minDomain, maxDomain]}
@@ -63,8 +82,8 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
           stroke="#ffffff"
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
-          dx={-5} // Reduced padding between axis and labels
-          tickMargin={5} // Reduced margin for tick labels
+          dx={-5}
+          tickMargin={5}
         />
         <Tooltip
           content={({ active, payload, label }) => {
@@ -74,18 +93,31 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
                   <p className="text-white text-sm">
                     {format(new Date(label), "MMM d, yyyy")}
                   </p>
-                  <p className="text-white font-medium">
-                    {valueFormatter ? valueFormatter(payload[0].value as number) : payload[0].value}
-                  </p>
+                  {payload.map((entry: any, index: number) => (
+                    <p key={index} className="text-white font-medium">
+                      {entry.name}: {valueFormatter ? valueFormatter(entry.value) : entry.value}
+                    </p>
+                  ))}
                 </div>
               );
             }
             return null;
           }}
         />
+        {showSecondLine && (
+          <Area
+            type="monotone"
+            dataKey={secondLineKey}
+            name="Ethereum TVL"
+            stroke={secondLineColor}
+            strokeWidth={2}
+            fill="url(#colorEthereum)"
+          />
+        )}
         <Area
           type="monotone"
           dataKey="value"
+          name="Fraxtal TVL"
           stroke="#8702ff"
           strokeWidth={2}
           fill="url(#colorValue)"
