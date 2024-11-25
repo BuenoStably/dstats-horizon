@@ -40,7 +40,7 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
     <ResponsiveContainer width="100%" height={400}>
       <AreaChart 
         data={data}
-        margin={{ top: 20, right: 30, left: 60, bottom: 20 }} // Added proper margins
+        margin={{ top: 10, right: 10, left: 35, bottom: 10 }} // Reduced margins
       >
         <defs>
           <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
@@ -55,7 +55,7 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
           stroke="#ffffff"
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
-          dy={10} // Add padding between axis and labels
+          dy={5} // Reduced padding between axis and labels
         />
         <YAxis
           domain={[minDomain, maxDomain]}
@@ -63,8 +63,8 @@ const LineChartWithGradient = ({ data, valueFormatter }: LineChartWithGradientPr
           stroke="#ffffff"
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
-          dx={-10} // Add padding between axis and labels
-          tickMargin={10} // Add margin for tick labels
+          dx={-5} // Reduced padding between axis and labels
+          tickMargin={5} // Reduced margin for tick labels
         />
         <Tooltip
           content={({ active, payload, label }) => {
