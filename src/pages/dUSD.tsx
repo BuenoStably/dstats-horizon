@@ -93,7 +93,7 @@ const DUSDPage = () => {
   const getNavDomain = () => {
     const amoData = filterDataByTimeframe(mockData.amoTvl, navTimeframe);
     const reserveData = filterDataByTimeframe(mockData.reserveTvl, navTimeframe);
-    const secondLineKey = "value"; // Define the key used to access the value in reserveData
+    const secondLineKey = "value";
     const allValues = [...amoData.map(d => d.value), ...reserveData.map(d => d[secondLineKey] || 0)];
     const min = Math.min(...allValues);
     const max = Math.max(...allValues);
@@ -121,7 +121,6 @@ const DUSDPage = () => {
               <LineChartWithGradient
                 data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
                 valueFormatter={formatCurrency}
-                color="#4B5563"
                 yAxisDomain={getSupplyDomain()}
               />
             </ChartCard>
@@ -138,7 +137,6 @@ const DUSDPage = () => {
               <LineChartWithGradient
                 data={filterDataByTimeframe(mockData.amoTvl, navTimeframe)}
                 valueFormatter={formatCurrency}
-                color="#4B5563"
                 yAxisDomain={getNavDomain()}
                 showSecondLine
                 secondLineData={filterDataByTimeframe(mockData.reserveTvl, navTimeframe)}

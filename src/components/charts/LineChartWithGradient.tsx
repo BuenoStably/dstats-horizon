@@ -16,6 +16,7 @@ interface LineChartWithGradientProps {
   secondLineData?: any[];
   secondLineKey?: string;
   secondLineColor?: string;
+  yAxisDomain?: [number, number];
 }
 
 const LineChartWithGradient = ({
@@ -25,6 +26,7 @@ const LineChartWithGradient = ({
   secondLineData,
   secondLineKey = "ethereumValue",
   secondLineColor = "#22C55E",
+  yAxisDomain,
 }: LineChartWithGradientProps) => {
   return (
     <ResponsiveContainer width="100%" height={400}>
@@ -62,6 +64,7 @@ const LineChartWithGradient = ({
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
           width={60}
+          domain={yAxisDomain || ['auto', 'auto']}
         />
         <Tooltip
           content={({ active, payload, label }) => {

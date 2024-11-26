@@ -61,6 +61,8 @@ const CandlestickChart = ({
     };
   });
 
+  const getBarColor = (entry: any) => entry.isUp ? "#22C55E" : "#dc2626";
+
   return (
     <ResponsiveContainer width="100%" height={400}>
       <ComposedChart 
@@ -112,8 +114,8 @@ const CandlestickChart = ({
         />
         <Bar
           dataKey="barHeight"
-          fill={(data) => data.isUp ? "#22C55E" : "#dc2626"}
-          stroke={(data) => data.isUp ? "#22C55E" : "#dc2626"}
+          fill="#22C55E"
+          stroke="#22C55E"
           barSize={8}
           stackId="candlestick"
           yAxisId={0}
@@ -121,8 +123,8 @@ const CandlestickChart = ({
         />
         <Bar
           dataKey="wickTop"
-          fill={(data) => data.isUp ? "#22C55E" : "#dc2626"}
-          stroke={(data) => data.isUp ? "#22C55E" : "#dc2626"}
+          fill="#22C55E"
+          stroke="#22C55E"
           barSize={2}
           stackId="upperWick"
           yAxisId={0}
@@ -130,8 +132,8 @@ const CandlestickChart = ({
         />
         <Bar
           dataKey="wickBottom"
-          fill={(data) => data.isUp ? "#22C55E" : "#dc2626"}
-          stroke={(data) => data.isUp ? "#22C55E" : "#dc2626"}
+          fill="#22C55E"
+          stroke="#22C55E"
           barSize={2}
           stackId="lowerWick"
           yAxisId={0}
