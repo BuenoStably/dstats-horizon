@@ -27,8 +27,6 @@ interface ProcessedDataPoint {
   fill: string;
   stroke: string;
   wickColor: string;
-  highWick: number;
-  lowWick: number;
 }
 
 const CandlestickChart = ({
@@ -37,29 +35,31 @@ const CandlestickChart = ({
   yAxisDomain,
 }: CandlestickChartProps) => {
   // Process data to include candlestick information
-  const processedData: ProcessedDataPoint[] = data.map((item, index) => {
+  const processedData = data.map((item, index) => {
     const prevValue = index > 0 ? data[index - 1].value : item.value;
     const open = prevValue;
     const close = item.value;
-    // Increased volatility factor for more visible wicks
-    const volatilityFactor = Math.abs(close - open) * 1.5 + (Math.random() * 0.002);
-    const high = Math.max(open, close) + volatilityFactor;
-    const low = Math.min(open, close) - volatilityFactor;
+    
+    // Calculate high and low with more pronounced wicks
+    const volatilityBase = Math.abs(close - open);
+    const randomVolatility = Math.random() * 0.005; // Random factor for more natural looking wicks
+    const highWick = volatilityBase * 2 + randomVolatility;
+    const lowWick = volatilityBase * 2 + randomVolatility;
+    
+    const high = Math.max(open, close) + highWick;
+    const low = Math.min(open, close) - lowWick;
     const isUp = close > open;
     const color = isUp ? "#22C55E" : "#EF4444";
-    
+
     return {
       ...item,
       open,
       close,
       high,
       low,
-      value: close - open, // For bar height
       fill: color,
       stroke: color,
       wickColor: color,
-      highWick: isUp ? high - close : high - open,
-      lowWick: isUp ? low - open : low - close
     };
   });
 
@@ -80,7 +80,6 @@ const CandlestickChart = ({
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
-          interval={0}
         />
         <YAxis
           domain={yAxisDomain || ["auto", "auto"]}
@@ -108,24 +107,26 @@ const CandlestickChart = ({
         />
         {/* Candlestick body */}
         <Bar
-          dataKey="value"
-          fill="fill"
-          stroke="stroke"
-          barSize={6}
+          dataKey={(data) => Math.abs(data.close - data.open)}
+          fill={(data) => data.fill}
+          stroke={(data) => data.stroke}
+          barSize={8}
         />
-        {/* Upper wick */}
+        {/* High wick */}
         <Line
-          dataKey="highWick"
-          stroke="wickColor"
+          type="monotone"
+          dataKey="high"
+          stroke={(data) => data.wickColor}
           dot={false}
-          strokeWidth={1}
+          strokeWidth={2}
         />
-        {/* Lower wick */}
+        {/* Low wick */}
         <Line
-          dataKey="lowWick"
-          stroke="wickColor"
+          type="monotone"
+          dataKey="low"
+          stroke={(data) => data.wickColor}
           dot={false}
-          strokeWidth={1}
+          strokeWidth={2}
         />
       </ComposedChart>
     </ResponsiveContainer>
