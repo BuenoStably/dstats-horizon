@@ -79,6 +79,27 @@ const DUSDPage = () => {
       maximumFractionDigits: 4,
     }).format(value);
 
+  // Calculate dynamic domain for supply data
+  const getSupplyDomain = () => {
+    const data = filterDataByTimeframe(mockData.supply, supplyTimeframe);
+    const values = data.map(d => d.value);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const padding = (max - min) * 0.1;
+    return [min - padding, max + padding];
+  };
+
+  // Calculate dynamic domain for NAV data
+  const getNavDomain = () => {
+    const amoData = filterDataByTimeframe(mockData.amoTvl, navTimeframe);
+    const reserveData = filterDataByTimeframe(mockData.reserveTvl, navTimeframe);
+    const allValues = [...amoData.map(d => d.value), ...reserveData.map(d => d[secondLineKey] || 0)];
+    const min = Math.min(...allValues);
+    const max = Math.max(...allValues);
+    const padding = (max - min) * 0.1;
+    return [min - padding, max + padding];
+  };
+
   return (
     <div className="min-h-screen bg-surface">
       <Navbar />
@@ -92,7 +113,6 @@ const DUSDPage = () => {
               <CandlestickChart
                 data={filterDataByTimeframe(mockData.price, priceTimeframe)}
                 valueFormatter={formatPrice}
-                yAxisDomain={[0.97, 1.02]}
               />
             </ChartCard>
 
@@ -101,7 +121,7 @@ const DUSDPage = () => {
                 data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
                 valueFormatter={formatCurrency}
                 color="#4B5563"
-                yAxisDomain={[0, 3000000]}
+                yAxisDomain={getSupplyDomain()}
               />
             </ChartCard>
 
@@ -118,7 +138,7 @@ const DUSDPage = () => {
                 data={filterDataByTimeframe(mockData.amoTvl, navTimeframe)}
                 valueFormatter={formatCurrency}
                 color="#4B5563"
-                yAxisDomain={[0, 4000000]}
+                yAxisDomain={getNavDomain()}
                 showSecondLine
                 secondLineData={filterDataByTimeframe(mockData.reserveTvl, navTimeframe)}
                 secondLineColor="#22C55E"
