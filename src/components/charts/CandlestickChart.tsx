@@ -6,12 +6,24 @@ import {
   Tooltip,
   CartesianGrid,
   Bar,
-  Line,
 } from "recharts";
 import { format } from "date-fns";
 
+interface CandlestickData {
+  date: string;
+  open: number;
+  close: number;
+  high: number;
+  low: number;
+  barHeight: number;
+  barStart: number;
+  isUp: boolean;
+  wickTop: number;
+  wickBottom: number;
+}
+
 interface CandlestickChartProps {
-  data: any[];
+  data: Array<{ date: string; value: number }>;
   valueFormatter: (value: number) => string;
 }
 
@@ -46,11 +58,8 @@ const CandlestickChart = ({
       isUp,
       wickTop: high - Math.max(open, close),
       wickBottom: Math.min(open, close) - low,
-      color: isUp ? "#22C55E" : "#ef4444"
     };
   });
-
-  const yAxisDomain = [0.9, 1.1];
 
   return (
     <ResponsiveContainer width="100%" height={400}>
@@ -72,7 +81,7 @@ const CandlestickChart = ({
           interval={0}
         />
         <YAxis
-          domain={yAxisDomain}
+          domain={['auto', 'auto']}
           tickFormatter={valueFormatter}
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
@@ -82,7 +91,7 @@ const CandlestickChart = ({
         <Tooltip
           content={({ active, payload, label }) => {
             if (active && payload && payload.length) {
-              const data = payload[0].payload;
+              const data = payload[0].payload as CandlestickData;
               return (
                 <div className="bg-surface p-2 border border-white/10 rounded-lg">
                   <p className="text-white">{format(new Date(label), "MMM d, yyyy")}</p>
@@ -99,8 +108,8 @@ const CandlestickChart = ({
         {/* Candlestick body */}
         <Bar
           dataKey="barHeight"
-          fill={(data) => data.color}
-          stroke={(data) => data.color}
+          fill={data => (data.isUp ? "#22C55E" : "#ef4444")}
+          stroke={data => (data.isUp ? "#22C55E" : "#ef4444")}
           barSize={8}
           stackId="candlestick"
           yAxisId={0}
@@ -109,8 +118,8 @@ const CandlestickChart = ({
         {/* Upper wick */}
         <Bar
           dataKey="wickTop"
-          fill={(data) => data.color}
-          stroke={(data) => data.color}
+          fill={data => (data.isUp ? "#22C55E" : "#ef4444")}
+          stroke={data => (data.isUp ? "#22C55E" : "#ef4444")}
           barSize={2}
           stackId="upperWick"
           yAxisId={0}
@@ -119,8 +128,8 @@ const CandlestickChart = ({
         {/* Lower wick */}
         <Bar
           dataKey="wickBottom"
-          fill={(data) => data.color}
-          stroke={(data) => data.color}
+          fill={data => (data.isUp ? "#22C55E" : "#ef4444")}
+          stroke={data => (data.isUp ? "#22C55E" : "#ef4444")}
           barSize={2}
           stackId="lowerWick"
           yAxisId={0}
