@@ -27,6 +27,7 @@ const CandlestickChart = ({
     
     return {
       ...item,
+      isUp,
       color: isUp ? "#22C55E" : "#EF4444", // green for up, red for down
       value: Math.abs(item.value - prevValue), // height of the candle
       base: Math.min(item.value, prevValue), // starting point of the candle
@@ -63,6 +64,7 @@ const CandlestickChart = ({
                 <div className="bg-surface p-2 border border-white/10 rounded-lg">
                   <p className="text-white">{format(new Date(label), "MMM d, yyyy")}</p>
                   <p className="text-white">Price: {valueFormatter(currentValue)}</p>
+                  <p className="text-white">Direction: {payload[0].payload.isUp ? "Up" : "Down"}</p>
                 </div>
               );
             }
@@ -71,9 +73,8 @@ const CandlestickChart = ({
         />
         <Bar
           dataKey="value"
-          fill="currentColor"
-          stroke="currentColor"
-          className="[fill:var(--candlestick-color)] [stroke:var(--candlestick-color)]"
+          fill={(data) => data.payload.color}
+          stroke={(data) => data.payload.color}
         />
       </ComposedChart>
     </ResponsiveContainer>
