@@ -67,7 +67,7 @@ const CandlestickChart = ({
     <ResponsiveContainer width="100%" height={400}>
       <ComposedChart 
         data={processedData}
-        margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+        margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
       >
         <CartesianGrid
           strokeDasharray="3 3"
@@ -80,10 +80,10 @@ const CandlestickChart = ({
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
-          dy={10}
+          dy={5}
           angle={-45}
           textAnchor="end"
-          height={60}
+          height={40}
           interval={0}
           minTickGap={5}
         />

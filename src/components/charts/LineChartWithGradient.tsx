@@ -32,7 +32,7 @@ const LineChartWithGradient = ({
     <ResponsiveContainer width="100%" height={400}>
       <AreaChart
         data={showSecondLine ? secondLineData : data}
-        margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+        margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
       >
         <defs>
           <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
@@ -51,10 +51,10 @@ const LineChartWithGradient = ({
           stroke="#ffffff"
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
-          dy={10}
+          dy={5}
           angle={-45}
           textAnchor="end"
-          height={60}
+          height={40}
           interval={0}
           minTickGap={5}
         />
