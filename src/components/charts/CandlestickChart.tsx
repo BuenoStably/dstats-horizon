@@ -36,8 +36,7 @@ const CandlestickChart = ({
       high,
       low,
       value: close - open, // For bar height
-      fill: isUp ? "#22C55E" : "#EF4444",
-      stroke: isUp ? "#22C55E" : "#EF4444"
+      color: isUp ? "#22C55E" : "#EF4444"
     };
   });
 
@@ -58,6 +57,7 @@ const CandlestickChart = ({
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
+          interval={0}
         />
         <YAxis
           domain={yAxisDomain || ["auto", "auto"]}
@@ -85,9 +85,8 @@ const CandlestickChart = ({
         />
         <Bar
           dataKey="value"
-          fillOpacity={0.8}
-          stroke={(d) => d.stroke}
-          fill={(d) => d.fill}
+          fill={(data) => data.color}
+          stroke={(data) => data.color}
           barSize={6}
         />
       </ComposedChart>

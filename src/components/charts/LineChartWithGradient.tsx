@@ -23,8 +23,8 @@ interface LineChartWithGradientProps {
   secondLineData?: DataPoint[];
   secondLineKey?: string;
   secondLineColor?: string;
-  color?: string;  // Added this prop
-  yAxisDomain?: number[];  // Added this prop
+  color?: string;
+  yAxisDomain?: number[];
 }
 
 const LineChartWithGradient = ({ 
@@ -34,10 +34,9 @@ const LineChartWithGradient = ({
   secondLineData,
   secondLineKey = "ethereumValue",
   secondLineColor = "#22C55E",
-  color = "#8702ff",  // Default color
-  yAxisDomain,  // New prop
+  color = "#8702ff",
+  yAxisDomain,
 }: LineChartWithGradientProps) => {
-  // Calculate dynamic domain with 10% padding if yAxisDomain is not provided
   const { minDomain, maxDomain } = useMemo(() => {
     if (yAxisDomain) {
       return {
@@ -52,8 +51,6 @@ const LineChartWithGradient = ({
     }
     const min = Math.min(...values);
     const max = Math.max(...values);
-    
-    // Calculate 10% of the range
     const padding = (max - min) * 0.1;
     
     return {
@@ -86,6 +83,7 @@ const LineChartWithGradient = ({
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
           dy={5}
+          interval={0}
         />
         <YAxis
           domain={[minDomain, maxDomain]}
