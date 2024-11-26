@@ -117,7 +117,7 @@ const CandlestickChart = ({
           barSize={8}
           stackId="candlestick"
           yAxisId={0}
-          y={data.barStart}
+          y={(data: CandlestickData) => data.barStart}
         />
         <Bar
           dataKey="wickTop"
@@ -126,7 +126,7 @@ const CandlestickChart = ({
           barSize={2}
           stackId="upperWick"
           yAxisId={0}
-          y={data.high}
+          y={(data: CandlestickData) => data.high}
         />
         <Bar
           dataKey="wickBottom"
@@ -135,7 +135,7 @@ const CandlestickChart = ({
           barSize={2}
           stackId="lowerWick"
           yAxisId={0}
-          y={data.low}
+          y={(data: CandlestickData) => data.low}
         />
       </ComposedChart>
     </ResponsiveContainer>
