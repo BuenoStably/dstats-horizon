@@ -108,8 +108,9 @@ const CandlestickChart = ({
         {/* Candlestick body */}
         <Bar
           dataKey="barHeight"
-          fill={data => (data.isUp ? "#22C55E" : "#ef4444")}
-          stroke={data => (data.isUp ? "#22C55E" : "#ef4444")}
+          fill="var(--candlestick-color)"
+          stroke="var(--candlestick-color)"
+          className={data => data.isUp ? "candlestick-up" : "candlestick-down"}
           barSize={8}
           stackId="candlestick"
           yAxisId={0}
@@ -118,8 +119,9 @@ const CandlestickChart = ({
         {/* Upper wick */}
         <Bar
           dataKey="wickTop"
-          fill={data => (data.isUp ? "#22C55E" : "#ef4444")}
-          stroke={data => (data.isUp ? "#22C55E" : "#ef4444")}
+          fill="var(--candlestick-color)"
+          stroke="var(--candlestick-color)"
+          className={data => data.isUp ? "candlestick-up" : "candlestick-down"}
           barSize={2}
           stackId="upperWick"
           yAxisId={0}
@@ -128,8 +130,9 @@ const CandlestickChart = ({
         {/* Lower wick */}
         <Bar
           dataKey="wickBottom"
-          fill={data => (data.isUp ? "#22C55E" : "#ef4444")}
-          stroke={data => (data.isUp ? "#22C55E" : "#ef4444")}
+          fill="var(--candlestick-color)"
+          stroke="var(--candlestick-color)"
+          className={data => data.isUp ? "candlestick-up" : "candlestick-down"}
           barSize={2}
           stackId="lowerWick"
           yAxisId={0}
