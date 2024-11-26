@@ -5,7 +5,9 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Bar
+  Bar,
+  Line,
+  ReferenceLine
 } from "recharts";
 import { format } from "date-fns";
 
@@ -24,6 +26,9 @@ interface ProcessedDataPoint {
   low: number;
   fill: string;
   stroke: string;
+  wickColor: string;
+  highWick: number;
+  lowWick: number;
 }
 
 const CandlestickChart = ({
@@ -36,9 +41,11 @@ const CandlestickChart = ({
     const prevValue = index > 0 ? data[index - 1].value : item.value;
     const open = prevValue;
     const close = item.value;
-    const high = Math.max(open, close) + (Math.random() * 0.002);
-    const low = Math.min(open, close) - (Math.random() * 0.002);
+    const volatilityFactor = Math.abs(close - open) * 0.5;
+    const high = Math.max(open, close) + volatilityFactor;
+    const low = Math.min(open, close) - volatilityFactor;
     const isUp = close > open;
+    const color = isUp ? "#22C55E" : "#EF4444";
     
     return {
       ...item,
@@ -47,8 +54,11 @@ const CandlestickChart = ({
       high,
       low,
       value: close - open, // For bar height
-      fill: isUp ? "#22C55E" : "#EF4444",
-      stroke: isUp ? "#22C55E" : "#EF4444"
+      fill: color,
+      stroke: color,
+      wickColor: color,
+      highWick: isUp ? high - close : high - open,
+      lowWick: isUp ? low - open : low - close
     };
   });
 
@@ -95,11 +105,26 @@ const CandlestickChart = ({
             return null;
           }}
         />
+        {/* Candlestick body */}
         <Bar
           dataKey="value"
           fill="fill"
           stroke="stroke"
           barSize={6}
+        />
+        {/* Upper wick */}
+        <Line
+          dataKey="highWick"
+          stroke="wickColor"
+          dot={false}
+          strokeWidth={1}
+        />
+        {/* Lower wick */}
+        <Line
+          dataKey="lowWick"
+          stroke="wickColor"
+          dot={false}
+          strokeWidth={1}
         />
       </ComposedChart>
     </ResponsiveContainer>
