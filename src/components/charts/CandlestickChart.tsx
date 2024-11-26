@@ -64,7 +64,6 @@ const CandlestickChart = ({
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
-          orientation="right"
         />
         <Tooltip
           content={({ active, payload, label }) => {
