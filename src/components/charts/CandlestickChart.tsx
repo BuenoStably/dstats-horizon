@@ -43,7 +43,10 @@ const CandlestickChart = ({
       low,
       barHeight,
       barStart,
-      isUp
+      isUp,
+      wickTop: high - Math.max(open, close),
+      wickBottom: Math.min(open, close) - low,
+      color: isUp ? "#22C55E" : "#ef4444"
     };
   });
 
@@ -96,26 +99,32 @@ const CandlestickChart = ({
         {/* Candlestick body */}
         <Bar
           dataKey="barHeight"
-          fill="#22C55E"
-          stroke="#22C55E"
+          fill={(data) => data.color}
+          stroke={(data) => data.color}
           barSize={8}
+          stackId="candlestick"
           yAxisId={0}
+          y={data => data.barStart}
         />
-        {/* High wick */}
-        <Line
-          type="monotone"
-          dataKey="high"
-          stroke="#22C55E"
-          dot={false}
-          strokeWidth={2}
+        {/* Upper wick */}
+        <Bar
+          dataKey="wickTop"
+          fill={(data) => data.color}
+          stroke={(data) => data.color}
+          barSize={2}
+          stackId="upperWick"
+          yAxisId={0}
+          y={data => Math.max(data.open, data.close)}
         />
-        {/* Low wick */}
-        <Line
-          type="monotone"
-          dataKey="low"
-          stroke="#22C55E"
-          dot={false}
-          strokeWidth={2}
+        {/* Lower wick */}
+        <Bar
+          dataKey="wickBottom"
+          fill={(data) => data.color}
+          stroke={(data) => data.color}
+          barSize={2}
+          stackId="lowerWick"
+          yAxisId={0}
+          y={data => data.low}
         />
       </ComposedChart>
     </ResponsiveContainer>
