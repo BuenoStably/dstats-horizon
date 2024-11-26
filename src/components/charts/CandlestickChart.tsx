@@ -41,7 +41,8 @@ const CandlestickChart = ({
     const prevValue = index > 0 ? data[index - 1].value : item.value;
     const open = prevValue;
     const close = item.value;
-    const volatilityFactor = Math.abs(close - open) * 0.5;
+    // Increased volatility factor for more visible wicks
+    const volatilityFactor = Math.abs(close - open) * 1.5 + (Math.random() * 0.002);
     const high = Math.max(open, close) + volatilityFactor;
     const low = Math.min(open, close) - volatilityFactor;
     const isUp = close > open;
