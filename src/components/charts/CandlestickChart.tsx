@@ -19,15 +19,12 @@ const CandlestickChart = ({
   data,
   valueFormatter,
 }: CandlestickChartProps) => {
-  // Process data to include candlestick information
   const processedData = data.map((item, index) => {
     const prevValue = index > 0 ? data[index - 1].value : item.value;
     const open = prevValue;
     const close = item.value;
     
-    // Calculate high and low with more pronounced wicks
-    // Ensure volatility is within 0.5% range for more natural price movements
-    const volatilityBase = 0.005; // 0.5% base volatility
+    const volatilityBase = 0.005;
     const randomUpWick = Math.random() * volatilityBase;
     const randomDownWick = Math.random() * volatilityBase;
     
@@ -35,7 +32,6 @@ const CandlestickChart = ({
     const low = Math.min(open, close) * (1 - randomDownWick);
     const isUp = close > open;
 
-    // Calculate the bar height and y position
     const barHeight = Math.abs(close - open);
     const barStart = Math.min(open, close);
 
@@ -47,12 +43,11 @@ const CandlestickChart = ({
       low,
       barHeight,
       barStart,
-      color: isUp ? "#22C55E" : "#EF4444",
+      isUp
     };
   });
 
-  // Calculate domain for Y axis (±10% from base price of 1.00)
-  const yAxisDomain = [0.9, 1.1]; // -10% to +10%
+  const yAxisDomain = [0.9, 1.1];
 
   return (
     <ResponsiveContainer width="100%" height={400}>
@@ -71,7 +66,7 @@ const CandlestickChart = ({
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
-          interval={0} // Show all dates
+          interval={0}
         />
         <YAxis
           domain={yAxisDomain}
@@ -79,7 +74,7 @@ const CandlestickChart = ({
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
-          tickCount={10} // Increase number of ticks for better granularity
+          tickCount={10}
         />
         <Tooltip
           content={({ active, payload, label }) => {
@@ -101,8 +96,8 @@ const CandlestickChart = ({
         {/* Candlestick body */}
         <Bar
           dataKey="barHeight"
-          fill={(data) => data.color}
-          stroke={(data) => data.color}
+          fill="#22C55E"
+          stroke="#22C55E"
           barSize={8}
           yAxisId={0}
         />
@@ -110,7 +105,7 @@ const CandlestickChart = ({
         <Line
           type="monotone"
           dataKey="high"
-          stroke={(data) => data.color}
+          stroke="#22C55E"
           dot={false}
           strokeWidth={2}
         />
@@ -118,7 +113,7 @@ const CandlestickChart = ({
         <Line
           type="monotone"
           dataKey="low"
-          stroke={(data) => data.color}
+          stroke="#22C55E"
           dot={false}
           strokeWidth={2}
         />
