@@ -8,9 +8,14 @@ const Navbar = () => {
   const menuItems = ["Key Metrics", "dUSD", "dLEND", "Liquidity"];
   const location = useLocation();
 
+  const getPath = (item: string) => {
+    if (item === "Key Metrics") return "/";
+    return `/${item.toLowerCase().replace(" ", "-")}`;
+  };
+
   const isActive = (item: string) => {
-    const path = `/${item.toLowerCase().replace(" ", "-")}`;
-    return location.pathname === path || (location.pathname === "/" && item === "Key Metrics");
+    const path = getPath(item);
+    return location.pathname === path;
   };
 
   return (
@@ -38,7 +43,7 @@ const Navbar = () => {
           {menuItems.map((item) => (
             <Link
               key={item}
-              to={`/${item.toLowerCase().replace(" ", "-")}`}
+              to={getPath(item)}
               className={`transition-colors duration-200 ${
                 isActive(item) ? 'text-primary' : 'text-white hover:text-primary'
               }`}
@@ -88,7 +93,7 @@ const Navbar = () => {
               key={item}
               onClick={() => setIsMenuOpen(false)}
               component={Link}
-              to={`/${item.toLowerCase().replace(" ", "-")}`}
+              to={getPath(item)}
               className={`transition-colors duration-200 ${
                 isActive(item) ? 'text-primary' : 'text-white hover:text-primary'
               }`}
