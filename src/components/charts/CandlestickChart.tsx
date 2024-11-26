@@ -42,14 +42,13 @@ const CandlestickChart = ({
     
     // Calculate high and low with more pronounced wicks
     const volatilityBase = Math.abs(close - open);
-    const randomVolatility = Math.random() * 0.005; // Random factor for more natural looking wicks
+    const randomVolatility = Math.random() * 0.005;
     const highWick = volatilityBase * 2 + randomVolatility;
     const lowWick = volatilityBase * 2 + randomVolatility;
     
     const high = Math.max(open, close) + highWick;
     const low = Math.min(open, close) - lowWick;
     const isUp = close > open;
-    const color = isUp ? "#22C55E" : "#EF4444";
 
     return {
       ...item,
@@ -57,9 +56,8 @@ const CandlestickChart = ({
       close,
       high,
       low,
-      fill: color,
-      stroke: color,
-      wickColor: color,
+      barHeight: Math.abs(close - open),
+      color: isUp ? "#22C55E" : "#EF4444",
     };
   });
 
@@ -107,16 +105,16 @@ const CandlestickChart = ({
         />
         {/* Candlestick body */}
         <Bar
-          dataKey={(data) => Math.abs(data.close - data.open)}
-          fill={(data) => data.fill}
-          stroke={(data) => data.stroke}
+          dataKey="barHeight"
+          fill="color"
+          stroke="color"
           barSize={8}
         />
         {/* High wick */}
         <Line
           type="monotone"
           dataKey="high"
-          stroke={(data) => data.wickColor}
+          stroke="color"
           dot={false}
           strokeWidth={2}
         />
@@ -124,7 +122,7 @@ const CandlestickChart = ({
         <Line
           type="monotone"
           dataKey="low"
-          stroke={(data) => data.wickColor}
+          stroke="color"
           dot={false}
           strokeWidth={2}
         />
