@@ -35,13 +35,18 @@ const CandlestickChart = ({
     const low = Math.min(open, close) * (1 - randomDownWick);
     const isUp = close > open;
 
+    // Calculate the bar height and y position
+    const barHeight = Math.abs(close - open);
+    const barStart = Math.min(open, close);
+
     return {
       ...item,
       open,
       close,
       high,
       low,
-      barHeight: Math.abs(close - open),
+      barHeight,
+      barStart,
       color: isUp ? "#22C55E" : "#EF4444",
     };
   });
@@ -96,17 +101,16 @@ const CandlestickChart = ({
         {/* Candlestick body */}
         <Bar
           dataKey="barHeight"
-          fill="color"
-          stroke="color"
+          fill={(data) => data.color}
+          stroke={(data) => data.color}
           barSize={8}
-          stackId="stack"
-          baseValue={(datum) => Math.min(datum.open, datum.close)}
+          yAxisId={0}
         />
         {/* High wick */}
         <Line
           type="monotone"
           dataKey="high"
-          stroke="color"
+          stroke={(data) => data.color}
           dot={false}
           strokeWidth={2}
         />
@@ -114,7 +118,7 @@ const CandlestickChart = ({
         <Line
           type="monotone"
           dataKey="low"
-          stroke="color"
+          stroke={(data) => data.color}
           dot={false}
           strokeWidth={2}
         />

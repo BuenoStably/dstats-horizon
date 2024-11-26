@@ -25,7 +25,7 @@ export const generateDusdMockData = (): DusdMockData => {
 
   // Generate price data with natural volatility around 1.00
   const price = dates.map(date => {
-    const randomVolatility = (Math.random() - 0.5) * 0.01; // ±0.5% daily volatility
+    const randomVolatility = (Math.random() - 0.5) * 0.005; // ±0.25% daily volatility
     return {
       date,
       value: 1.00 + randomVolatility
