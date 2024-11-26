@@ -6,6 +6,7 @@ import {
   Tooltip,
   CartesianGrid,
   Bar,
+  Cell
 } from "recharts";
 import { format } from "date-fns";
 
@@ -71,11 +72,11 @@ const CandlestickChart = ({
             return null;
           }}
         />
-        <Bar
-          dataKey="value"
-          fill={(data) => data.payload.color}
-          stroke={(data) => data.payload.color}
-        />
+        <Bar dataKey="value">
+          {processedData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.color} stroke={entry.color} />
+          ))}
+        </Bar>
       </ComposedChart>
     </ResponsiveContainer>
   );
