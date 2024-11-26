@@ -36,7 +36,8 @@ const CandlestickChart = ({
       high,
       low,
       value: close - open, // For bar height
-      color: isUp ? "#22C55E" : "#EF4444"
+      fill: isUp ? "#22C55E" : "#EF4444",
+      stroke: isUp ? "#22C55E" : "#EF4444"
     };
   });
 
@@ -84,8 +85,9 @@ const CandlestickChart = ({
         />
         <Bar
           dataKey="value"
-          fill={(data) => data.color}
-          stroke={(data) => data.color}
+          fillOpacity={0.8}
+          stroke={(d) => d.stroke}
+          fill={(d) => d.fill}
           barSize={6}
         />
       </ComposedChart>
