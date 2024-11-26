@@ -5,8 +5,8 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Line,
-  ReferenceLine
+  Rectangle,
+  Line
 } from "recharts";
 import { format } from "date-fns";
 
@@ -15,6 +15,38 @@ interface CandlestickChartProps {
   valueFormatter: (value: number) => string;
   yAxisDomain?: number[];
 }
+
+// Custom candlestick component
+const CustomCandlestick = (props: any) => {
+  const { x, y, width, height, open, close, low, high, fill } = props;
+  const isUp = close > open;
+  const color = isUp ? "#22C55E" : "#EF4444";
+  const bodyHeight = Math.abs(open - close);
+  const bodyY = Math.min(open, close);
+
+  return (
+    <g>
+      {/* Wick */}
+      <line
+        x1={x + width / 2}
+        y1={y + height - high}
+        x2={x + width / 2}
+        y2={y + height - low}
+        stroke={color}
+        strokeWidth={1}
+      />
+      {/* Body */}
+      <Rectangle
+        x={x}
+        y={y + height - bodyY - bodyHeight}
+        width={width}
+        height={Math.max(bodyHeight, 1)}
+        fill={color}
+        stroke={color}
+      />
+    </g>
+  );
+};
 
 const CandlestickChart = ({
   data,
@@ -26,17 +58,15 @@ const CandlestickChart = ({
     const prevValue = index > 0 ? data[index - 1].value : item.value;
     const open = prevValue;
     const close = item.value;
-    const high = Math.max(open, close) + (Math.random() * 0.002); // Simulate high
-    const low = Math.min(open, close) - (Math.random() * 0.002);  // Simulate low
-    const isUp = close >= open;
+    const high = Math.max(open, close) + (Math.random() * 0.002);
+    const low = Math.min(open, close) - (Math.random() * 0.002);
     
     return {
       ...item,
       open,
       close,
       high,
-      low,
-      isUp
+      low
     };
   });
 
@@ -79,29 +109,17 @@ const CandlestickChart = ({
             return null;
           }}
         />
-        {/* Draw candlestick wicks */}
         {processedData.map((entry, index) => (
-          <Line
-            key={`wick-${index}`}
-            data={[{ date: entry.date, value: entry.low }, { date: entry.date, value: entry.high }]}
-            type="linear"
-            dataKey="value"
-            stroke={entry.isUp ? "#22C55E" : "#EF4444"}
-            dot={false}
-            activeDot={false}
-            isAnimationActive={false}
-          />
-        ))}
-        {/* Draw candlestick bodies */}
-        {processedData.map((entry, index) => (
-          <ReferenceLine
-            key={`body-${index}`}
-            segment={[
-              { x: entry.date, y: entry.open },
-              { x: entry.date, y: entry.close }
-            ]}
-            stroke={entry.isUp ? "#22C55E" : "#EF4444"}
-            strokeWidth={8}
+          <CustomCandlestick
+            key={index}
+            x={index * 30}
+            y={0}
+            width={20}
+            height={400}
+            open={entry.open}
+            close={entry.close}
+            high={entry.high}
+            low={entry.low}
           />
         ))}
       </ComposedChart>
