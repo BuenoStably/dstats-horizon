@@ -15,13 +15,24 @@ interface CandlestickChartProps {
   yAxisDomain?: number[];
 }
 
+interface ProcessedDataPoint {
+  date: string;
+  value: number;
+  open: number;
+  close: number;
+  high: number;
+  low: number;
+  fill: string;
+  stroke: string;
+}
+
 const CandlestickChart = ({
   data,
   valueFormatter,
   yAxisDomain,
 }: CandlestickChartProps) => {
   // Process data to include candlestick information
-  const processedData = data.map((item, index) => {
+  const processedData: ProcessedDataPoint[] = data.map((item, index) => {
     const prevValue = index > 0 ? data[index - 1].value : item.value;
     const open = prevValue;
     const close = item.value;
@@ -36,7 +47,8 @@ const CandlestickChart = ({
       high,
       low,
       value: close - open, // For bar height
-      color: isUp ? "#22C55E" : "#EF4444"
+      fill: isUp ? "#22C55E" : "#EF4444",
+      stroke: isUp ? "#22C55E" : "#EF4444"
     };
   });
 
@@ -85,8 +97,8 @@ const CandlestickChart = ({
         />
         <Bar
           dataKey="value"
-          fill={(data) => data.color}
-          stroke={(data) => data.color}
+          fill="fill"
+          stroke="stroke"
           barSize={6}
         />
       </ComposedChart>
