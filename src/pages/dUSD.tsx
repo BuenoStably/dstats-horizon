@@ -86,7 +86,7 @@ const DUSDPage = () => {
     const min = Math.min(...values);
     const max = Math.max(...values);
     const padding = (max - min) * 0.1;
-    return [min - padding, max + padding];
+    return [min - padding, max + padding] as [number, number];
   };
 
   // Calculate dynamic domain for NAV data
@@ -98,7 +98,7 @@ const DUSDPage = () => {
     const min = Math.min(...allValues);
     const max = Math.max(...allValues);
     const padding = (max - min) * 0.1;
-    return [min - padding, max + padding];
+    return [min - padding, max + padding] as [number, number];
   };
 
   return (

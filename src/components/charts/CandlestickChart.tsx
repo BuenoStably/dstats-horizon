@@ -61,8 +61,6 @@ const CandlestickChart = ({
     };
   });
 
-  const getBarColor = (entry: any) => entry.isUp ? "#22C55E" : "#dc2626";
-
   return (
     <ResponsiveContainer width="100%" height={400}>
       <ComposedChart 
@@ -119,7 +117,7 @@ const CandlestickChart = ({
           barSize={8}
           stackId="candlestick"
           yAxisId={0}
-          y={(data) => data.barStart}
+          y={data.barStart}
         />
         <Bar
           dataKey="wickTop"
@@ -128,7 +126,7 @@ const CandlestickChart = ({
           barSize={2}
           stackId="upperWick"
           yAxisId={0}
-          y={(data) => Math.max(data.open, data.close)}
+          y={data.high}
         />
         <Bar
           dataKey="wickBottom"
@@ -137,7 +135,7 @@ const CandlestickChart = ({
           barSize={2}
           stackId="lowerWick"
           yAxisId={0}
-          y={(data) => data.low}
+          y={data.low}
         />
       </ComposedChart>
     </ResponsiveContainer>
