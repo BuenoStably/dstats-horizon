@@ -65,7 +65,7 @@ const CandlestickChart = ({
     <ResponsiveContainer width="100%" height={400}>
       <ComposedChart 
         data={processedData}
-        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
       >
         <CartesianGrid
           strokeDasharray="3 3"
@@ -78,7 +78,12 @@ const CandlestickChart = ({
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
+          dy={10}
+          angle={-45}
+          textAnchor="end"
+          height={60}
           interval={0}
+          minTickGap={5}
         />
         <YAxis
           domain={['auto', 'auto']}
@@ -86,7 +91,7 @@ const CandlestickChart = ({
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
-          tickCount={10}
+          width={60}
         />
         <Tooltip
           content={({ active, payload, label }) => {
@@ -105,38 +110,32 @@ const CandlestickChart = ({
             return null;
           }}
         />
-        {/* Candlestick body */}
         <Bar
           dataKey="barHeight"
-          fill="var(--candlestick-color)"
-          stroke="var(--candlestick-color)"
-          className={data => data.isUp ? "candlestick-up" : "candlestick-down"}
+          fill={(data) => data.isUp ? "#22C55E" : "#dc2626"}
+          stroke={(data) => data.isUp ? "#22C55E" : "#dc2626"}
           barSize={8}
           stackId="candlestick"
           yAxisId={0}
-          y={data => data.barStart}
+          y={(data) => data.barStart}
         />
-        {/* Upper wick */}
         <Bar
           dataKey="wickTop"
-          fill="var(--candlestick-color)"
-          stroke="var(--candlestick-color)"
-          className={data => data.isUp ? "candlestick-up" : "candlestick-down"}
+          fill={(data) => data.isUp ? "#22C55E" : "#dc2626"}
+          stroke={(data) => data.isUp ? "#22C55E" : "#dc2626"}
           barSize={2}
           stackId="upperWick"
           yAxisId={0}
-          y={data => Math.max(data.open, data.close)}
+          y={(data) => Math.max(data.open, data.close)}
         />
-        {/* Lower wick */}
         <Bar
           dataKey="wickBottom"
-          fill="var(--candlestick-color)"
-          stroke="var(--candlestick-color)"
-          className={data => data.isUp ? "candlestick-up" : "candlestick-down"}
+          fill={(data) => data.isUp ? "#22C55E" : "#dc2626"}
+          stroke={(data) => data.isUp ? "#22C55E" : "#dc2626"}
           barSize={2}
           stackId="lowerWick"
           yAxisId={0}
-          y={data => data.low}
+          y={(data) => data.low}
         />
       </ComposedChart>
     </ResponsiveContainer>

@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -10,65 +9,33 @@ import {
 } from "recharts";
 import { format } from "date-fns";
 
-interface DataPoint {
-  date: string;
-  value: number;
-  ethereumValue?: number;
-}
-
 interface LineChartWithGradientProps {
-  data: DataPoint[];
+  data: Array<{ date: string; value: number }>;
   valueFormatter?: (value: number) => string;
   showSecondLine?: boolean;
-  secondLineData?: DataPoint[];
+  secondLineData?: any[];
   secondLineKey?: string;
   secondLineColor?: string;
-  color?: string;
-  yAxisDomain?: number[];
 }
 
-const LineChartWithGradient = ({ 
-  data, 
-  valueFormatter,
+const LineChartWithGradient = ({
+  data,
+  valueFormatter = (value: number) => value.toString(),
   showSecondLine,
   secondLineData,
   secondLineKey = "ethereumValue",
   secondLineColor = "#22C55E",
-  color = "#8702ff",
-  yAxisDomain,
 }: LineChartWithGradientProps) => {
-  const { minDomain, maxDomain } = useMemo(() => {
-    if (yAxisDomain) {
-      return {
-        minDomain: yAxisDomain[0],
-        maxDomain: yAxisDomain[1]
-      };
-    }
-
-    const values = data.map(d => d.value);
-    if (showSecondLine && secondLineData) {
-      values.push(...secondLineData.map(d => d[secondLineKey as keyof typeof d] as number));
-    }
-    const min = Math.min(...values);
-    const max = Math.max(...values);
-    const padding = (max - min) * 0.1;
-    
-    return {
-      minDomain: min - padding,
-      maxDomain: max + padding
-    };
-  }, [data, showSecondLine, secondLineData, secondLineKey, yAxisDomain]);
-
   return (
     <ResponsiveContainer width="100%" height={400}>
-      <AreaChart 
+      <AreaChart
         data={showSecondLine ? secondLineData : data}
-        margin={{ top: 10, right: 10, left: 35, bottom: 10 }}
+        margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
       >
         <defs>
           <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor={color} stopOpacity={0.2} />
-            <stop offset="95%" stopColor={color} stopOpacity={0} />
+            <stop offset="5%" stopColor="#8702ff" stopOpacity={0.2} />
+            <stop offset="95%" stopColor="#8702ff" stopOpacity={0} />
           </linearGradient>
           <linearGradient id="colorEthereum" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor={secondLineColor} stopOpacity={0.2} />
@@ -82,17 +49,19 @@ const LineChartWithGradient = ({
           stroke="#ffffff"
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
-          dy={5}
+          dy={10}
+          angle={-45}
+          textAnchor="end"
+          height={60}
           interval={0}
+          minTickGap={5}
         />
         <YAxis
-          domain={[minDomain, maxDomain]}
           tickFormatter={valueFormatter}
           stroke="#ffffff"
           tick={{ fill: '#ffffff' }}
           tickLine={{ stroke: '#ffffff' }}
-          dx={-5}
-          tickMargin={5}
+          width={60}
         />
         <Tooltip
           content={({ active, payload, label }) => {
@@ -104,7 +73,7 @@ const LineChartWithGradient = ({
                   </p>
                   {payload.map((entry: any, index: number) => (
                     <p key={index} className="text-white font-medium">
-                      {entry.name}: {valueFormatter ? valueFormatter(entry.value) : entry.value}
+                      {entry.name}: {valueFormatter(entry.value)}
                     </p>
                   ))}
                 </div>
@@ -117,7 +86,6 @@ const LineChartWithGradient = ({
           <Area
             type="monotone"
             dataKey={secondLineKey}
-            name="Ethereum TVL"
             stroke={secondLineColor}
             strokeWidth={2}
             fill="url(#colorEthereum)"
@@ -126,8 +94,7 @@ const LineChartWithGradient = ({
         <Area
           type="monotone"
           dataKey="value"
-          name="Fraxtal TVL"
-          stroke={color}
+          stroke="#8702ff"
           strokeWidth={2}
           fill="url(#colorValue)"
         />
