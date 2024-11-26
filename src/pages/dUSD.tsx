@@ -93,6 +93,7 @@ const DUSDPage = () => {
   const getNavDomain = () => {
     const amoData = filterDataByTimeframe(mockData.amoTvl, navTimeframe);
     const reserveData = filterDataByTimeframe(mockData.reserveTvl, navTimeframe);
+    const secondLineKey = "value"; // Define the key used to access the value in reserveData
     const allValues = [...amoData.map(d => d.value), ...reserveData.map(d => d[secondLineKey] || 0)];
     const min = Math.min(...allValues);
     const max = Math.max(...allValues);
