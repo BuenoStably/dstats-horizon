@@ -5,8 +5,8 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Bar,
-  Cell
+  Line,
+  ReferenceLine
 } from "recharts";
 import { format } from "date-fns";
 
@@ -24,14 +24,19 @@ const CandlestickChart = ({
   // Process data to include candlestick information
   const processedData = data.map((item, index) => {
     const prevValue = index > 0 ? data[index - 1].value : item.value;
-    const isUp = item.value >= prevValue;
+    const open = prevValue;
+    const close = item.value;
+    const high = Math.max(open, close) + (Math.random() * 0.002); // Simulate high
+    const low = Math.min(open, close) - (Math.random() * 0.002);  // Simulate low
+    const isUp = close >= open;
     
     return {
       ...item,
-      isUp,
-      color: isUp ? "#22C55E" : "#EF4444", // green for up, red for down
-      value: Math.abs(item.value - prevValue), // height of the candle
-      base: Math.min(item.value, prevValue), // starting point of the candle
+      open,
+      close,
+      high,
+      low,
+      isUp
     };
   });
 
@@ -60,23 +65,45 @@ const CandlestickChart = ({
         <Tooltip
           content={({ active, payload, label }) => {
             if (active && payload && payload.length) {
-              const currentValue = payload[0].payload.value + payload[0].payload.base;
+              const data = payload[0].payload;
               return (
                 <div className="bg-surface p-2 border border-white/10 rounded-lg">
                   <p className="text-white">{format(new Date(label), "MMM d, yyyy")}</p>
-                  <p className="text-white">Price: {valueFormatter(currentValue)}</p>
-                  <p className="text-white">Direction: {payload[0].payload.isUp ? "Up" : "Down"}</p>
+                  <p className="text-white">Open: {valueFormatter(data.open)}</p>
+                  <p className="text-white">Close: {valueFormatter(data.close)}</p>
+                  <p className="text-white">High: {valueFormatter(data.high)}</p>
+                  <p className="text-white">Low: {valueFormatter(data.low)}</p>
                 </div>
               );
             }
             return null;
           }}
         />
-        <Bar dataKey="value">
-          {processedData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={entry.color} stroke={entry.color} />
-          ))}
-        </Bar>
+        {/* Draw candlestick wicks */}
+        {processedData.map((entry, index) => (
+          <Line
+            key={`wick-${index}`}
+            data={[{ date: entry.date, value: entry.low }, { date: entry.date, value: entry.high }]}
+            type="linear"
+            dataKey="value"
+            stroke={entry.isUp ? "#22C55E" : "#EF4444"}
+            dot={false}
+            activeDot={false}
+            isAnimationActive={false}
+          />
+        ))}
+        {/* Draw candlestick bodies */}
+        {processedData.map((entry, index) => (
+          <ReferenceLine
+            key={`body-${index}`}
+            segment={[
+              { x: entry.date, y: entry.open },
+              { x: entry.date, y: entry.close }
+            ]}
+            stroke={entry.isUp ? "#22C55E" : "#EF4444"}
+            strokeWidth={8}
+          />
+        ))}
       </ComposedChart>
     </ResponsiveContainer>
   );
