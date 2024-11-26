@@ -7,32 +7,17 @@ import {
   CartesianGrid,
   Bar,
   Line,
-  ReferenceLine
 } from "recharts";
 import { format } from "date-fns";
 
 interface CandlestickChartProps {
   data: any[];
   valueFormatter: (value: number) => string;
-  yAxisDomain?: number[];
-}
-
-interface ProcessedDataPoint {
-  date: string;
-  value: number;
-  open: number;
-  close: number;
-  high: number;
-  low: number;
-  fill: string;
-  stroke: string;
-  wickColor: string;
 }
 
 const CandlestickChart = ({
   data,
   valueFormatter,
-  yAxisDomain,
 }: CandlestickChartProps) => {
   // Process data to include candlestick information
   const processedData = data.map((item, index) => {
@@ -41,13 +26,13 @@ const CandlestickChart = ({
     const close = item.value;
     
     // Calculate high and low with more pronounced wicks
-    const volatilityBase = Math.abs(close - open);
-    const randomVolatility = Math.random() * 0.005;
-    const highWick = volatilityBase * 2 + randomVolatility;
-    const lowWick = volatilityBase * 2 + randomVolatility;
+    // Ensure volatility is within 0.5% range for more natural price movements
+    const volatilityBase = 0.005; // 0.5% base volatility
+    const randomUpWick = Math.random() * volatilityBase;
+    const randomDownWick = Math.random() * volatilityBase;
     
-    const high = Math.max(open, close) + highWick;
-    const low = Math.min(open, close) - lowWick;
+    const high = Math.max(open, close) * (1 + randomUpWick);
+    const low = Math.min(open, close) * (1 - randomDownWick);
     const isUp = close > open;
 
     return {
@@ -60,6 +45,9 @@ const CandlestickChart = ({
       color: isUp ? "#22C55E" : "#EF4444",
     };
   });
+
+  // Calculate domain for Y axis (±10% from base price of 1.00)
+  const yAxisDomain = [0.9, 1.1]; // -10% to +10%
 
   return (
     <ResponsiveContainer width="100%" height={400}>
@@ -78,13 +66,15 @@ const CandlestickChart = ({
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
+          interval={0} // Show all dates
         />
         <YAxis
-          domain={yAxisDomain || ["auto", "auto"]}
+          domain={yAxisDomain}
           tickFormatter={valueFormatter}
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
+          tickCount={10} // Increase number of ticks for better granularity
         />
         <Tooltip
           content={({ active, payload, label }) => {
@@ -109,6 +99,8 @@ const CandlestickChart = ({
           fill="color"
           stroke="color"
           barSize={8}
+          stackId="stack"
+          baseValue={(datum) => Math.min(datum.open, datum.close)}
         />
         {/* High wick */}
         <Line

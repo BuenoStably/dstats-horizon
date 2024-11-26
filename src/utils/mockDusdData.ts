@@ -23,6 +23,15 @@ export const generateDusdMockData = (): DusdMockData => {
     return date.toISOString().split('T')[0];
   });
 
+  // Generate price data with natural volatility around 1.00
+  const price = dates.map(date => {
+    const randomVolatility = (Math.random() - 0.5) * 0.01; // ±0.5% daily volatility
+    return {
+      date,
+      value: 1.00 + randomVolatility
+    };
+  });
+
   // Generate TVL data (growing trend from 4.8M to 5.2M)
   const tvl = dates.map((date, i) => ({
     date,
@@ -53,12 +62,6 @@ export const generateDusdMockData = (): DusdMockData => {
     value: 45000 + (i * 500) + (Math.random() * 5000),
     revenueTvl: 45000 + (i * 500) + (Math.random() * 5000),
     annualizedRevenue: 0.15 + (Math.random() * 0.05)
-  }));
-
-  // Generate price data (fluctuating around 1.00)
-  const price = dates.map(date => ({
-    date,
-    value: 1 + (Math.random() * 0.02 - 0.01)
   }));
 
   // Generate AMO TVL data (around 2M with fluctuations)
