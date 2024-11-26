@@ -5,8 +5,7 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Rectangle,
-  Line
+  Bar
 } from "recharts";
 import { format } from "date-fns";
 
@@ -15,38 +14,6 @@ interface CandlestickChartProps {
   valueFormatter: (value: number) => string;
   yAxisDomain?: number[];
 }
-
-// Custom candlestick component
-const CustomCandlestick = (props: any) => {
-  const { x, y, width, height, open, close, low, high, fill } = props;
-  const isUp = close > open;
-  const color = isUp ? "#22C55E" : "#EF4444";
-  const bodyHeight = Math.abs(open - close);
-  const bodyY = Math.min(open, close);
-
-  return (
-    <g>
-      {/* Wick */}
-      <line
-        x1={x + width / 2}
-        y1={y + height - high}
-        x2={x + width / 2}
-        y2={y + height - low}
-        stroke={color}
-        strokeWidth={1}
-      />
-      {/* Body */}
-      <Rectangle
-        x={x}
-        y={y + height - bodyY - bodyHeight}
-        width={width}
-        height={Math.max(bodyHeight, 1)}
-        fill={color}
-        stroke={color}
-      />
-    </g>
-  );
-};
 
 const CandlestickChart = ({
   data,
@@ -60,19 +27,25 @@ const CandlestickChart = ({
     const close = item.value;
     const high = Math.max(open, close) + (Math.random() * 0.002);
     const low = Math.min(open, close) - (Math.random() * 0.002);
+    const isUp = close > open;
     
     return {
       ...item,
       open,
       close,
       high,
-      low
+      low,
+      value: close - open, // For bar height
+      color: isUp ? "#22C55E" : "#EF4444"
     };
   });
 
   return (
     <ResponsiveContainer width="100%" height={400}>
-      <ComposedChart data={processedData}>
+      <ComposedChart 
+        data={processedData}
+        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+      >
         <CartesianGrid
           strokeDasharray="3 3"
           vertical={false}
@@ -91,6 +64,7 @@ const CandlestickChart = ({
           stroke="#ffffff"
           tick={{ fill: "#ffffff" }}
           tickLine={{ stroke: "#ffffff" }}
+          orientation="right"
         />
         <Tooltip
           content={({ active, payload, label }) => {
@@ -109,19 +83,12 @@ const CandlestickChart = ({
             return null;
           }}
         />
-        {processedData.map((entry, index) => (
-          <CustomCandlestick
-            key={index}
-            x={index * 30}
-            y={0}
-            width={20}
-            height={400}
-            open={entry.open}
-            close={entry.close}
-            high={entry.high}
-            low={entry.low}
-          />
-        ))}
+        <Bar
+          dataKey="value"
+          fill={(data) => data.color}
+          stroke={(data) => data.color}
+          barSize={6}
+        />
       </ComposedChart>
     </ResponsiveContainer>
   );
