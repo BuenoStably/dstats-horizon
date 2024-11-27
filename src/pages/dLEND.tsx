@@ -1,6 +1,9 @@
 import Navbar from "@/components/Navbar";
 import MetricCard from "@/components/MetricCard";
 import { Percent, Users, ArrowUpDown, BarChart3, UserMinus } from "lucide-react";
+import { ChartCard } from "@/components/ChartCard";
+import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
+import { generateMockApyData } from "@/utils/mockApyData";
 
 const DLENDPage = () => {
   const metrics = [
@@ -36,6 +39,11 @@ const DLENDPage = () => {
     },
   ];
 
+  const supplyApyData = generateMockApyData(3.5, 4.8);
+  const borrowApyData = generateMockApyData(5.2, 5.9);
+
+  const formatPercentage = (value: number) => `${value.toFixed(2)}%`;
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -51,6 +59,30 @@ const DLENDPage = () => {
               icon={metric.icon}
             />
           ))}
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+          <ChartCard 
+            title="Raw dUSD Supply APY" 
+            onTimeframeChange={() => {}}
+            showTimeframes={false}
+          >
+            <LineChartWithGradient
+              data={supplyApyData}
+              valueFormatter={formatPercentage}
+            />
+          </ChartCard>
+
+          <ChartCard 
+            title="Raw dUSD Borrow APY" 
+            onTimeframeChange={() => {}}
+            showTimeframes={false}
+          >
+            <LineChartWithGradient
+              data={borrowApyData}
+              valueFormatter={formatPercentage}
+            />
+          </ChartCard>
         </div>
       </main>
     </div>
