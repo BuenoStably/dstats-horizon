@@ -53,14 +53,15 @@ const ChartCard = ({
           spacing={2}
           mb={3}
         >
-          <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: '100%', textAlign: 'left' }}>
             <Typography 
               variant="h6" 
               sx={{ 
                 color: 'white', 
                 fontWeight: 600, 
                 mb: legend ? 1 : 0,
-                pl: 0
+                pl: 0,
+                textAlign: 'left'
               }}
             >
               {title}
