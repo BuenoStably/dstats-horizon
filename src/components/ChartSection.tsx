@@ -74,6 +74,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             secondLineKey="ethereumValue"
             secondLineColor="#22C55E"
             useAreaGradient={true}
+            yAxisDomain={[0, 'auto']}
           />
         </ChartCard>
 
