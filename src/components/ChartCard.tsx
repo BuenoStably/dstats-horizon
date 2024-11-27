@@ -42,15 +42,13 @@ const ChartCard = ({
         borderRadius: '12px',
         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         p: { xs: 2, sm: 3 },
-        height: '100%',
+        height: '400px',
         display: 'flex',
         flexDirection: 'column',
-        position: 'relative',
-        minHeight: '400px'
       }}
       className={className}
     >
-      <CardContent sx={{ p: 0, height: '100%' }}>
+      <CardContent sx={{ p: 0, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
         <Stack 
           direction={{ xs: 'column', sm: 'row' }} 
           justifyContent="space-between" 
@@ -115,7 +113,7 @@ const ChartCard = ({
             </Stack>
           )}
         </Stack>
-        <Box sx={{ height: 'calc(100% - 80px)' }}>
+        <Box sx={{ flexGrow: 1, minHeight: 0 }}>
           {children}
         </Box>
       </CardContent>
