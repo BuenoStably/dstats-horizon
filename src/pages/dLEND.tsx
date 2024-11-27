@@ -52,9 +52,6 @@ const DLENDPage = () => {
             />
           ))}
         </div>
-        <div className="text-center text-gray-500 mt-8">
-          More analytics features coming soon
-        </div>
       </main>
     </div>
   );
