@@ -29,7 +29,7 @@ body {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-/* Make tooltip styles more specific and forceful */
+/* Global chart tooltip styles */
 .recharts-default-tooltip {
   @apply bg-surface text-white border border-white/10 !important;
   border-radius: 12px !important;
@@ -37,18 +37,27 @@ body {
   background: rgba(0, 0, 0, 0.8) !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
   text-align: left !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  text-transform: capitalize !important;
 }
 
 .recharts-default-tooltip .recharts-tooltip-label {
   text-align: left !important;
   padding: 4px 0 !important;
   margin: 0 !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  text-transform: capitalize !important;
 }
 
 .recharts-default-tooltip .recharts-tooltip-item-list {
   text-align: left !important;
   padding: 0 !important;
   margin: 0 !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  text-transform: capitalize !important;
 }
 
 .recharts-default-tooltip .recharts-tooltip-item {
@@ -58,6 +67,9 @@ body {
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  text-transform: capitalize !important;
 }
 
 .recharts-tooltip-item-name,
@@ -67,6 +79,9 @@ body {
   text-align: left !important;
   padding-left: 0 !important;
   margin: 0 4px !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  text-transform: capitalize !important;
 }
 
 .MuiTooltip-tooltip {
@@ -78,12 +93,17 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   padding: 8px 12px !important;
   font-size: 12px !important;
+  font-style: normal !important;
+  text-transform: capitalize !important;
   color: #ffffff !important;
   text-align: left !important;
 }
 
 .MuiTooltip-tooltip * {
   text-align: left !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  text-transform: capitalize !important;
 }
 
 .candlestick-up {
