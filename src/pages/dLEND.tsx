@@ -74,7 +74,7 @@ const DLENDPage = () => {
             <LineChartWithGradient
               data={filterDataByTimeframe(supplyApyData, supplyTimeframe)}
               valueFormatter={(value) => formatPercentage(value)}
-              yAxisDomain={[0, 'auto']}
+              yAxisDomain={[0, undefined]}
             />
           </ChartCard>
 
@@ -85,7 +85,7 @@ const DLENDPage = () => {
             <LineChartWithGradient
               data={filterDataByTimeframe(borrowApyData, borrowTimeframe)}
               valueFormatter={(value) => formatPercentage(value)}
-              yAxisDomain={[0, 'auto']}
+              yAxisDomain={[0, undefined]}
             />
           </ChartCard>
         </div>
