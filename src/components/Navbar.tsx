@@ -47,10 +47,13 @@ const Navbar = () => {
               style={{
                 color: isActive(item) ? '#8702ff' : 'white',
                 textDecoration: 'none',
-                transition: 'color 0.2s',
-                '&:hover': {
-                  color: '#8702ff'
-                }
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#8702ff';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = isActive(item) ? '#8702ff' : 'white';
               }}
             >
               {item}
@@ -66,10 +69,13 @@ const Navbar = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '4px',
-              transition: 'color 0.2s',
-              '&:hover': {
-                color: '#8702ff'
-              }
+              transition: 'color 0.2s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#8702ff';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'white';
             }}
           >
             dTRINITY App
