@@ -30,22 +30,27 @@ body {
 }
 
 .recharts-default-tooltip {
-  @apply bg-surface text-white border border-white/10 text-left !important;
+  @apply bg-surface text-white border border-white/10 !important;
   border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
   background: rgba(0, 0, 0, 0.8) !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
+  text-align: left !important;
 }
 
 .recharts-default-tooltip .recharts-tooltip-label,
 .recharts-default-tooltip .recharts-tooltip-item-list,
-.recharts-default-tooltip .recharts-tooltip-item {
-  color: #ffffff !important;
+.recharts-default-tooltip .recharts-tooltip-item,
+.recharts-tooltip-item-name,
+.recharts-tooltip-item-separator,
+.recharts-tooltip-item-value,
+.recharts-tooltip-item-unit {
   text-align: left !important;
+  padding-left: 0 !important;
 }
 
 .MuiTooltip-tooltip {
-  @apply bg-surface text-white border-white/10 text-left !important;
+  @apply bg-surface text-white border-white/10 !important;
   border-radius: 12px !important;
   background-color: rgba(0, 0, 0, 0.8) !important;
   backdrop-filter: blur(10px) !important;
@@ -54,6 +59,11 @@ body {
   padding: 8px 12px !important;
   font-size: 12px !important;
   color: #ffffff !important;
+  text-align: left !important;
+}
+
+.MuiTooltip-tooltip * {
+  text-align: left !important;
 }
 
 .candlestick-up {
