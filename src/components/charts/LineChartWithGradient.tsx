@@ -47,9 +47,9 @@ const LineChartWithGradient = ({
     const minValue = Math.min(...values);
     const maxValue = Math.max(...values);
     
-    // Calculate domain with 10% padding
-    const min = minValue - (Math.abs(minValue) * 0.1);
-    const max = maxValue + (Math.abs(maxValue) * 0.1);
+    // Calculate domain with 5% padding
+    const min = minValue - (Math.abs(minValue) * 0.05);
+    const max = maxValue + (Math.abs(maxValue) * 0.05);
     
     return [min, max] as [number, number];
   };
