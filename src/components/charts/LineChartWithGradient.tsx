@@ -16,7 +16,7 @@ interface LineChartWithGradientProps {
   secondLineData?: any[];
   secondLineKey?: string;
   secondLineColor?: string;
-  yAxisDomain?: [number, number];
+  yAxisDomain?: [number | undefined, number | undefined];
   useAreaGradient?: boolean;
 }
 
@@ -72,17 +72,17 @@ const LineChartWithGradient = ({
           content={({ active, payload, label }) => {
             if (active && payload && payload.length) {
               return (
-                <div className="recharts-default-tooltip">
-                  <p className="recharts-tooltip-label">
+                <div className="bg-black/60 text-white rounded-lg border border-white/10 p-3 shadow-lg backdrop-blur-sm">
+                  <p className="text-white/70 text-sm mb-1">
                     {format(new Date(label), "MMM d, yyyy")}
                   </p>
                   {payload.map((entry: any, index: number) => (
-                    <p key={index} className="recharts-tooltip-item">
-                      <span className="recharts-tooltip-item-name">
-                        {entry.dataKey === "value" ? "Fraxtal TVL" : "Total TVL"}
+                    <p key={index} className="text-sm">
+                      <span>
+                        {entry.dataKey === "value" ? "Value" : "Ethereum TVL"}
                       </span>
-                      <span className="recharts-tooltip-item-separator">: </span>
-                      <span className="recharts-tooltip-item-value">
+                      <span>: </span>
+                      <span className="font-medium">
                         {valueFormatter(entry.value)}
                       </span>
                     </p>
