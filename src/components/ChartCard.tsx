@@ -46,9 +46,6 @@ const ChartCard = ({
         flexDirection: 'column',
         flex: 1,
         minHeight: 0,
-        height: '100%',
-        alignSelf: 'flex-end',
-        width: '100%'
       }}
       className={className}
     >
