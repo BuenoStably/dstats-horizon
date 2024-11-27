@@ -70,13 +70,17 @@ const LineChartWithGradient = ({
           content={({ active, payload, label }) => {
             if (active && payload && payload.length) {
               return (
-                <div className="bg-[rgb(18,17,28)] border border-white/10 p-2 rounded-lg shadow-lg backdrop-blur-sm">
-                  <p className="text-white text-sm">
+                <div className="recharts-default-tooltip">
+                  <p className="recharts-tooltip-label">
                     {format(new Date(label), "MMM d, yyyy")}
                   </p>
                   {payload.map((entry: any, index: number) => (
-                    <p key={index} className="text-white font-medium">
-                      {entry.name}: {valueFormatter(entry.value)}
+                    <p key={index} className="recharts-tooltip-item">
+                      <span className="recharts-tooltip-item-name">{entry.name}</span>
+                      <span className="recharts-tooltip-item-separator">: </span>
+                      <span className="recharts-tooltip-item-value">
+                        {valueFormatter(entry.value)}
+                      </span>
                     </p>
                   ))}
                 </div>
