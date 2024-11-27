@@ -50,25 +50,6 @@ body {
   margin-bottom: 4px !important;
 }
 
-/* Chart axis styles */
-.recharts-cartesian-axis.yAxis line,
-.recharts-cartesian-axis.yAxis path {
-  stroke: transparent !important;
-}
-
-.recharts-cartesian-axis.yAxis text {
-  fill: rgba(255, 255, 255, 0.5) !important;
-}
-
-.recharts-cartesian-axis.xAxis line,
-.recharts-cartesian-axis.xAxis path {
-  stroke: #4B5563 !important;
-}
-
-.recharts-cartesian-axis.xAxis text {
-  fill: #4B5563 !important;
-}
-
 .candlestick-up {
   --candlestick-color: #22C55E;
 }
