@@ -16,7 +16,7 @@ interface LineChartWithGradientProps {
   secondLineData?: any[];
   secondLineKey?: string;
   secondLineColor?: string;
-  yAxisDomain?: [number | undefined, number | undefined];
+  yAxisDomain?: [(number | 'auto' | undefined), (number | 'auto' | undefined)];
   useAreaGradient?: boolean;
 }
 
