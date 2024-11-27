@@ -73,13 +73,13 @@ const LineChartWithGradient = ({
             if (active && payload && payload.length) {
               return (
                 <div className="bg-black/60 text-white rounded-lg border border-white/10 p-3 shadow-lg backdrop-blur-sm">
-                  <p className="text-white/70 text-sm mb-1">
+                  <p className="text-white text-xs mb-1">
                     {format(new Date(label), "MMM d, yyyy")}
                   </p>
                   {payload.map((entry: any, index: number) => (
-                    <p key={index} className="text-sm">
+                    <p key={index} className="text-white text-xs">
                       <span>
-                        {entry.dataKey === "value" ? "Value" : "Ethereum TVL"}
+                        {entry.dataKey === "value" ? "Value" : "Value"}
                       </span>
                       <span>: </span>
                       <span className="font-medium">
