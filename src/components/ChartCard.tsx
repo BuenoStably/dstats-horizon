@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography, Box, Button, Stack } from '@mui/material';
+import { Card, CardContent, Typography, Box, Button, Stack, Grid } from '@mui/material';
 import { useState } from "react";
 
 interface LegendItem {
@@ -123,9 +123,11 @@ const ChartCard = ({
             </Stack>
           )}
         </Stack>
-        <Box 
+        <Grid 
+          container 
+          item 
+          xs 
           sx={{ 
-            flex: 1,
             minHeight: 0,
             '& > *': {
               height: '100%',
@@ -134,7 +136,7 @@ const ChartCard = ({
           }}
         >
           {children}
-        </Box>
+        </Grid>
       </CardContent>
     </Card>
   );
