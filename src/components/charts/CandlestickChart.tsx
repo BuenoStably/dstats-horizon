@@ -89,8 +89,8 @@ const CandlestickChart = ({
           domain={['auto', 'auto']}
           tickFormatter={valueFormatter}
           stroke="#ffffff"
-          tick={{ fill: "#ffffff" }}
-          tickLine={{ stroke: "#ffffff" }}
+          tick={{ fill: '#ffffff' }}
+          tickLine={{ stroke: '#ffffff' }}
           width={60}
         />
         <Tooltip
@@ -98,12 +98,22 @@ const CandlestickChart = ({
             if (active && payload && payload.length) {
               const data = payload[0].payload as CandlestickData;
               return (
-                <div className="bg-surface p-2 border border-white/10 rounded-lg">
-                  <p className="text-white">{format(new Date(label), "MMM d, yyyy")}</p>
-                  <p className="text-white">Open: {valueFormatter(data.open)}</p>
-                  <p className="text-white">Close: {valueFormatter(data.close)}</p>
-                  <p className="text-white">High: {valueFormatter(data.high)}</p>
-                  <p className="text-white">Low: {valueFormatter(data.low)}</p>
+                <div>
+                  <p className="text-gray-400 text-xs mb-1">
+                    {format(new Date(label), "MMM d, yyyy")}
+                  </p>
+                  <p className="text-white text-xs">
+                    Open: {valueFormatter(data.open)}
+                  </p>
+                  <p className="text-white text-xs">
+                    Close: {valueFormatter(data.close)}
+                  </p>
+                  <p className="text-white text-xs">
+                    High: {valueFormatter(data.high)}
+                  </p>
+                  <p className="text-white text-xs">
+                    Low: {valueFormatter(data.low)}
+                  </p>
                 </div>
               );
             }
