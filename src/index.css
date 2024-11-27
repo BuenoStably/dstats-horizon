@@ -30,7 +30,7 @@ body {
 }
 
 .recharts-default-tooltip {
-  @apply bg-surface text-white border border-white/10 !important;
+  @apply bg-surface text-white border border-white/10 text-left !important;
   border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
   background: rgba(0, 0, 0, 0.8) !important;
@@ -41,10 +41,11 @@ body {
 .recharts-default-tooltip .recharts-tooltip-item-list,
 .recharts-default-tooltip .recharts-tooltip-item {
   color: #ffffff !important;
+  text-align: left !important;
 }
 
 .MuiTooltip-tooltip {
-  @apply bg-surface text-white border-white/10 !important;
+  @apply bg-surface text-white border-white/10 text-left !important;
   border-radius: 12px !important;
   background-color: rgba(0, 0, 0, 0.8) !important;
   backdrop-filter: blur(10px) !important;
