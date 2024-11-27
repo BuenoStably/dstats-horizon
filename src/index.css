@@ -50,6 +50,24 @@ body {
   margin-bottom: 4px !important;
 }
 
+/* Chart axis styles */
+.recharts-cartesian-axis.recharts-xAxis .recharts-cartesian-axis-line {
+  stroke: #4B5563;
+}
+
+.recharts-cartesian-axis.recharts-yAxis .recharts-cartesian-axis-line {
+  stroke: transparent;
+}
+
+.recharts-cartesian-axis.recharts-xAxis .recharts-text {
+  fill: #ffffff !important;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  display: none;
+}
+
 .candlestick-up {
   --candlestick-color: #22C55E;
 }
