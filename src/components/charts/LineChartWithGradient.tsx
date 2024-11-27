@@ -15,7 +15,7 @@ interface LineChartWithGradientProps {
   secondLineData?: any[];
   secondLineKey?: string;
   secondLineColor?: string;
-  yAxisDomain?: [(number | 'auto' | undefined), (number | 'auto' | undefined)];
+  yAxisDomain?: [number | 'auto' | undefined, number | 'auto' | undefined];
   useAreaGradient?: boolean;
 }
 
@@ -29,6 +29,30 @@ const LineChartWithGradient = ({
   yAxisDomain = ['auto', 'auto'],
   useAreaGradient = false,
 }: LineChartWithGradientProps) => {
+  // Generate ticks in 0.25% increments within the domain
+  const generateTicks = (domain: [number, number]) => {
+    const [min, max] = domain;
+    const ticks: number[] = [];
+    let current = Math.floor(min * 4) / 4; // Round down to nearest 0.25
+    while (current <= max) {
+      ticks.push(current);
+      current += 0.25;
+    }
+    return ticks;
+  };
+
+  // Get the actual domain based on the provided yAxisDomain or data
+  const getEffectiveDomain = () => {
+    if (yAxisDomain && typeof yAxisDomain[0] === 'number' && typeof yAxisDomain[1] === 'number') {
+      return yAxisDomain as [number, number];
+    }
+    const values = data.map(item => item.value);
+    return [Math.min(...values), Math.max(...values)];
+  };
+
+  const domain = getEffectiveDomain();
+  const ticks = generateTicks(domain);
+
   return (
     <ResponsiveContainer width="100%" height={400}>
       <AreaChart
@@ -66,7 +90,8 @@ const LineChartWithGradient = ({
           tickLine={{ stroke: 'transparent' }}
           axisLine={{ stroke: 'transparent' }}
           width={60}
-          domain={yAxisDomain}
+          domain={domain}
+          ticks={ticks}
         />
         <Tooltip
           content={({ active, payload, label }) => {
