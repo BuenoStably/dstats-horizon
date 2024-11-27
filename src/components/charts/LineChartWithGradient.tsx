@@ -43,11 +43,15 @@ const LineChartWithGradient = ({
 
   // Get the actual domain based on the provided yAxisDomain or data
   const getEffectiveDomain = () => {
-    if (yAxisDomain && typeof yAxisDomain[0] === 'number' && typeof yAxisDomain[1] === 'number') {
-      return yAxisDomain as [number, number];
-    }
     const values = data.map(item => item.value);
-    return [Math.min(...values), Math.max(...values)];
+    const minValue = Math.min(...values);
+    const maxValue = Math.max(...values);
+    
+    // Calculate domain with 10% padding
+    const min = minValue - (Math.abs(minValue) * 0.1);
+    const max = maxValue + (Math.abs(maxValue) * 0.1);
+    
+    return [min, max] as [number, number];
   };
 
   const domain = getEffectiveDomain();
