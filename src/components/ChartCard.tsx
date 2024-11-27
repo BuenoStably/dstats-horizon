@@ -123,7 +123,7 @@ const ChartCard = ({
             </Stack>
           )}
         </Stack>
-        <Grid container sx={{ flex: 1, minHeight: 0, '& > *': { height: '250px', width: '100%' } }}>
+        <Grid container sx={{ flex: 1, minHeight: 0, '& > *': { height: '350px', width: '100%' } }}>
           {children}
         </Grid>
       </CardContent>
