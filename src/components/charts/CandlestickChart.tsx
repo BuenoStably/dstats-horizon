@@ -1,11 +1,12 @@
 import {
-  ResponsiveContainer,
   ComposedChart,
+  Line,
+  Bar,
   XAxis,
   YAxis,
-  Tooltip,
   CartesianGrid,
-  Bar,
+  Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 import { format } from "date-fns";
 
@@ -76,8 +77,8 @@ const CandlestickChart = ({
           dataKey="date"
           tickFormatter={(value) => format(new Date(value), "MMM d")}
           stroke="#ffffff"
-          tick={{ fill: "#ffffff" }}
-          tickLine={{ stroke: "#ffffff" }}
+          tick={{ fill: '#ffffff' }}
+          tickLine={{ stroke: '#ffffff' }}
           dy={8}
           angle={-45}
           textAnchor="end"
@@ -98,8 +99,8 @@ const CandlestickChart = ({
             if (active && payload && payload.length) {
               const data = payload[0].payload as CandlestickData;
               return (
-                <div>
-                  <p className="text-gray-400 text-xs mb-1">
+                <div className="bg-card p-3 border border-white/10 rounded-xl backdrop-blur-sm">
+                  <p className="text-white text-xs mb-1">
                     {format(new Date(label), "MMM d, yyyy")}
                   </p>
                   <p className="text-white text-xs">
