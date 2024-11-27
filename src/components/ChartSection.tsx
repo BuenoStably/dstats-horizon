@@ -3,6 +3,7 @@ import ChartCard from "./ChartCard";
 import LineChartWithGradient from "./charts/LineChartWithGradient";
 import RevenueChart from "./charts/RevenueChart";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
+import { Grid, Box } from "@mui/material";
 
 interface ChartSectionProps {
   mockData: {
@@ -56,67 +57,76 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
   const formatNumber = (value: number) => value.toFixed(0);
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} lg={6}>
+          <ChartCard 
+            title="Total Protocol TVL" 
+            onTimeframeChange={setTvlTimeframe}
+            legend={[
+              { color: "#8702ff", label: "Fraxtal TVL" },
+              { color: "#0EA5E9", label: "Ethereum TVL" }
+            ]}
+            className="flex flex-col"
+          >
+            <LineChartWithGradient
+              data={filterDataByTimeframe(mockData.tvl, tvlTimeframe)}
+              valueFormatter={formatCurrency}
+              showSecondLine
+              secondLineData={generateEthereumTVL(filterDataByTimeframe(mockData.tvl, tvlTimeframe))}
+              secondLineKey="ethereumValue"
+              secondLineColor="#0EA5E9"
+              useAreaGradient={true}
+              yAxisDomain={[0, 'auto']}
+            />
+          </ChartCard>
+        </Grid>
+
+        <Grid item xs={12} lg={6}>
+          <ChartCard title="Total dUSD Supply" onTimeframeChange={setSupplyTimeframe}>
+            <LineChartWithGradient
+              data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
+              valueFormatter={formatCurrency}
+              useAreaGradient={true}
+              yAxisDomain={[0, 'auto']}
+            />
+          </ChartCard>
+        </Grid>
+
+        <Grid item xs={12} lg={6}>
+          <ChartCard title="Net dUSD Borrow APY" onTimeframeChange={setApyTimeframe}>
+            <LineChartWithGradient
+              data={filterDataByTimeframe(mockData.apy, apyTimeframe)}
+              valueFormatter={formatPercentage}
+              useAreaGradient={false}
+              yAxisDomain={[0, 'auto']}
+            />
+          </ChartCard>
+        </Grid>
+
+        <Grid item xs={12} lg={6}>
+          <ChartCard title="Total Users" onTimeframeChange={setUsersTimeframe}>
+            <LineChartWithGradient
+              data={filterDataByTimeframe(mockData.users, usersTimeframe)}
+              valueFormatter={formatNumber}
+              useAreaGradient={true}
+              yAxisDomain={[0, 'auto']}
+            />
+          </ChartCard>
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12}>
         <ChartCard 
-          title="Total Protocol TVL" 
-          onTimeframeChange={setTvlTimeframe}
-          legend={[
-            { color: "#8702ff", label: "Fraxtal TVL" },
-            { color: "#0EA5E9", label: "Ethereum TVL" }
-          ]}
-          className="flex flex-col"
+          title="Protocol Revenue" 
+          onTimeframeChange={setRevenueTimeframe}
         >
-          <LineChartWithGradient
-            data={filterDataByTimeframe(mockData.tvl, tvlTimeframe)}
-            valueFormatter={formatCurrency}
-            showSecondLine
-            secondLineData={generateEthereumTVL(filterDataByTimeframe(mockData.tvl, tvlTimeframe))}
-            secondLineKey="ethereumValue"
-            secondLineColor="#0EA5E9"
-            useAreaGradient={true}
-            yAxisDomain={[0, 'auto']}
+          <RevenueChart 
+            data={filterDataByTimeframe(mockData.revenue, revenueTimeframe)}
+            formatCurrency={formatCurrency}
           />
         </ChartCard>
-
-        <ChartCard title="Total dUSD Supply" onTimeframeChange={setSupplyTimeframe}>
-          <LineChartWithGradient
-            data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
-            valueFormatter={formatCurrency}
-            useAreaGradient={true}
-            yAxisDomain={[0, 'auto']}
-          />
-        </ChartCard>
-
-        <ChartCard title="Net dUSD Borrow APY" onTimeframeChange={setApyTimeframe}>
-          <LineChartWithGradient
-            data={filterDataByTimeframe(mockData.apy, apyTimeframe)}
-            valueFormatter={formatPercentage}
-            useAreaGradient={false}
-            yAxisDomain={[0, 'auto']}
-          />
-        </ChartCard>
-
-        <ChartCard title="Total Users" onTimeframeChange={setUsersTimeframe}>
-          <LineChartWithGradient
-            data={filterDataByTimeframe(mockData.users, usersTimeframe)}
-            valueFormatter={formatNumber}
-            useAreaGradient={true}
-            yAxisDomain={[0, 'auto']}
-          />
-        </ChartCard>
-      </div>
-
-      <ChartCard 
-        title="Protocol Revenue" 
-        onTimeframeChange={setRevenueTimeframe}
-        className="col-span-full"
-      >
-        <RevenueChart 
-          data={filterDataByTimeframe(mockData.revenue, revenueTimeframe)}
-          formatCurrency={formatCurrency}
-        />
-      </ChartCard>
-    </div>
+      </Grid>
+    </Box>
   );
 };
