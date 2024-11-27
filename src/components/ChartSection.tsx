@@ -63,7 +63,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
           onTimeframeChange={setTvlTimeframe}
           legend={[
             { color: "#8702ff", label: "Fraxtal TVL" },
-            { color: "#22C55E", label: "Ethereum TVL" }
+            { color: "#0EA5E9", label: "Ethereum TVL" }
           ]}
         >
           <LineChartWithGradient
@@ -72,7 +72,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             showSecondLine
             secondLineData={generateEthereumTVL(filterDataByTimeframe(mockData.tvl, tvlTimeframe))}
             secondLineKey="ethereumValue"
-            secondLineColor="#22C55E"
+            secondLineColor="#0EA5E9"
             useAreaGradient={true}
             yAxisDomain={[0, 'auto']}
           />
