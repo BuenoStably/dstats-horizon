@@ -5,7 +5,8 @@ import { ChartSection } from "@/components/ChartSection";
 import { DollarSign, Wallet, Percent, Gift } from "lucide-react";
 import { useMetrics } from "@/hooks/useMetrics";
 import { generateDusdMockData } from "@/utils/mockDusdData";
-import { Box, Typography, Container, Grid } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
+import Grid from '@mui/material/Unstable_Grid2';
 
 const MetricsSection = () => {
   const { data: metrics, isLoading, error } = useMetrics();
@@ -46,7 +47,7 @@ const MetricsSection = () => {
   return (
     <Grid container spacing={2} sx={{ mb: { xs: 3, sm: 4 } }}>
       {metricsConfig.map((metric, index) => (
-        <Grid item xs={12} sm={6} lg={2.4} key={index}>
+        <Grid xs={12} sm={6} lg={2.4} key={index}>
           <MetricCard 
             {...metric} 
             isLoading={isLoading}
