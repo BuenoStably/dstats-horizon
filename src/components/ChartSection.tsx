@@ -3,8 +3,7 @@ import ChartCard from "./ChartCard";
 import LineChartWithGradient from "./charts/LineChartWithGradient";
 import RevenueChart from "./charts/RevenueChart";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
-import { Box } from "@mui/material";
-import Grid from '@mui/material/Unstable_Grid2';
+import { Box, Grid } from "@mui/material";
 
 interface ChartSectionProps {
   mockData: {
@@ -59,7 +58,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       <Grid container spacing={3}>
-        <Grid xs={12} lg={6}>
+        <Grid item xs={12} lg={6}>
           <ChartCard 
             title="Total Protocol TVL" 
             onTimeframeChange={setTvlTimeframe}
@@ -82,7 +81,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
           </ChartCard>
         </Grid>
 
-        <Grid xs={12} lg={6}>
+        <Grid item xs={12} lg={6}>
           <ChartCard title="Total dUSD Supply" onTimeframeChange={setSupplyTimeframe}>
             <LineChartWithGradient
               data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
@@ -93,7 +92,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
           </ChartCard>
         </Grid>
 
-        <Grid xs={12} lg={6}>
+        <Grid item xs={12} lg={6}>
           <ChartCard title="Net dUSD Borrow APY" onTimeframeChange={setApyTimeframe}>
             <LineChartWithGradient
               data={filterDataByTimeframe(mockData.apy, apyTimeframe)}
@@ -104,7 +103,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
           </ChartCard>
         </Grid>
 
-        <Grid xs={12} lg={6}>
+        <Grid item xs={12} lg={6}>
           <ChartCard title="Total Users" onTimeframeChange={setUsersTimeframe}>
             <LineChartWithGradient
               data={filterDataByTimeframe(mockData.users, usersTimeframe)}
@@ -117,7 +116,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
       </Grid>
 
       <Grid container>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <ChartCard 
             title="Protocol Revenue" 
             onTimeframeChange={setRevenueTimeframe}
