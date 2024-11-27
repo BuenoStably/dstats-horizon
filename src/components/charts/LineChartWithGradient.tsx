@@ -17,6 +17,7 @@ interface LineChartWithGradientProps {
   secondLineKey?: string;
   secondLineColor?: string;
   yAxisDomain?: [number, number];
+  useAreaGradient?: boolean;
 }
 
 const LineChartWithGradient = ({
@@ -27,6 +28,7 @@ const LineChartWithGradient = ({
   secondLineKey = "ethereumValue",
   secondLineColor = "#22C55E",
   yAxisDomain,
+  useAreaGradient = false,
 }: LineChartWithGradientProps) => {
   return (
     <ResponsiveContainer width="100%" height={400}>
@@ -76,7 +78,9 @@ const LineChartWithGradient = ({
                   </p>
                   {payload.map((entry: any, index: number) => (
                     <p key={index} className="recharts-tooltip-item">
-                      <span className="recharts-tooltip-item-name">{entry.name}</span>
+                      <span className="recharts-tooltip-item-name">
+                        {entry.dataKey === "value" ? "Fraxtal TVL" : "Total TVL"}
+                      </span>
                       <span className="recharts-tooltip-item-separator">: </span>
                       <span className="recharts-tooltip-item-value">
                         {valueFormatter(entry.value)}
@@ -95,7 +99,8 @@ const LineChartWithGradient = ({
             dataKey={secondLineKey}
             stroke={secondLineColor}
             strokeWidth={2}
-            fill="url(#colorEthereum)"
+            fill={useAreaGradient ? "url(#colorEthereum)" : "none"}
+            fillOpacity={1}
           />
         )}
         <Area
@@ -103,7 +108,8 @@ const LineChartWithGradient = ({
           dataKey="value"
           stroke="#8702ff"
           strokeWidth={2}
-          fill="url(#colorValue)"
+          fill={useAreaGradient ? "url(#colorValue)" : "none"}
+          fillOpacity={1}
         />
       </AreaChart>
     </ResponsiveContainer>

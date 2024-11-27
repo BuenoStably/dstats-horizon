@@ -21,11 +21,11 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
   const [usersTimeframe, setUsersTimeframe] = useState("7D");
   const [revenueTimeframe, setRevenueTimeframe] = useState("7D");
 
-  // Generate Ethereum TVL mock data
+  // Generate Ethereum TVL mock data with aggregate values
   const generateEthereumTVL = (data: any[]) => {
     return data.map((item) => ({
       ...item,
-      ethereumValue: 5120000 + (Math.random() * 30000), // Random values between 5.12M and 5.15M
+      ethereumValue: item.value + (5120000 + (Math.random() * 30000)), // Add Fraxtal TVL to Ethereum TVL
     }));
   };
 
@@ -48,7 +48,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
           onTimeframeChange={setTvlTimeframe}
           legend={[
             { color: "#8702ff", label: "Fraxtal TVL" },
-            { color: "#22C55E", label: "Ethereum TVL" }
+            { color: "#22C55E", label: "Total TVL" }
           ]}
         >
           <LineChartWithGradient
@@ -58,6 +58,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             secondLineData={generateEthereumTVL(filterDataByTimeframe(mockData.tvl, tvlTimeframe))}
             secondLineKey="ethereumValue"
             secondLineColor="#22C55E"
+            useAreaGradient={true}
           />
         </ChartCard>
 
