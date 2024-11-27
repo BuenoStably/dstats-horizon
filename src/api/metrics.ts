@@ -7,7 +7,7 @@ export interface MetricsData {
 }
 
 export const fetchMetrics = async (): Promise<MetricsData> => {
-  // Replace this URL with your actual API endpoint
+  // Using a proper URL format without extra colon
   const response = await fetch('https://api.example.com/metrics');
   if (!response.ok) {
     throw new Error('Failed to fetch metrics');
