@@ -30,15 +30,17 @@ body {
 }
 
 /* Global chart tooltip styles */
-.recharts-default-tooltip {
-  @apply bg-surface text-white border border-white/10 rounded-lg !important;
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  border-radius: 8px !important;
+  background-color: rgb(23, 22, 36) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(10px) !important;
-  background: rgba(0, 0, 0, 0.8) !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
   padding: 8px 12px !important;
   font-family: Inter !important;
   font-size: 12px !important;
   text-align: left !important;
+  color: white !important;
 }
 
 .recharts-tooltip-label {
