@@ -72,7 +72,7 @@ const LineChartWithGradient = ({
           content={({ active, payload, label }) => {
             if (active && payload && payload.length) {
               return (
-                <div className="bg-black/60 text-white rounded-lg border border-white/10 p-3 shadow-lg backdrop-blur-sm">
+                <div className="bg-black/60 text-white rounded-xl border border-white/10 p-3 shadow-lg backdrop-blur-sm">
                   <p className="text-white text-xs mb-1">
                     {format(new Date(label), "MMM d, yyyy")}
                   </p>
