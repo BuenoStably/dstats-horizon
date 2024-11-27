@@ -21,12 +21,27 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
   const [usersTimeframe, setUsersTimeframe] = useState("7D");
   const [revenueTimeframe, setRevenueTimeframe] = useState("7D");
 
-  // Generate Ethereum TVL mock data with aggregate values
+  // Generate Ethereum TVL mock data with more natural volatility
   const generateEthereumTVL = (data: any[]) => {
-    return data.map((item) => ({
-      ...item,
-      ethereumValue: item.value + (5120000 + (Math.random() * 30000)), // Add Fraxtal TVL to Ethereum TVL
-    }));
+    // Base value for Ethereum TVL (lower than Fraxtal)
+    const baseEthValue = 3500000; // 3.5M
+    let volatility = 0;
+    
+    return data.map((item, index) => {
+      // Add some natural volatility that tends upward
+      volatility += (Math.random() - 0.45) * 100000; // Slight upward bias
+      // Ensure volatility doesn't get too extreme
+      volatility = Math.max(Math.min(volatility, 500000), -500000);
+      
+      // Calculate Ethereum value with upward trend and volatility
+      const trendFactor = index * 5000; // Gradual upward trend
+      const ethereumValue = baseEthValue + trendFactor + volatility;
+      
+      return {
+        ...item,
+        ethereumValue: item.value + ethereumValue, // Add Fraxtal TVL to get total
+      };
+    });
   };
 
   const formatCurrency = (value: number) =>
@@ -48,7 +63,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
           onTimeframeChange={setTvlTimeframe}
           legend={[
             { color: "#8702ff", label: "Fraxtal TVL" },
-            { color: "#22C55E", label: "Total TVL" }
+            { color: "#22C55E", label: "Ethereum TVL" }
           ]}
         >
           <LineChartWithGradient
