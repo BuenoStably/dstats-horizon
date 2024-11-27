@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import Navbar from "@/components/Navbar";
 import MetricCard from "@/components/MetricCard";
 import { ChartSection } from "@/components/ChartSection";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { DollarSign, Wallet, Percent, Gift } from "lucide-react";
 import { useMetrics } from "@/hooks/useMetrics";
 import { generateDusdMockData } from "@/utils/mockDusdData";
+import { Box, Typography, Container, Grid } from "@mui/material";
 
 const MetricsSection = () => {
   const { data: metrics, isLoading, error } = useMetrics();
@@ -44,16 +44,17 @@ const MetricsSection = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
+    <Grid container spacing={2} sx={{ mb: { xs: 3, sm: 4 } }}>
       {metricsConfig.map((metric, index) => (
-        <MetricCard 
-          key={index} 
-          {...metric} 
-          isLoading={isLoading}
-          error={error instanceof Error ? error : null}
-        />
+        <Grid item xs={12} sm={6} lg={2.4} key={index}>
+          <MetricCard 
+            {...metric} 
+            isLoading={isLoading}
+            error={error instanceof Error ? error : null}
+          />
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 };
 
@@ -61,14 +62,30 @@ const Index = () => {
   const mockData = generateDusdMockData();
 
   return (
-    <div className="min-h-screen bg-transparent">
+    <Box sx={{ minHeight: '100vh', bgcolor: 'transparent' }}>
       <Navbar />
-      <main className="container mx-auto px-3 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-73px)] bg-transparent">
-        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Key Metrics</h1>
+      <Container 
+        sx={{ 
+          px: { xs: 2, sm: 3 }, 
+          py: { xs: 3, sm: 4 },
+          minHeight: 'calc(100vh - 73px)',
+          bgcolor: 'transparent'
+        }}
+      >
+        <Typography 
+          variant="h4" 
+          sx={{ 
+            fontSize: { xs: '1.25rem', sm: '1.5rem' },
+            fontWeight: 'bold',
+            mb: { xs: 2, sm: 3 }
+          }}
+        >
+          Key Metrics
+        </Typography>
         <MetricsSection />
         <ChartSection mockData={mockData} />
-      </main>
-    </div>
+      </Container>
+    </Box>
   );
 };
 
