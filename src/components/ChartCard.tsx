@@ -66,7 +66,7 @@ const ChartCard = ({
           spacing={2}
           mb={3}
         >
-          <Grid container item xs justifyContent="flex-end" sx={{ width: '100%', textAlign: 'left' }}>
+          <Grid container item xs sx={{ width: '100%', textAlign: 'left' }}>
             <Typography 
               variant="h6" 
               sx={{ 
@@ -123,18 +123,9 @@ const ChartCard = ({
             </Stack>
           )}
         </Stack>
-        <Box 
-          sx={{ 
-            flex: 1,
-            minHeight: 0,
-            '& > *': {
-              height: '100%',
-              width: '100%'
-            }
-          }}
-        >
+        <Grid container item xs justifyContent="flex-end" sx={{ flex: 1, minHeight: 0, '& > *': { height: '100%', width: '100%' } }}>
           {children}
-        </Box>
+        </Grid>
       </CardContent>
     </Card>
   );
