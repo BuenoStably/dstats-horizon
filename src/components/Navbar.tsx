@@ -44,9 +44,14 @@ const Navbar = () => {
             <Link
               key={item}
               to={getPath(item)}
-              className={`transition-colors duration-200 ${
-                isActive(item) ? 'text-primary' : 'text-white hover:text-primary'
-              }`}
+              style={{
+                color: isActive(item) ? '#8702ff' : 'white',
+                textDecoration: 'none',
+                transition: 'color 0.2s',
+                '&:hover': {
+                  color: '#8702ff'
+                }
+              }}
             >
               {item}
             </Link>
@@ -55,7 +60,17 @@ const Navbar = () => {
             href="https://app.testnet.dtrinity.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-primary transition-colors duration-200 flex items-center gap-1"
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              transition: 'color 0.2s',
+              '&:hover': {
+                color: '#8702ff'
+              }
+            }}
           >
             dTRINITY App
             <OpenInNew sx={{ fontSize: 16 }} />
@@ -94,9 +109,14 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
               component={Link}
               to={getPath(item)}
-              className={`transition-colors duration-200 ${
-                isActive(item) ? 'text-primary' : 'text-white hover:text-primary'
-              }`}
+              sx={{
+                color: isActive(item) ? '#8702ff' : 'white',
+                textDecoration: 'none',
+                transition: 'color 0.2s',
+                '&:hover': {
+                  color: '#8702ff'
+                }
+              }}
             >
               {item}
             </ListItem>
@@ -107,7 +127,17 @@ const Navbar = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setIsMenuOpen(false)}
-            className="text-white hover:text-primary transition-colors duration-200 flex items-center gap-1"
+            sx={{
+              color: 'white',
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              transition: 'color 0.2s',
+              '&:hover': {
+                color: '#8702ff'
+              }
+            }}
           >
             dTRINITY App
             <OpenInNew sx={{ fontSize: 16 }} />

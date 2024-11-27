@@ -60,13 +60,13 @@ const ChartCard = ({
                 color: 'white', 
                 fontWeight: 600, 
                 mb: legend ? 1 : 0,
-                pl: 0 // Explicitly set padding-left to 0
+                pl: 0
               }}
             >
               {title}
             </Typography>
             {legend && (
-              <Stack direction="row" spacing={2} sx={{ pl: 0 }}> {/* Explicitly set padding-left to 0 */}
+              <Stack direction="row" spacing={2} sx={{ pl: 0 }}>
                 {legend.map((item, index) => (
                   <Stack key={index} direction="row" spacing={1} alignItems="center">
                     <Box 
