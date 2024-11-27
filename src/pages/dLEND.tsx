@@ -37,13 +37,19 @@ const DLENDPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="container mx-auto px-3 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-73px)]">
-        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">dLEND Analytics</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
+      <main className="container mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold mb-6 text-text-primary">dLEND Analytics</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           {metrics.map((metric, index) => (
-            <MetricCard key={index} {...metric} />
+            <MetricCard 
+              key={index}
+              value={metric.value}
+              label={metric.label}
+              tooltip={metric.tooltip}
+              icon={metric.icon}
+            />
           ))}
         </div>
         <div className="text-center text-gray-500 mt-8">
