@@ -99,7 +99,7 @@ const CandlestickChart = ({
             if (active && payload && payload.length) {
               const data = payload[0].payload as CandlestickData;
               return (
-                <div className="bg-card p-3 border border-white/10 rounded-lg backdrop-blur-sm">
+                <div className="bg-card p-3 border border-white/10 rounded-xl backdrop-blur-sm">
                   <p className="text-white text-xs mb-1">
                     {format(new Date(label), "MMM d, yyyy")}
                   </p>
