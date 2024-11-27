@@ -41,7 +41,8 @@ body {
   text-align: left !important;
   font-size: 12px !important;
   font-style: normal !important;
-  text-transform: capitalize !important;
+  text-transform: none !important;
+  font-family: Inter !important;
 }
 
 .recharts-tooltip-label {
@@ -49,7 +50,9 @@ body {
   margin: 0 !important;
   font-size: 12px !important;
   font-style: normal !important;
-  text-transform: capitalize !important;
+  text-transform: none !important;
+  font-family: Inter !important;
+  color: #9CA3AF !important;
 }
 
 .recharts-tooltip-item-list {
@@ -65,7 +68,8 @@ body {
   justify-content: flex-start !important;
   font-size: 12px !important;
   font-style: normal !important;
-  text-transform: capitalize !important;
+  text-transform: none !important;
+  font-family: Inter !important;
 }
 
 .recharts-tooltip-item-name,
@@ -76,7 +80,8 @@ body {
   margin: 0 4px !important;
   font-size: 12px !important;
   font-style: normal !important;
-  text-transform: capitalize !important;
+  text-transform: none !important;
+  font-family: Inter !important;
 }
 
 .MuiTooltip-tooltip {
@@ -89,16 +94,18 @@ body {
   padding: 8px 12px !important;
   font-size: 12px !important;
   font-style: normal !important;
-  text-transform: capitalize !important;
+  text-transform: none !important;
   color: #ffffff !important;
   text-align: left !important;
+  font-family: Inter !important;
 }
 
 .MuiTooltip-tooltip * {
   text-align: left !important;
   font-size: 12px !important;
   font-style: normal !important;
-  text-transform: capitalize !important;
+  text-transform: none !important;
+  font-family: Inter !important;
 }
 
 .candlestick-up {
