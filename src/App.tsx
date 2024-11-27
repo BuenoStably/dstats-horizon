@@ -30,7 +30,7 @@ function App() {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: "linear-gradient(to top, rgba(135, 2, 255, 0.8), transparent)",
+                background: "linear-gradient(to top, rgba(135, 2, 255, 0.5), transparent)",
                 pointerEvents: "none",
                 zIndex: 0
               }
