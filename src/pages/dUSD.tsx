@@ -48,7 +48,7 @@ const MetricsSection = () => {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
       {metrics.map((metric, index) => (
         <MetricCard key={index} {...metric} />
       ))}
@@ -104,12 +104,12 @@ const DUSDPage = () => {
   return (
     <div className="min-h-screen bg-surface">
       <Navbar />
-      <main className="container mx-auto px-3 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-73px)]">
-        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">dUSD Analytics</h1>
+      <main className="container mx-auto px-4 py-8 min-h-[calc(100vh-73px)]">
+        <h1 className="text-2xl font-bold mb-6">dUSD Analytics</h1>
         <MetricsSection />
         
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <ChartCard title="dUSD Price (USD)" onTimeframeChange={setPriceTimeframe}>
               <CandlestickChart
                 data={filterDataByTimeframe(mockData.price, priceTimeframe)}
@@ -163,19 +163,19 @@ const DUSDPage = () => {
             </ChartCard>
           </div>
 
-          <div className="space-y-6 bg-card rounded-lg p-6">
+          <div className="bg-card rounded-xl p-6 shadow-lg">
             <BalanceSheetTable />
           </div>
           
-          <div className="space-y-6 bg-card rounded-lg p-6">
+          <div className="bg-card rounded-xl p-6 shadow-lg">
             <AmoTransactionsTable />
           </div>
           
-          <div className="space-y-6 bg-card rounded-lg p-6">
+          <div className="bg-card rounded-xl p-6 shadow-lg">
             <SmoTransactionsTable />
           </div>
           
-          <div className="bg-card rounded-lg p-6">
+          <div className="bg-card rounded-xl p-6 shadow-lg">
             <ChartCard 
               title="dUSD Reserve Revenue (Yields + SMO Earnings)" 
               onTimeframeChange={setReserveRevenueTimeframe}
