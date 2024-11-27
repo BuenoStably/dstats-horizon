@@ -17,8 +17,26 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-            <Box component="main" sx={{ flexGrow: 1 }}>
+          <Box 
+            sx={{ 
+              minHeight: "100vh", 
+              display: "flex", 
+              flexDirection: "column",
+              position: "relative",
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: "linear-gradient(to top, rgba(135, 2, 255, 0.8), transparent)",
+                pointerEvents: "none",
+                zIndex: 0
+              }
+            }}
+          >
+            <Box component="main" sx={{ flexGrow: 1, position: "relative", zIndex: 1 }}>
               <Container maxWidth="lg" sx={{ px: 2, mb: 8 }}>
                 <Routes>
                   <Route path="/" element={<Index />} />
@@ -28,27 +46,23 @@ function App() {
                 </Routes>
               </Container>
             </Box>
-            <Box sx={{ width: "100%" }}>
-              <Box sx={{ 
-                height: "20vh", 
-                background: "linear-gradient(to top, rgba(135, 2, 255, 0.8), transparent)" 
-              }} />
-              <Box 
-                component="footer" 
-                sx={{ 
-                  py: 4, 
-                  display: "flex", 
-                  justifyContent: "center", 
-                  alignItems: "center" 
-                }}
-              >
-                <Box
-                  component="img"
-                  src="https://app.testnet.dtrinity.org/dlend/dTrinity-White-Logo.png"
-                  alt="dTrinity Logo"
-                  sx={{ height: 36, objectFit: "contain" }}
-                />
-              </Box>
+            <Box 
+              component="footer" 
+              sx={{ 
+                py: 4, 
+                display: "flex", 
+                justifyContent: "center", 
+                alignItems: "center",
+                position: "relative",
+                zIndex: 1
+              }}
+            >
+              <Box
+                component="img"
+                src="https://app.testnet.dtrinity.org/dlend/dTrinity-White-Logo.png"
+                alt="dTrinity Logo"
+                sx={{ height: 36, objectFit: "contain" }}
+              />
             </Box>
           </Box>
         </BrowserRouter>
