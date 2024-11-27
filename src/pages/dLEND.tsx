@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import MetricCard from "@/components/MetricCard";
 import { Percent, Users, ArrowUpDown, BarChart3, UserMinus } from "lucide-react";
-import { ChartCard } from "@/components/ChartCard";
+import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import { generateMockApyData } from "@/utils/mockApyData";
 
