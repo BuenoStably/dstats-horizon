@@ -30,7 +30,7 @@ const MetricsSection = () => {
       icon: <Percent className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
-      value: "$12.7",
+      value: "$12.7K",
       label: "Total Rebates",
       tooltip: "Total rebates distributed to users",
       icon: <Gift className="w-5 h-5 sm:w-6 sm:h-6" />,
