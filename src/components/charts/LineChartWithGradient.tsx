@@ -4,7 +4,6 @@ import {
   Area,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
 } from "recharts";
 import { format } from "date-fns";
@@ -46,13 +45,13 @@ const LineChartWithGradient = ({
             <stop offset="95%" stopColor={secondLineColor} stopOpacity={0} />
           </linearGradient>
         </defs>
-        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
         <XAxis
           dataKey="date"
           tickFormatter={(date) => format(new Date(date), "MMM d")}
-          stroke="#ffffff"
-          tick={{ fill: '#ffffff' }}
-          tickLine={{ stroke: '#ffffff' }}
+          stroke="#4B5563"
+          tick={{ fill: '#4B5563' }}
+          tickLine={{ stroke: '#4B5563' }}
+          axisLine={{ stroke: '#4B5563' }}
           dy={8}
           angle={-45}
           textAnchor="end"
@@ -62,9 +61,10 @@ const LineChartWithGradient = ({
         />
         <YAxis
           tickFormatter={valueFormatter}
-          stroke="#ffffff"
+          stroke="transparent"
           tick={{ fill: '#ffffff' }}
-          tickLine={{ stroke: '#ffffff' }}
+          tickLine={{ stroke: 'transparent' }}
+          axisLine={{ stroke: 'transparent' }}
           width={60}
           domain={yAxisDomain || ['auto', 'auto']}
         />

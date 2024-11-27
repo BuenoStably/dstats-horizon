@@ -4,7 +4,6 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
@@ -68,17 +67,13 @@ const CandlestickChart = ({
         data={processedData}
         margin={{ top: 10, right: 10, left: 10, bottom: 25 }}
       >
-        <CartesianGrid
-          strokeDasharray="3 3"
-          vertical={false}
-          stroke="rgba(255, 255, 255, 0.1)"
-        />
         <XAxis
           dataKey="date"
           tickFormatter={(value) => format(new Date(value), "MMM d")}
-          stroke="#ffffff"
-          tick={{ fill: '#ffffff' }}
-          tickLine={{ stroke: '#ffffff' }}
+          stroke="#4B5563"
+          tick={{ fill: '#4B5563' }}
+          tickLine={{ stroke: '#4B5563' }}
+          axisLine={{ stroke: '#4B5563' }}
           dy={8}
           angle={-45}
           textAnchor="end"
@@ -89,9 +84,10 @@ const CandlestickChart = ({
         <YAxis
           domain={['auto', 'auto']}
           tickFormatter={valueFormatter}
-          stroke="#ffffff"
+          stroke="transparent"
           tick={{ fill: '#ffffff' }}
-          tickLine={{ stroke: '#ffffff' }}
+          tickLine={{ stroke: 'transparent' }}
+          axisLine={{ stroke: 'transparent' }}
           width={60}
         />
         <Tooltip

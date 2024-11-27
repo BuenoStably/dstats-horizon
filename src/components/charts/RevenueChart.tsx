@@ -4,7 +4,6 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
   Legend,
@@ -56,13 +55,13 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
     <Box sx={{ width: "100%", height: 400, mt: 2 }}>
       <ResponsiveContainer>
         <ComposedChart data={data} margin={{ left: 20, right: 20, top: 20, bottom: 25 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="date"
             tickFormatter={formatXAxis}
-            stroke="#ffffff"
-            tick={{ fill: '#ffffff' }}
-            tickLine={{ stroke: '#ffffff' }}
+            stroke="#4B5563"
+            tick={{ fill: '#4B5563' }}
+            tickLine={{ stroke: '#4B5563' }}
+            axisLine={{ stroke: '#4B5563' }}
             dy={8}
             angle={-45}
             textAnchor="end"
@@ -75,9 +74,10 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             domain={[0, 80000]}
             tickFormatter={(value) => value.toLocaleString()}
             ticks={[0, 20000, 40000, 60000, 80000]}
-            stroke="#ffffff"
+            stroke="transparent"
             tick={{ fill: '#ffffff' }}
-            tickLine={{ stroke: '#ffffff' }}
+            tickLine={{ stroke: 'transparent' }}
+            axisLine={{ stroke: 'transparent' }}
             style={{ fontFamily: 'Inter' }}
             width={80}
           />
@@ -87,9 +87,10 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             domain={[0, 0.5]}
             tickFormatter={(value) => `${(value * 100)}%`}
             ticks={[0, 0.1, 0.2, 0.3, 0.4, 0.5]}
-            stroke="#ffffff"
+            stroke="transparent"
             tick={{ fill: '#ffffff' }}
-            tickLine={{ stroke: '#ffffff' }}
+            tickLine={{ stroke: 'transparent' }}
+            axisLine={{ stroke: 'transparent' }}
             style={{ fontFamily: 'Inter' }}
             width={80}
           />

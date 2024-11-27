@@ -3,7 +3,6 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
   Cell,
@@ -42,17 +41,15 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
             <stop offset="100%" stopColor="#4B5563" />
           </linearGradient>
         </defs>
-        <CartesianGrid 
-          strokeDasharray="0" 
-          stroke="rgba(255, 255, 255, 0.1)" 
-          horizontal={false} 
-        />
         <XAxis
           type="number"
-          stroke="#ffffff"
+          stroke="#4B5563"
           tickFormatter={formatValue}
           domain={[0, 4000000]}
           tickCount={5}
+          axisLine={{ stroke: '#4B5563' }}
+          tick={{ fill: '#4B5563' }}
+          tickLine={{ stroke: '#4B5563' }}
           style={{ 
             fontSize: '12px',
             fontFamily: 'Inter'
@@ -61,9 +58,10 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
         <YAxis
           type="category"
           dataKey="name"
-          stroke="#ffffff"
+          stroke="transparent"
           tickLine={false}
-          axisLine={true}
+          axisLine={{ stroke: 'transparent' }}
+          tick={{ fill: '#ffffff' }}
           style={{ 
             fontSize: '12px',
             fontFamily: 'Inter'
