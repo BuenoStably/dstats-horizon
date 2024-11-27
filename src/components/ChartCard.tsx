@@ -66,7 +66,7 @@ const ChartCard = ({
           spacing={2}
           mb={3}
         >
-          <Grid container item xs sx={{ width: '100%', textAlign: 'left' }}>
+          <Grid container item xs justifyContent="flex-end" sx={{ width: '100%', textAlign: 'left' }}>
             <Typography 
               variant="h6" 
               sx={{ 
