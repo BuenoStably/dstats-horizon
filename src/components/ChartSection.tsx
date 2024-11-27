@@ -91,7 +91,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
           <LineChartWithGradient
             data={filterDataByTimeframe(mockData.apy, apyTimeframe)}
             valueFormatter={formatPercentage}
-            useAreaGradient={true}
+            useAreaGradient={false}
             yAxisDomain={[0, 'auto']}
           />
         </ChartCard>
