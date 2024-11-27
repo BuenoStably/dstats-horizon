@@ -1,11 +1,16 @@
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import MetricCard from "@/components/MetricCard";
 import { Percent, Users, ArrowUpDown, BarChart3, UserMinus } from "lucide-react";
 import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import { generateMockApyData } from "@/utils/mockApyData";
+import { filterDataByTimeframe } from "@/utils/dateUtils";
 
 const DLENDPage = () => {
+  const [supplyTimeframe, setSupplyTimeframe] = useState("7D");
+  const [borrowTimeframe, setBorrowTimeframe] = useState("7D");
+
   const metrics = [
     {
       value: "9.0",
@@ -64,23 +69,23 @@ const DLENDPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
           <ChartCard 
             title="Raw dUSD Supply APY" 
-            onTimeframeChange={() => {}}
-            showTimeframes={false}
+            onTimeframeChange={setSupplyTimeframe}
           >
             <LineChartWithGradient
-              data={supplyApyData}
+              data={filterDataByTimeframe(supplyApyData, supplyTimeframe)}
               valueFormatter={formatPercentage}
+              yAxisDomain={[0, 'auto']}
             />
           </ChartCard>
 
           <ChartCard 
             title="Raw dUSD Borrow APY" 
-            onTimeframeChange={() => {}}
-            showTimeframes={false}
+            onTimeframeChange={setBorrowTimeframe}
           >
             <LineChartWithGradient
-              data={borrowApyData}
+              data={filterDataByTimeframe(borrowApyData, borrowTimeframe)}
               valueFormatter={formatPercentage}
+              yAxisDomain={[0, 'auto']}
             />
           </ChartCard>
         </div>
