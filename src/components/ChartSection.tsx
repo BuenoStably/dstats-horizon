@@ -65,6 +65,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             { color: "#8702ff", label: "Fraxtal TVL" },
             { color: "#0EA5E9", label: "Ethereum TVL" }
           ]}
+          className="flex flex-col"
         >
           <LineChartWithGradient
             data={filterDataByTimeframe(mockData.tvl, tvlTimeframe)}
