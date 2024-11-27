@@ -48,7 +48,7 @@ const MetricsSection = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
       {metrics.map((metric, index) => (
         <MetricCard key={index} {...metric} />
       ))}
@@ -109,7 +109,7 @@ const DUSDPage = () => {
         <MetricsSection />
         
         <div className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <ChartCard title="dUSD Price (USD)" onTimeframeChange={setPriceTimeframe}>
               <CandlestickChart
                 data={filterDataByTimeframe(mockData.price, priceTimeframe)}
@@ -163,24 +163,34 @@ const DUSDPage = () => {
             </ChartCard>
           </div>
 
-          <BalanceSheetTable />
-          <AmoTransactionsTable />
-          <SmoTransactionsTable />
+          <div className="space-y-6 bg-card rounded-lg p-6">
+            <BalanceSheetTable />
+          </div>
           
-          <ChartCard 
-            title="dUSD Reserve Revenue (Yields + SMO Earnings)" 
-            onTimeframeChange={setReserveRevenueTimeframe}
-            className="col-span-full"
-            legend={[
-              { color: "#8702ff", label: "APY Estimate" },
-              { color: "#22C55E", label: "Earnings Estimate" }
-            ]}
-          >
-            <RevenueChart 
-              data={filterDataByTimeframe(mockData.reserveRevenue, reserveRevenueTimeframe)}
-              formatCurrency={formatCurrency}
-            />
-          </ChartCard>
+          <div className="space-y-6 bg-card rounded-lg p-6">
+            <AmoTransactionsTable />
+          </div>
+          
+          <div className="space-y-6 bg-card rounded-lg p-6">
+            <SmoTransactionsTable />
+          </div>
+          
+          <div className="bg-card rounded-lg p-6">
+            <ChartCard 
+              title="dUSD Reserve Revenue (Yields + SMO Earnings)" 
+              onTimeframeChange={setReserveRevenueTimeframe}
+              className="col-span-full"
+              legend={[
+                { color: "#8702ff", label: "APY Estimate" },
+                { color: "#22C55E", label: "Earnings Estimate" }
+              ]}
+            >
+              <RevenueChart 
+                data={filterDataByTimeframe(mockData.reserveRevenue, reserveRevenueTimeframe)}
+                formatCurrency={formatCurrency}
+              />
+            </ChartCard>
+          </div>
         </div>
       </main>
     </div>
