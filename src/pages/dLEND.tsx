@@ -49,6 +49,19 @@ const DLENDPage = () => {
 
   const formatPercentage = (value: number) => `${value.toFixed(2)}%`;
 
+  // Calculate y-axis domain for supply APY
+  const getSupplyApyDomain = () => {
+    const filteredData = filterDataByTimeframe(supplyApyData, supplyTimeframe);
+    const values = filteredData.map(item => item.value);
+    const minValue = Math.min(...values);
+    const maxValue = Math.max(...values);
+    
+    return [
+      minValue - (minValue * 0.1), // -10% of min value
+      maxValue + (maxValue * 0.1)  // +10% of max value
+    ];
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -74,7 +87,7 @@ const DLENDPage = () => {
             <LineChartWithGradient
               data={filterDataByTimeframe(supplyApyData, supplyTimeframe)}
               valueFormatter={(value) => formatPercentage(value)}
-              yAxisDomain={[0, undefined]}
+              yAxisDomain={getSupplyApyDomain()}
             />
           </ChartCard>
 
