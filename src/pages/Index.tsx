@@ -30,9 +30,9 @@ const MetricsSection = () => {
       icon: <Percent className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
-      value: metrics?.lendingRewards || "0x",
-      label: "Lending Rewards",
-      tooltip: "Current lending reward multiplier",
+      value: "$12.7",
+      label: "Total Rebates",
+      tooltip: "Total rebates distributed to users",
       icon: <Gift className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
