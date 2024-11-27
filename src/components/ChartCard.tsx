@@ -66,7 +66,7 @@ const ChartCard = ({
           spacing={2}
           mb={3}
         >
-          <Box sx={{ width: '100%', textAlign: 'left' }}>
+          <Grid container item xs sx={{ width: '100%', textAlign: 'left' }}>
             <Typography 
               variant="h6" 
               sx={{ 
@@ -98,7 +98,7 @@ const ChartCard = ({
                 ))}
               </Stack>
             )}
-          </Box>
+          </Grid>
           {showTimeframes && onTimeframeChange && (
             <Stack direction="row" spacing={1}>
               {timeframes.map((tf) => (
@@ -123,11 +123,9 @@ const ChartCard = ({
             </Stack>
           )}
         </Stack>
-        <Grid 
-          container 
-          item 
-          xs 
+        <Box 
           sx={{ 
+            flex: 1,
             minHeight: 0,
             '& > *': {
               height: '100%',
@@ -136,7 +134,7 @@ const ChartCard = ({
           }}
         >
           {children}
-        </Grid>
+        </Box>
       </CardContent>
     </Card>
   );
