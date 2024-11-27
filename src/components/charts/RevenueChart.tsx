@@ -9,7 +9,7 @@ import {
   Legend,
 } from "recharts";
 import { format } from "date-fns";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 interface RevenueChartProps {
   data: any[];
@@ -26,26 +26,31 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <Box
-          sx={{
-            bgcolor: "rgba(23, 22, 36, 0.95)",
-            p: 1.5,
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            borderRadius: 1,
-            backdropFilter: "blur(10px)",
-            color: "#ffffff",
-          }}
-        >
-          <Typography variant="body2" sx={{ color: "#ffffff" }}>
+        <div className="min-w-[8rem] rounded-lg border border-border/50 bg-card px-2.5 py-1.5 text-xs shadow-xl">
+          <div className="font-medium">
             {format(new Date(label), "MMM d, yyyy")}
-          </Typography>
-          <Typography variant="body2" sx={{ color: "#ffffff" }}>
-            Revenue/TVL: {formatCurrency(payload[0].value)}
-          </Typography>
-          <Typography variant="body2" sx={{ color: "#ffffff" }}>
-            Annualized Revenue: {formatPercentage(payload[1].value)}
-          </Typography>
-        </Box>
+          </div>
+          <div className="mt-1.5 grid gap-1.5">
+            <div className="flex items-center gap-2">
+              <div className="h-2.5 w-2.5 rounded-[2px]" style={{ backgroundColor: '#8702ff' }} />
+              <div className="flex flex-1 justify-between items-center">
+                <span className="text-muted-foreground">Revenue/TVL</span>
+                <span className="font-mono font-medium tabular-nums text-foreground">
+                  {formatCurrency(payload[0].value)}
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2.5 w-2.5 rounded-[2px]" style={{ backgroundColor: '#22C55E' }} />
+              <div className="flex flex-1 justify-between items-center">
+                <span className="text-muted-foreground">Annualized Revenue</span>
+                <span className="font-mono font-medium tabular-nums text-foreground">
+                  {formatPercentage(payload[1].value)}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       );
     }
     return null;
