@@ -44,16 +44,24 @@ const ChartCard = ({
         p: { xs: 2, sm: 3 },
         display: 'flex',
         flexDirection: 'column',
+        height: '100%',
       }}
       className={className}
     >
-      <CardContent sx={{ p: 0, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+      <CardContent sx={{ 
+        p: 0, 
+        display: 'flex', 
+        flexDirection: 'column',
+        height: '100%',
+        '&:last-child': { pb: 0 }
+      }}>
         <Stack 
           direction={{ xs: 'column', sm: 'row' }} 
           justifyContent="space-between" 
           alignItems={{ xs: 'flex-start', sm: 'center' }}
           spacing={2}
           mb={3}
+          flexShrink={0}
         >
           <Box sx={{ width: '100%', textAlign: 'left' }}>
             <Typography 
@@ -112,7 +120,15 @@ const ChartCard = ({
             </Stack>
           )}
         </Stack>
-        <Box sx={{ flexGrow: 1, minHeight: 0 }}>
+        <Box sx={{ 
+          flexGrow: 1,
+          display: 'flex',
+          minHeight: 0,
+          '& > *': {
+            flexGrow: 1,
+            minHeight: 0
+          }
+        }}>
           {children}
         </Box>
       </CardContent>
