@@ -4,7 +4,7 @@ import MetricCard from "@/components/MetricCard";
 import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import HorizontalBarChart from "@/components/charts/HorizontalBarChart";
-import ReserveRevenueChart from "@/components/charts/ReserveRevenueChart";
+import RevenueChart from "@/components/charts/RevenueChart";
 import CandlestickChart from "@/components/charts/CandlestickChart";
 import BalanceSheetTable from "@/components/BalanceSheetTable";
 import AmoTransactionsTable from "@/components/AmoTransactionsTable";
@@ -121,7 +121,8 @@ const DUSDPage = () => {
               <LineChartWithGradient
                 data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
                 valueFormatter={formatCurrency}
-                yAxisDomain={getSupplyDomain()}
+                yAxisDomain={[0, 'auto']}
+                useAreaGradient={true}
               />
             </ChartCard>
 
@@ -175,7 +176,7 @@ const DUSDPage = () => {
               { color: "#22C55E", label: "Earnings Estimate" }
             ]}
           >
-            <ReserveRevenueChart 
+            <RevenueChart 
               data={filterDataByTimeframe(mockData.reserveRevenue, reserveRevenueTimeframe)}
               formatCurrency={formatCurrency}
             />
