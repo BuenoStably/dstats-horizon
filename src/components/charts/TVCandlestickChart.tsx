@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { createChart, ColorType, IChartApi, Time } from 'lightweight-charts';
+import { createChart, ColorType, IChartApi, Time, LineStyle } from 'lightweight-charts';
 
 interface TVCandlestickChartProps {
   data: Array<{ date: string; value: number }>;
@@ -38,13 +38,20 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
       },
     });
 
-    // Create candlestick series with fixed price range
+    // Create candlestick series
     const candlestickSeries = chart.addCandlestickSeries({
       upColor: '#22C55E',
       downColor: '#EF4444',
       borderVisible: false,
       wickUpColor: '#22C55E',
       wickDownColor: '#EF4444',
+    });
+
+    // Add horizontal line at 1.0000
+    const horizontalLine = chart.addLineSeries({
+      color: '#22C55E',
+      lineStyle: LineStyle.Dotted,
+      lineWidth: 1,
     });
 
     // Set the fixed price range
@@ -56,16 +63,11 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
       },
     });
 
-    // Transform data for candlestick format with more realistic price movements
+    // Transform data for candlestick format
     const candleData = data.map((item, index) => {
       const timestamp = new Date(item.date).getTime() / 1000;
       const baseValue = item.value;
-      
-      // Generate random price movements that can go both up and down
-      const volatility = 0.002; // 0.2% volatility
-      const randomChange = (Math.random() - 0.5) * volatility;
-      
-      // Determine if this candle will be bullish or bearish
+      const volatility = 0.002;
       const isBullish = Math.random() > 0.5;
       
       let open, close, high, low;
@@ -78,7 +80,6 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
         close = baseValue * (1 - Math.random() * volatility);
       }
       
-      // Generate high and low prices
       high = Math.max(open, close) * (1 + Math.random() * volatility);
       low = Math.min(open, close) * (1 - Math.random() * volatility);
 
@@ -92,6 +93,14 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
     });
 
     candlestickSeries.setData(candleData);
+
+    // Set horizontal line data for the entire time range
+    const firstTimestamp = candleData[0].time;
+    const lastTimestamp = candleData[candleData.length - 1].time;
+    horizontalLine.setData([
+      { time: firstTimestamp, value: 1.0000 },
+      { time: lastTimestamp, value: 1.0000 },
+    ]);
     
     // Set the price scale to auto-scale
     chart.priceScale('right').applyOptions({
