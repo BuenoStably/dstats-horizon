@@ -62,14 +62,32 @@ const Index = () => {
   const mockData = generateDusdMockData();
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'transparent' }}>
+    <Box 
+      sx={{ 
+        minHeight: "100vh", 
+        bgcolor: "background.default",
+        position: "relative",
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "linear-gradient(to top, rgba(135, 2, 255, 0.5), transparent)",
+          pointerEvents: "none",
+          zIndex: 0
+        }
+      }}
+    >
       <Navbar />
       <Container 
         sx={{ 
           px: { xs: 2, sm: 3 }, 
           py: { xs: 3, sm: 4 },
           minHeight: 'calc(100vh - 73px)',
-          bgcolor: 'transparent'
+          position: "relative",
+          zIndex: 1
         }}
       >
         <Typography 
