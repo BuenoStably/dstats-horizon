@@ -1,4 +1,5 @@
 import { DollarSign, Users, Wallet } from "lucide-react";
+import { Box, Container, Typography, Grid } from "@mui/material";
 import Navbar from "@/components/Navbar";
 import MetricCard from "@/components/MetricCard";
 import ChartCard from "@/components/ChartCard";
@@ -48,11 +49,13 @@ const MetricsSection = () => {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+    <Grid container spacing={2}>
       {metrics.map((metric, index) => (
-        <MetricCard key={index} {...metric} />
+        <Grid item xs={12} sm={6} md={4} lg={2.4} key={index}>
+          <MetricCard {...metric} />
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 };
 
@@ -79,7 +82,6 @@ const DUSDPage = () => {
       maximumFractionDigits: 4,
     }).format(value);
 
-  // Calculate dynamic domain for supply data
   const getSupplyDomain = () => {
     const data = filterDataByTimeframe(mockData.supply, supplyTimeframe);
     const values = data.map(d => d.value);
@@ -89,7 +91,6 @@ const DUSDPage = () => {
     return [min - padding, max + padding] as [number, number];
   };
 
-  // Calculate dynamic domain for NAV data
   const getNavDomain = () => {
     const amoData = filterDataByTimeframe(mockData.amoTvl, navTimeframe);
     const reserveData = filterDataByTimeframe(mockData.reserveTvl, navTimeframe);
@@ -102,84 +103,94 @@ const DUSDPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-surface">
+    <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
       <Navbar />
-      <main className="container mx-auto px-4 py-8 min-h-[calc(100vh-73px)]">
-        <h1 className="text-2xl font-bold mb-6">dUSD Analytics</h1>
-        <MetricsSection />
+      <Container sx={{ py: 4, minHeight: "calc(100vh - 73px)" }}>
+        <Typography variant="h4" component="h1" sx={{ mb: 3, fontWeight: "bold" }}>
+          dUSD Analytics
+        </Typography>
         
-        <div className="space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <ChartCard title="dUSD Price (USD)" onTimeframeChange={setPriceTimeframe}>
-              <CandlestickChart
-                data={filterDataByTimeframe(mockData.price, priceTimeframe)}
-                valueFormatter={formatPrice}
-              />
-            </ChartCard>
+        <Box sx={{ mb: 4 }}>
+          <MetricsSection />
+        </Box>
+        
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6}>
+              <ChartCard title="dUSD Price (USD)" onTimeframeChange={setPriceTimeframe}>
+                <CandlestickChart
+                  data={filterDataByTimeframe(mockData.price, priceTimeframe)}
+                  valueFormatter={formatPrice}
+                />
+              </ChartCard>
+            </Grid>
 
-            <ChartCard title="Total dUSD Supply" onTimeframeChange={setSupplyTimeframe}>
-              <LineChartWithGradient
-                data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
-                valueFormatter={formatCurrency}
-                yAxisDomain={[0, 'auto']}
-                useAreaGradient={true}
-              />
-            </ChartCard>
+            <Grid item xs={12} md={6}>
+              <ChartCard title="Total dUSD Supply" onTimeframeChange={setSupplyTimeframe}>
+                <LineChartWithGradient
+                  data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
+                  valueFormatter={formatCurrency}
+                  yAxisDomain={[0, 'auto']}
+                  useAreaGradient={true}
+                />
+              </ChartCard>
+            </Grid>
 
-            <ChartCard 
-              title="dUSD NAV" 
-              onTimeframeChange={setNavTimeframe}
-              className="text-left"
-              legend={[
-                { color: "#4B5563", label: "AMO TVL" },
-                { color: "#22C55E", label: "Reserve TVL" }
-              ]}
-            >
-              <LineChartWithGradient
-                data={filterDataByTimeframe(mockData.amoTvl, navTimeframe)}
-                valueFormatter={formatCurrency}
-                yAxisDomain={getNavDomain()}
-                showSecondLine
-                secondLineData={filterDataByTimeframe(mockData.reserveTvl, navTimeframe)}
-                secondLineColor="#22C55E"
-              />
-            </ChartCard>
+            <Grid item xs={12} md={6}>
+              <ChartCard 
+                title="dUSD NAV" 
+                onTimeframeChange={setNavTimeframe}
+                legend={[
+                  { color: "#4B5563", label: "AMO TVL" },
+                  { color: "#22C55E", label: "Reserve TVL" }
+                ]}
+              >
+                <LineChartWithGradient
+                  data={filterDataByTimeframe(mockData.amoTvl, navTimeframe)}
+                  valueFormatter={formatCurrency}
+                  yAxisDomain={getNavDomain()}
+                  showSecondLine
+                  secondLineData={filterDataByTimeframe(mockData.reserveTvl, navTimeframe)}
+                  secondLineColor="#22C55E"
+                />
+              </ChartCard>
+            </Grid>
 
-            <ChartCard 
-              title="dUSD Balance Sheet"
-              className="text-left"
-              showTimeframes={false}
-              legend={[
-                { color: "#22C55E", label: "Yieldcoins" },
-                { color: "#15803d", label: "Stablecoins" },
-                { color: "#dc2626", label: "dUSD" },
-                { color: "#4B5563", label: "Curve LP (AMO)" }
-              ]}
-            >
-              <HorizontalBarChart
-                data={mockData.balanceSheet}
-                formatValue={formatCurrency}
-              />
-            </ChartCard>
-          </div>
+            <Grid item xs={12} md={6}>
+              <ChartCard 
+                title="dUSD Balance Sheet"
+                showTimeframes={false}
+                legend={[
+                  { color: "#22C55E", label: "Yieldcoins" },
+                  { color: "#15803d", label: "Stablecoins" },
+                  { color: "#dc2626", label: "dUSD" },
+                  { color: "#4B5563", label: "Curve LP (AMO)" }
+                ]}
+              >
+                <HorizontalBarChart
+                  data={mockData.balanceSheet}
+                  formatValue={formatCurrency}
+                />
+              </ChartCard>
+            </Grid>
+          </Grid>
 
-          <div className="bg-card rounded-xl p-6 shadow-lg">
+          <Box sx={{ bgcolor: "background.paper", borderRadius: 2, p: 3, mb: 4 }}>
             <BalanceSheetTable />
-          </div>
+          </Box>
           
-          <div className="bg-card rounded-xl p-6 shadow-lg">
+          <Box sx={{ bgcolor: "background.paper", borderRadius: 2, p: 3, mb: 4 }}>
             <AmoTransactionsTable />
-          </div>
+          </Box>
           
-          <div className="bg-card rounded-xl p-6 shadow-lg">
+          <Box sx={{ bgcolor: "background.paper", borderRadius: 2, p: 3, mb: 4 }}>
             <SmoTransactionsTable />
-          </div>
+          </Box>
           
-          <div className="bg-card rounded-xl p-6 shadow-lg">
+          <Box sx={{ bgcolor: "background.paper", borderRadius: 2, p: 3 }}>
             <ChartCard 
               title="dUSD Reserve Revenue (Yields + SMO Earnings)" 
               onTimeframeChange={setReserveRevenueTimeframe}
-              className="col-span-full"
               legend={[
                 { color: "#8702ff", label: "APY Estimate" },
                 { color: "#22C55E", label: "Earnings Estimate" }
@@ -190,10 +201,10 @@ const DUSDPage = () => {
                 formatCurrency={formatCurrency}
               />
             </ChartCard>
-          </div>
-        </div>
-      </main>
-    </div>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
