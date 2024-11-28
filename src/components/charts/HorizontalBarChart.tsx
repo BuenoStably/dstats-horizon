@@ -79,21 +79,25 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
         <Tooltip
           formatter={(value: number) => [formatValue(value), "Balance"]}
           contentStyle={{
-            backgroundColor: "rgba(31, 29, 43, 0.95)",
+            backgroundColor: "rgb(31, 29, 43)",
             border: "1px solid rgba(255, 255, 255, 0.1)",
             borderRadius: "8px",
             backdropFilter: "blur(10px)",
+            padding: "16px",
+            minWidth: "200px",
             fontFamily: 'Inter',
-            color: '#ffffff',
-            padding: '8px 12px'
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2)',
           }}
           labelStyle={{
-            color: 'rgba(255, 255, 255, 0.7)',
-            marginBottom: '4px'
+            color: 'rgb(156, 163, 175)',
+            marginBottom: '8px',
+            display: 'block'
           }}
           itemStyle={{
             color: '#ffffff',
-            fontSize: '14px'
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: '4px 0'
           }}
           cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
         />

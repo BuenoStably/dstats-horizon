@@ -35,31 +35,42 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="min-w-[8rem] rounded-lg border border-border/50 bg-card px-2.5 py-1.5 text-xs shadow-xl">
-          <div className="font-medium">
+        <Box
+          sx={{
+            bgcolor: 'rgb(31, 29, 43)',
+            p: 2,
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '8px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2)',
+            minWidth: '200px',
+          }}
+        >
+          <Typography variant="body2" sx={{ color: 'rgb(156, 163, 175)', mb: 1 }}>
             {format(new Date(label), "MMM d, yyyy")}
-          </div>
-          <div className="mt-1.5 grid gap-1.5">
-            <div className="flex items-center gap-2">
-              <div className="h-2.5 w-2.5 rounded-[2px]" style={{ backgroundColor: '#8702ff' }} />
-              <div className="flex flex-1 justify-between items-center">
-                <span className="text-muted-foreground">Revenue/TVL</span>
-                <span className="font-mono font-medium tabular-nums text-foreground">
-                  {formatCurrency(payload[0].value)}
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-2.5 w-2.5 rounded-[2px]" style={{ backgroundColor: '#22C55E' }} />
-              <div className="flex flex-1 justify-between items-center">
-                <span className="text-muted-foreground">Annualized Revenue</span>
-                <span className="font-mono font-medium tabular-nums text-foreground">
-                  {formatPercentage(payload[1].value)}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+          </Typography>
+          {payload.map((entry: any, index: number) => (
+            <Typography 
+              key={index} 
+              variant="body2" 
+              sx={{ 
+                color: '#ffffff',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 2,
+                mb: 0.5
+              }}
+            >
+              <span style={{ color: entry.color }}>{entry.name}:</span>
+              <span style={{ fontFamily: 'monospace' }}>
+                {entry.dataKey === 'annualizedRevenue' 
+                  ? `${(entry.value * 100).toFixed(2)}%`
+                  : formatCurrency(entry.value)
+                }
+              </span>
+            </Typography>
+          ))}
+        </Box>
       );
     }
     return null;
