@@ -56,17 +56,31 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
       },
     });
 
-    // Transform data for candlestick format
-    const candleData = data.map((item) => {
-      const volatilityBase = 0.005;
-      const randomUpWick = Math.random() * volatilityBase;
-      const randomDownWick = Math.random() * volatilityBase;
-      
+    // Transform data for candlestick format with more realistic price movements
+    const candleData = data.map((item, index) => {
       const timestamp = new Date(item.date).getTime() / 1000;
-      const open = item.value * (1 - randomDownWick);
-      const close = item.value;
-      const high = close * (1 + randomUpWick);
-      const low = open * (1 - randomDownWick);
+      const baseValue = item.value;
+      
+      // Generate random price movements that can go both up and down
+      const volatility = 0.002; // 0.2% volatility
+      const randomChange = (Math.random() - 0.5) * volatility;
+      
+      // Determine if this candle will be bullish or bearish
+      const isBullish = Math.random() > 0.5;
+      
+      let open, close, high, low;
+      
+      if (isBullish) {
+        open = baseValue * (1 - Math.random() * volatility);
+        close = baseValue * (1 + Math.random() * volatility);
+      } else {
+        open = baseValue * (1 + Math.random() * volatility);
+        close = baseValue * (1 - Math.random() * volatility);
+      }
+      
+      // Generate high and low prices
+      high = Math.max(open, close) * (1 + Math.random() * volatility);
+      low = Math.min(open, close) * (1 - Math.random() * volatility);
 
       return {
         time: timestamp as Time,
