@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { createChart, ColorType, IChartApi } from 'lightweight-charts';
+import { createChart, ColorType, IChartApi, Time } from 'lightweight-charts';
 
 interface TVCandlestickChartProps {
   data: Array<{ date: string; value: number }>;
@@ -49,7 +49,7 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
       const low = Math.min(open, close) * (1 - randomDownWick);
 
       return {
-        time: new Date(item.date).getTime() / 1000,
+        time: new Date(item.date).getTime() / 1000 as Time,
         open,
         high,
         low,

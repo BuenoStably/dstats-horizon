@@ -190,14 +190,14 @@ const DUSDPage = () => {
           <Box sx={{ bgcolor: "background.paper", borderRadius: 2, p: 3 }}>
             <ChartCard 
               title="dUSD Reserve Revenue (Yields + SMO Earnings)" 
-              onTimeframeChange={setReserveRevenueTimeframe}
+              onTimeframeChange={setRevenueTimeframe}
               legend={[
                 { color: "#8702ff", label: "APY Estimate" },
                 { color: "#22C55E", label: "Earnings Estimate" }
               ]}
             >
               <RevenueChart 
-                data={filterDataByTimeframe(mockData.reserveRevenue, reserveRevenueTimeframe)}
+                data={filterDataByTimeframe(mockData.reserveRevenue, revenueTimeframe)}
                 formatCurrency={formatCurrency}
               />
             </ChartCard>
