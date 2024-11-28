@@ -79,15 +79,13 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
 
     candlestickSeries.setData(candleData);
     
-    // Set the fixed price range (1 ± 0.1)
+    // Set the price scale to auto-scale
     chart.priceScale('right').applyOptions({
-      autoScale: false,
+      autoScale: true,
       scaleMargins: {
         top: 0.1,
         bottom: 0.1,
       },
-      minValue: 0.9,
-      maxValue: 1.1,
     });
 
     chart.timeScale().fitContent();
