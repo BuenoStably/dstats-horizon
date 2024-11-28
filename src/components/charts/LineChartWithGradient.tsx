@@ -27,7 +27,7 @@ const LineChartWithGradient = ({
   secondLineData,
   secondLineKey = "value",
   secondLineColor = "#22C55E",
-  yAxisDomain = ['auto', 'auto'],
+  yAxisDomain,
   useAreaGradient = false,
 }: LineChartWithGradientProps) => {
   const getEffectiveDomain = () => {
@@ -78,6 +78,9 @@ const LineChartWithGradient = ({
     return null;
   };
 
+  const shouldUseEffectiveDomain = !yAxisDomain || 
+    (Array.isArray(yAxisDomain) && yAxisDomain[0] === 'auto' && yAxisDomain[1] === 'auto');
+
   return (
     <Box sx={{ width: "100%", height: 400 }}>
       <ResponsiveContainer>
@@ -116,7 +119,7 @@ const LineChartWithGradient = ({
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             width={60}
-            domain={yAxisDomain === ['auto', 'auto'] ? getEffectiveDomain() : yAxisDomain}
+            domain={shouldUseEffectiveDomain ? getEffectiveDomain() : yAxisDomain}
           />
           <Tooltip content={<CustomTooltip />} />
           <Area
