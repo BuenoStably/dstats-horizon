@@ -7,14 +7,13 @@ import {
   TableRow,
   TableContainer,
   Paper,
-  Button,
   Box,
 } from "@mui/material";
-import { ArrowUpDown } from "lucide-react";
 import { TransactionHeader } from "./transactions/TransactionHeader";
 import { TransactionRow } from "./transactions/TransactionRow";
 import { TransactionEntry } from "./transactions/types";
 import { SortableTableHeader } from "./shared/SortableTableHeader";
+import ShowMoreButton from "./shared/ShowMoreButton";
 
 interface SmoTransaction {
   id: string;
@@ -187,12 +186,7 @@ const SmoTransactionsTable = () => {
       </TableContainer>
 
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button
-          variant="outlined"
-          onClick={() => setExpanded(!expanded)}
-        >
-          {expanded ? "Show Less" : "Show More"}
-        </Button>
+        <ShowMoreButton expanded={expanded} onClick={() => setExpanded(!expanded)} />
       </Box>
     </Box>
   );

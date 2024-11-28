@@ -7,13 +7,13 @@ import {
   TableRow,
   TableContainer,
   Paper,
-  Button,
   Box,
 } from "@mui/material";
 import { BalanceSheetHeader } from "./balance-sheet/BalanceSheetHeader";
 import { BalanceSheetRow } from "./balance-sheet/BalanceSheetRow";
 import { BalanceSheetEntry } from "./balance-sheet/types";
 import { SortableTableHeader } from "./shared/SortableTableHeader";
+import ShowMoreButton from "./shared/ShowMoreButton";
 
 const mockData: BalanceSheetEntry[] = [
   {
@@ -193,12 +193,7 @@ const BalanceSheetTable = () => {
       </TableContainer>
 
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button
-          variant="outlined"
-          onClick={() => setExpanded(!expanded)}
-        >
-          {expanded ? "Show Less" : "Show More"}
-        </Button>
+        <ShowMoreButton expanded={expanded} onClick={() => setExpanded(!expanded)} />
       </Box>
     </Box>
   );
