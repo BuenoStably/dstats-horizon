@@ -20,11 +20,7 @@ export const TransactionRow = ({ entry, formatValue }: TransactionRowProps) => {
       <TableCell>{entry.asset}</TableCell>
       <TableCell>{entry.network}</TableCell>
       <TableCell>{entry.type}</TableCell>
-      <TableCell>
-        <Tooltip title={entry.quantity.toLocaleString()} arrow placement="top">
-          <span>{formatValue(entry.quantity)}</span>
-        </Tooltip>
-      </TableCell>
+      <TableCell>{formatValue(entry.quantity)}</TableCell>
     </TableRow>
   );
 };
