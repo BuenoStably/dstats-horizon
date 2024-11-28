@@ -18,7 +18,7 @@ import ShowMoreButton from "./shared/ShowMoreButton";
 const mockData: BalanceSheetEntry[] = [
   {
     id: "1",
-    address: "0x1234...5678",
+    address: "0x1234567890abcdef1234567890abcdef12345678",
     asset: "FRAX",
     network: "Fraxtal",
     quantity: 51000.00,
@@ -27,7 +27,7 @@ const mockData: BalanceSheetEntry[] = [
   },
   {
     id: "2",
-    address: "0x2345...6789",
+    address: "0x2345678901abcdef2345678901abcdef23456789",
     asset: "sFRAX",
     network: "Fraxtal",
     quantity: 920000.00,
@@ -36,7 +36,7 @@ const mockData: BalanceSheetEntry[] = [
   },
   {
     id: "3",
-    address: "0x3456...7890",
+    address: "0x3456789012abcdef3456789012abcdef34567890",
     asset: "USDC",
     network: "Fraxtal",
     quantity: 48828.00,
@@ -45,7 +45,7 @@ const mockData: BalanceSheetEntry[] = [
   },
   {
     id: "4",
-    address: "0x4567...8901",
+    address: "0x4567890123abcdef4567890123abcdef45678901",
     asset: "dUSD/FRAX Curve LP",
     network: "Fraxtal",
     quantity: 500000.00,
@@ -54,7 +54,7 @@ const mockData: BalanceSheetEntry[] = [
   },
   {
     id: "5",
-    address: "0x5678...9012",
+    address: "0x5678901234abcdef5678901234abcdef56789012",
     asset: "dUSD (unallocated)",
     network: "Ethereum",
     quantity: 400000.00,
@@ -63,7 +63,7 @@ const mockData: BalanceSheetEntry[] = [
   },
   {
     id: "6",
-    address: "0x6789...0123",
+    address: "0x6789012345abcdef6789012345abcdef67890123",
     asset: "FRAX",
     network: "Fraxtal",
     quantity: 75000.00,
@@ -72,7 +72,7 @@ const mockData: BalanceSheetEntry[] = [
   },
   {
     id: "7",
-    address: "0x7890...1234",
+    address: "0x7890123456abcdef7890123456abcdef78901234",
     asset: "sFRAX",
     network: "Fraxtal",
     quantity: 150000.00,
