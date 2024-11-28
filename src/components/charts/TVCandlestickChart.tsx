@@ -86,8 +86,8 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
         top: 0.1,
         bottom: 0.1,
       },
-      minValue: 0.9,
-      maxValue: 1.1,
+      minimumValue: 0.9,
+      maximumValue: 1.1,
     });
 
     chart.timeScale().fitContent();
