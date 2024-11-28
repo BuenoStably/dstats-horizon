@@ -116,7 +116,7 @@ const DUSDPage = () => {
         
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid container item xs={12} md={6}>
               <ChartCard title="dUSD Price (USD)" onTimeframeChange={setPriceTimeframe}>
                 <CandlestickChart
                   data={filterDataByTimeframe(mockData.price, priceTimeframe)}
@@ -125,7 +125,7 @@ const DUSDPage = () => {
               </ChartCard>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid container item xs={12} md={6}>
               <ChartCard title="Total dUSD Supply" onTimeframeChange={setSupplyTimeframe}>
                 <LineChartWithGradient
                   data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
@@ -136,7 +136,7 @@ const DUSDPage = () => {
               </ChartCard>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid container item xs={12} md={6}>
               <ChartCard 
                 title="dUSD NAV" 
                 onTimeframeChange={setNavTimeframe}
@@ -156,7 +156,7 @@ const DUSDPage = () => {
               </ChartCard>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid container item xs={12} md={6}>
               <ChartCard 
                 title="dUSD Balance Sheet"
                 showTimeframes={false}
