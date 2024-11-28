@@ -1,26 +1,30 @@
-import { subDays, subMonths, subYears } from "date-fns";
-
-export const getDateRange = (timeframe: string): Date => {
-  const today = new Date();
+export const filterDataByTimeframe = (data: any[], timeframe: string) => {
+  if (!data || data.length === 0) return [];
+  
+  const now = new Date();
+  const startDate = new Date();
   
   switch (timeframe) {
     case "7D":
-      return subDays(today, 7);
+      startDate.setDate(now.getDate() - 7);
+      break;
     case "30D":
-      return subDays(today, 30);
+      startDate.setDate(now.getDate() - 30);
+      break;
     case "6M":
-      return subMonths(today, 6);
+      startDate.setMonth(now.getMonth() - 6);
+      break;
     case "1Y":
-      return subYears(today, 1);
+      startDate.setFullYear(now.getFullYear() - 1);
+      break;
     case "All":
-      return new Date(2024, 0, 1); // Returns January 1st, 2024 as the start date
+      return data;
     default:
-      return subDays(today, 7);
+      startDate.setDate(now.getDate() - 7);
   }
-};
-
-export const filterDataByTimeframe = (data: any[] | undefined, timeframe: string) => {
-  if (!data) return [];
-  const startDate = getDateRange(timeframe);
-  return data.filter(item => new Date(item.date) >= startDate);
+  
+  return data.filter(item => {
+    const itemDate = new Date(item.date);
+    return itemDate >= startDate && itemDate <= now;
+  });
 };

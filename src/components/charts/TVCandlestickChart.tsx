@@ -11,7 +11,7 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
   const chartRef = useRef<IChartApi | null>(null);
 
   useEffect(() => {
-    if (!chartContainerRef.current) return;
+    if (!chartContainerRef.current || !data.length) return;
 
     // Create the chart
     const chart = createChart(chartContainerRef.current, {
@@ -25,6 +25,10 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
       },
       width: chartContainerRef.current.clientWidth,
       height: 350,
+      timeScale: {
+        timeVisible: true,
+        secondsVisible: false,
+      },
     });
 
     // Create candlestick series
@@ -37,19 +41,19 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
     });
 
     // Transform data for candlestick format
-    const candleData = data.map((item, index) => {
-      const prevValue = index > 0 ? data[index - 1].value : item.value;
+    const candleData = data.map((item) => {
       const volatilityBase = 0.005;
       const randomUpWick = Math.random() * volatilityBase;
       const randomDownWick = Math.random() * volatilityBase;
       
-      const open = prevValue;
+      const timestamp = new Date(item.date).getTime() / 1000;
+      const open = item.value * (1 - randomDownWick);
       const close = item.value;
-      const high = Math.max(open, close) * (1 + randomUpWick);
-      const low = Math.min(open, close) * (1 - randomDownWick);
+      const high = close * (1 + randomUpWick);
+      const low = open * (1 - randomDownWick);
 
       return {
-        time: new Date(item.date).getTime() / 1000 as Time,
+        time: timestamp as Time,
         open,
         high,
         low,
@@ -58,6 +62,7 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
     });
 
     candlestickSeries.setData(candleData);
+    chart.timeScale().fitContent();
 
     // Handle resize
     const handleResize = () => {
