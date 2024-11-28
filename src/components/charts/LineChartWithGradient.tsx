@@ -33,15 +33,14 @@ const LineChartWithGradient = ({
   const getEffectiveDomain = () => {
     const values = data.map(item => item.value);
     if (showSecondLine && secondLineData) {
-      values.push(...secondLineData.map(item => item.value));
+      values.push(...secondLineData.map(item => item[secondLineKey]));
     }
     const minValue = Math.min(...values);
     const maxValue = Math.max(...values);
-    const padding = (maxValue - minValue) * 0.05; // Reduced padding to 5%
+    const padding = (maxValue - minValue) * 0.05;
     return [minValue - padding, maxValue + padding] as [number, number];
   };
 
-  // Calculate interval based on data length
   const calculateInterval = () => {
     const dataLength = data.length;
     if (dataLength <= 10) return 0;
@@ -69,7 +68,7 @@ const LineChartWithGradient = ({
           </Typography>
           {payload.map((entry: any, index: number) => (
             <Typography key={index} variant="body2" sx={{ color: entry.color }}>
-              {entry.dataKey === "value" ? "AMO TVL" : "Reserve TVL"}: {valueFormatter(entry.value)}
+              {entry.name}: {valueFormatter(entry.value)}
             </Typography>
           ))}
         </Paper>
@@ -130,6 +129,7 @@ const LineChartWithGradient = ({
             strokeWidth={2}
             fill={useAreaGradient ? "url(#colorValue)" : "none"}
             fillOpacity={1}
+            name="AMO TVL"
           />
           {showSecondLine && secondLineData && (
             <Area
@@ -140,6 +140,7 @@ const LineChartWithGradient = ({
               strokeWidth={2}
               fill={useAreaGradient ? "url(#colorEthereum)" : "none"}
               fillOpacity={1}
+              name="Reserve TVL"
             />
           )}
         </AreaChart>
