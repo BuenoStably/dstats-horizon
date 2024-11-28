@@ -64,7 +64,8 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
             angle={-45}
             textAnchor="end"
             height={60}
-            interval={0}
+            interval="preserveStartEnd"
+            minTickGap={50}
             style={{ fontFamily: 'Inter' }}
           />
           <YAxis
