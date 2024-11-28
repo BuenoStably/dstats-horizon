@@ -88,7 +88,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             yAxisId="left"
             domain={[0, 80000]}
             tickFormatter={(value) => value.toLocaleString()}
-            ticks={[0, 20000, 40000, 60000, 80000]}
+            ticks={[0, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000]}
             stroke="transparent"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}
