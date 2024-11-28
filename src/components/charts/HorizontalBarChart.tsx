@@ -40,6 +40,14 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
             <stop offset="50%" stopColor="#4B5563" />
             <stop offset="100%" stopColor="#4B5563" />
           </linearGradient>
+          <linearGradient id="assetsGradientHover" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#16A34A" />
+            <stop offset="33.33%" stopColor="#16A34A" />
+            <stop offset="33.33%" stopColor="#166534" />
+            <stop offset="50%" stopColor="#166534" />
+            <stop offset="50%" stopColor="#374151" />
+            <stop offset="100%" stopColor="#374151" />
+          </linearGradient>
         </defs>
         <XAxis
           type="number"
@@ -71,23 +79,32 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
         <Tooltip
           formatter={(value: number) => formatValue(value)}
           contentStyle={{
-            backgroundColor: "rgba(255, 255, 255, 0.05)",
+            backgroundColor: "rgba(31, 29, 43, 0.95)",
             border: "1px solid rgba(255, 255, 255, 0.1)",
             borderRadius: "8px",
             backdropFilter: "blur(10px)",
-            fontFamily: 'Inter'
+            fontFamily: 'Inter',
+            color: '#ffffff'
           }}
+          cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
         />
         <Bar
           dataKey="value"
           radius={[0, 4, 4, 0]}
-          fillOpacity={0.8}
+          fillOpacity={0.9}
           name="Balance"
           stroke="none"
+          onMouseOver={(data, index) => {
+            document.querySelector(`#bar-${index}`)?.setAttribute('fill', data.name === "Assets" ? "url(#assetsGradientHover)" : "#b91c1c");
+          }}
+          onMouseOut={(data, index) => {
+            document.querySelector(`#bar-${index}`)?.setAttribute('fill', data.name === "Assets" ? "url(#assetsGradient)" : "#dc2626");
+          }}
         >
           {data.map((entry, index) => (
             <Cell 
-              key={`cell-${index}`} 
+              key={`cell-${index}`}
+              id={`bar-${index}`}
               fill={entry.name === "Assets" ? "url(#assetsGradient)" : "#dc2626"}
             />
           ))}
