@@ -4,12 +4,16 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+  TableContainer,
+  Paper,
+  Button,
+  Box,
+} from "@mui/material";
 import { ArrowUpDown } from "lucide-react";
+import { TransactionHeader } from "./transactions/TransactionHeader";
+import { TransactionRow } from "./transactions/TransactionRow";
+import { TransactionEntry } from "./transactions/types";
 
 interface AmoTransaction {
   id: string;
@@ -89,7 +93,7 @@ const mockData: AmoTransaction[] = [
 
 const AmoTransactionsTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortColumn, setSortColumn] = useState<keyof AmoTransaction | null>(null);
+  const [sortColumn, setSortColumn] = useState<keyof TransactionEntry | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [expanded, setExpanded] = useState(false);
   
@@ -103,7 +107,7 @@ const AmoTransactionsTable = () => {
     year: 'numeric'
   });
 
-  const handleSort = (column: keyof AmoTransaction) => {
+  const handleSort = (column: keyof TransactionEntry) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
@@ -148,77 +152,50 @@ const AmoTransactionsTable = () => {
     : sortedAndFilteredData.slice(0, 5);
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-start">
-        <div className="space-y-1">
-          <h2 className="text-xl font-semibold leading-none">AMO Transactions</h2>
-          <p className="text-sm text-gray-500">
-            (Last updated: {formattedDate})
-          </p>
-        </div>
-        <Input
-          placeholder="Search Table"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="max-w-sm"
-        />
-      </div>
+    <Box>
+      <TransactionHeader
+        formattedDate={formattedDate}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+      />
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("transaction")}>
-              Transaction <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("date")}>
-              Date <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("asset")}>
-              Asset <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("network")}>
-              Network <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("type")}>
-              Type <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("quantity")}>
-              Quantity <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {displayedData.map((entry) => (
-            <TableRow key={entry.id}>
-              <TableCell className="text-left">
-                <a 
-                  href={`https://explorer.fraxtal.io/tx/${entry.transaction}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 hover:text-blue-700"
+      <TableContainer component={Paper} sx={{ mb: 2 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {["transaction", "date", "asset", "network", "type", "quantity"].map((column) => (
+                <TableCell
+                  key={column}
+                  onClick={() => handleSort(column as keyof TransactionEntry)}
+                  sx={{ cursor: 'pointer' }}
                 >
-                  {entry.transaction}
-                </a>
-              </TableCell>
-              <TableCell className="text-left">{entry.date}</TableCell>
-              <TableCell className="text-left">{entry.asset}</TableCell>
-              <TableCell className="text-left">{entry.network}</TableCell>
-              <TableCell className="text-left">{entry.type}</TableCell>
-              <TableCell className="text-left">{formatValue(entry.quantity)}</TableCell>
+                  {column.charAt(0).toUpperCase() + column.slice(1)}
+                  <ArrowUpDown className="inline h-4 w-4 ml-1" />
+                </TableCell>
+              ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {displayedData.map((entry) => (
+              <TransactionRow
+                key={entry.id}
+                entry={entry}
+                formatValue={formatValue}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-      <div className="flex justify-center mt-4">
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
-          variant="outline"
+          variant="outlined"
           onClick={() => setExpanded(!expanded)}
         >
           {expanded ? "Show Less" : "Show More"}
         </Button>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
