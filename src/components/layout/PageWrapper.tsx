@@ -11,19 +11,7 @@ const PageWrapper = ({ children, title }: PageWrapperProps) => {
       sx={{ 
         minHeight: "100vh", 
         bgcolor: "transparent",
-        position: "relative",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: "linear-gradient(to top, rgba(135, 2, 255, 0.15), transparent)",
-          pointerEvents: "none",
-          zIndex: 0,
-          backdropFilter: "brightness(0.7)"
-        }
+        position: "relative"
       }}
     >
       <Container 
