@@ -21,7 +21,7 @@ export const TransactionRow = ({ entry, formatValue }: TransactionRowProps) => {
       <TableCell>{entry.network}</TableCell>
       <TableCell>{entry.type}</TableCell>
       <TableCell>
-        <Tooltip title={formatValue(entry.quantity)} arrow placement="top">
+        <Tooltip title={entry.quantity.toLocaleString()} arrow placement="top">
           <span>{formatValue(entry.quantity)}</span>
         </Tooltip>
       </TableCell>

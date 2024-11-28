@@ -30,10 +30,18 @@ export const BalanceSheetRow = ({
       </TableCell>
       <TableCell>{entry.asset}</TableCell>
       <TableCell>{entry.network}</TableCell>
-      <TableCell>{formatQuantity(entry.quantity)}</TableCell>
-      <TableCell>{formatExchangeRate(entry.exchangeRate)}</TableCell>
       <TableCell>
-        <Tooltip title={formatValue(entry.value)} arrow placement="top">
+        <Tooltip title={entry.quantity.toLocaleString()} arrow placement="top">
+          <span>{formatQuantity(entry.quantity)}</span>
+        </Tooltip>
+      </TableCell>
+      <TableCell>
+        <Tooltip title={entry.exchangeRate.toFixed(4)} arrow placement="top">
+          <span>{formatExchangeRate(entry.exchangeRate)}</span>
+        </Tooltip>
+      </TableCell>
+      <TableCell>
+        <Tooltip title={entry.value.toLocaleString()} arrow placement="top">
           <span>{formatValue(entry.value)}</span>
         </Tooltip>
       </TableCell>
