@@ -10,7 +10,7 @@ const PageWrapper = ({ children, title }: PageWrapperProps) => {
     <Box 
       sx={{ 
         minHeight: "100vh", 
-        bgcolor: "background.default",
+        bgcolor: "transparent",
         position: "relative",
         "&::before": {
           content: '""',
