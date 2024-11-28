@@ -1,5 +1,6 @@
 import { TableRow, TableCell, Link, Tooltip } from "@mui/material";
 import { BalanceSheetEntry } from "./types";
+import { formatAddress } from "@/utils/addressUtils";
 
 interface BalanceSheetRowProps {
   entry: BalanceSheetEntry;
@@ -24,7 +25,7 @@ export const BalanceSheetRow = ({
             rel="noopener noreferrer"
             underline="hover"
           >
-            {entry.address}
+            {formatAddress(entry.address)}
           </Link>
         </Tooltip>
       </TableCell>

@@ -1,5 +1,6 @@
 import { TableCell, TableRow, Tooltip } from "@mui/material";
 import { TransactionRowProps } from "./types";
+import { formatAddress } from "@/utils/addressUtils";
 
 export const TransactionRow = ({ entry, formatValue }: TransactionRowProps) => {
   return (
@@ -12,7 +13,7 @@ export const TransactionRow = ({ entry, formatValue }: TransactionRowProps) => {
             rel="noopener noreferrer"
             style={{ color: '#2196f3', textDecoration: 'none' }}
           >
-            {entry.transaction}
+            {formatAddress(entry.transaction)}
           </a>
         </Tooltip>
       </TableCell>
