@@ -167,10 +167,16 @@ const SmoTransactionsTable = () => {
                 <TableCell
                   key={column}
                   onClick={() => handleSort(column as keyof TransactionEntry)}
-                  sx={{ cursor: 'pointer' }}
+                  sx={{ 
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    justifyContent: 'flex-start'
+                  }}
                 >
                   {column.charAt(0).toUpperCase() + column.slice(1)}
-                  <ArrowUpDown className="inline h-4 w-4 ml-1" />
+                  <ArrowUpDown className="h-4 w-4" />
                 </TableCell>
               ))}
             </TableRow>
