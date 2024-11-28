@@ -27,7 +27,7 @@ interface AmoTransaction {
 const mockData: AmoTransaction[] = [
   {
     id: "1",
-    transaction: "0x1234...5678",
+    transaction: "0x1234567890abcdef1234567890abcdef12345678",
     date: "Nov 1, 2024",
     asset: "dUSD",
     network: "Fraxtal",
@@ -36,7 +36,7 @@ const mockData: AmoTransaction[] = [
   },
   {
     id: "2",
-    transaction: "0x2345...6789",
+    transaction: "0x2345678901abcdef2345678901abcdef23456789",
     date: "Nov 5, 2024",
     asset: "FRAX",
     network: "Fraxtal",
@@ -45,7 +45,7 @@ const mockData: AmoTransaction[] = [
   },
   {
     id: "3",
-    transaction: "0x3456...7890",
+    transaction: "0x3456789012abcdef3456789012abcdef34567890",
     date: "Nov 8, 2024",
     asset: "dUSD",
     network: "Fraxtal",
@@ -54,7 +54,7 @@ const mockData: AmoTransaction[] = [
   },
   {
     id: "4",
-    transaction: "0x4567...8901",
+    transaction: "0x4567890123abcdef4567890123abcdef45678901",
     date: "Nov 10, 2024",
     asset: "FRAX",
     network: "Fraxtal",
@@ -63,7 +63,7 @@ const mockData: AmoTransaction[] = [
   },
   {
     id: "5",
-    transaction: "0x5678...9012",
+    transaction: "0x5678901234abcdef5678901234abcdef56789012",
     date: "Nov 12, 2024",
     asset: "dUSD",
     network: "Fraxtal",
@@ -72,7 +72,7 @@ const mockData: AmoTransaction[] = [
   },
   {
     id: "6",
-    transaction: "0x6789...0123",
+    transaction: "0x6789012345abcdef6789012345abcdef67890123",
     date: "Nov 13, 2024",
     asset: "FRAX",
     network: "Fraxtal",
@@ -81,7 +81,7 @@ const mockData: AmoTransaction[] = [
   },
   {
     id: "7",
-    transaction: "0x7890...1234",
+    transaction: "0x7890123456abcdef7890123456abcdef78901234",
     date: "Nov 14, 2024",
     asset: "dUSD",
     network: "Fraxtal",
