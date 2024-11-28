@@ -155,6 +155,7 @@ const SmoTransactionsTable = () => {
   return (
     <Box>
       <TransactionHeader
+        title="SMO Transactions"
         formattedDate={formattedDate}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}

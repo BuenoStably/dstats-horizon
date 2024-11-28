@@ -153,6 +153,7 @@ const AmoTransactionsTable = () => {
   return (
     <Box>
       <TransactionHeader
+        title="AMO Transactions"
         formattedDate={formattedDate}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
