@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
-import MetricCard from "@/components/MetricCard";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { Percent, Users, ArrowUpDown, BarChart3, UserMinus } from "lucide-react";
 import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import { generateMockApyData } from "@/utils/mockApyData";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
+import PageWrapper from "@/components/layout/PageWrapper";
+import MetricsGrid from "@/components/metrics/MetricsGrid";
 
 const DLENDPage = () => {
   const [supplyTimeframe, setSupplyTimeframe] = useState("7D");
@@ -51,26 +52,10 @@ const DLENDPage = () => {
   const formatPercentage = (value: number) => `${value.toFixed(2)}%`;
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+    <>
       <Navbar />
-      <Container sx={{ py: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3, fontWeight: 'bold', color: 'text.primary' }}>
-          dLEND Analytics
-        </Typography>
-        
-        <Grid container spacing={2}>
-          {metrics.map((metric, index) => (
-            <Grid item xs={12} sm={6} lg={2.4} key={index}>
-              <MetricCard 
-                value={metric.value}
-                label={metric.label}
-                tooltip={metric.tooltip}
-                icon={metric.icon}
-              />
-            </Grid>
-          ))}
-        </Grid>
-        
+      <PageWrapper title="dLEND Analytics">
+        <MetricsGrid metrics={metrics} />
         <Box sx={{ mt: 4 }}>
           <Grid container spacing={3}>
             <Grid container item xs={12} lg={6}>
@@ -98,8 +83,8 @@ const DLENDPage = () => {
             </Grid>
           </Grid>
         </Box>
-      </Container>
-    </Box>
+      </PageWrapper>
+    </>
   );
 };
 

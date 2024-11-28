@@ -1,14 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
 import Navbar from "@/components/Navbar";
-import MetricCard from "@/components/MetricCard";
 import { ChartSection } from "@/components/ChartSection";
 import { DollarSign, Wallet, Percent, Gift } from "lucide-react";
 import { useMetrics } from "@/hooks/useMetrics";
 import { generateDusdMockData } from "@/utils/mockDusdData";
-import { Box, Typography, Container, Grid } from "@mui/material";
+import PageWrapper from "@/components/layout/PageWrapper";
+import MetricsGrid from "@/components/metrics/MetricsGrid";
 
-const MetricsSection = () => {
+const Index = () => {
   const { data: metrics, isLoading, error } = useMetrics();
+  const mockData = generateDusdMockData();
 
   const metricsConfig = [
     {
@@ -44,66 +44,17 @@ const MetricsSection = () => {
   ];
 
   return (
-    <Grid container spacing={2} sx={{ mb: { xs: 3, sm: 4 } }}>
-      {metricsConfig.map((metric, index) => (
-        <Grid item xs={12} sm={6} lg={2.4} key={index}>
-          <MetricCard 
-            {...metric} 
-            isLoading={isLoading}
-            error={error instanceof Error ? error : null}
-          />
-        </Grid>
-      ))}
-    </Grid>
-  );
-};
-
-const Index = () => {
-  const mockData = generateDusdMockData();
-
-  return (
-    <Box 
-      sx={{ 
-        minHeight: "100vh", 
-        bgcolor: "background.default",
-        position: "relative",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: "linear-gradient(to top, rgba(135, 2, 255, 0.5), transparent)",
-          pointerEvents: "none",
-          zIndex: 0
-        }
-      }}
-    >
+    <>
       <Navbar />
-      <Container 
-        sx={{ 
-          px: { xs: 2, sm: 3 }, 
-          py: { xs: 3, sm: 4 },
-          minHeight: 'calc(100vh - 73px)',
-          position: "relative",
-          zIndex: 1
-        }}
-      >
-        <Typography 
-          variant="h4" 
-          sx={{ 
-            fontSize: { xs: '1.25rem', sm: '1.5rem' },
-            fontWeight: 'bold',
-            mb: { xs: 2, sm: 3 }
-          }}
-        >
-          Key Metrics
-        </Typography>
-        <MetricsSection />
+      <PageWrapper title="Key Metrics">
+        <MetricsGrid 
+          metrics={metricsConfig}
+          isLoading={isLoading}
+          error={error instanceof Error ? error : null}
+        />
         <ChartSection mockData={mockData} />
-      </Container>
-    </Box>
+      </PageWrapper>
+    </>
   );
 };
 
