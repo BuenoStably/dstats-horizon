@@ -1,18 +1,7 @@
 import { useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableContainer,
-  Paper,
-  Box,
-} from "@mui/material";
-import { TransactionHeader } from "./transactions/TransactionHeader";
+import BaseDataTable from "./shared/BaseDataTable";
 import { TransactionRow } from "./transactions/TransactionRow";
 import { TransactionEntry } from "./transactions/types";
-import { SortableTableHeader } from "./shared/SortableTableHeader";
-import ShowMoreButton from "./shared/ShowMoreButton";
 
 interface AmoTransaction {
   id: string;
@@ -92,29 +81,7 @@ const mockData: AmoTransaction[] = [
 
 const AmoTransactionsTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortColumn, setSortColumn] = useState<keyof TransactionEntry | null>(null);
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-  const [expanded, setExpanded] = useState(false);
   
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-    month: 'numeric',
-    day: 'numeric',
-    year: 'numeric'
-  });
-
-  const handleSort = (column: keyof TransactionEntry) => {
-    if (sortColumn === column) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-    } else {
-      setSortColumn(column);
-      setSortDirection("asc");
-    }
-  };
-
   const formatValue = (value: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -125,69 +92,34 @@ const AmoTransactionsTable = () => {
     }).format(value);
   };
 
-  const sortedAndFilteredData = [...mockData]
-    .filter(entry => 
-      Object.values(entry).some(value => 
-        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    )
-    .sort((a, b) => {
-      if (!sortColumn) return 0;
-      
-      const aValue = a[sortColumn];
-      const bValue = b[sortColumn];
-      
-      if (typeof aValue === 'number' && typeof bValue === 'number') {
-        return sortDirection === "asc" ? aValue - bValue : bValue - aValue;
-      }
-      
-      return sortDirection === "asc" 
-        ? String(aValue).localeCompare(String(bValue))
-        : String(bValue).localeCompare(String(aValue));
+  const formatDate = () => {
+    const currentDate = new Date();
+    return currentDate.toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+      month: 'numeric',
+      day: 'numeric',
+      year: 'numeric'
     });
-
-  const displayedData = expanded 
-    ? sortedAndFilteredData 
-    : sortedAndFilteredData.slice(0, 5);
+  };
 
   return (
-    <Box>
-      <TransactionHeader
-        title="AMO Transactions"
-        formattedDate={formattedDate}
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-      />
-
-      <TableContainer component={Paper} sx={{ mb: 2 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {["transaction", "date", "asset", "network", "type", "quantity"].map((column) => (
-                <SortableTableHeader
-                  key={column}
-                  column={column}
-                  onSort={() => handleSort(column as keyof TransactionEntry)}
-                />
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {displayedData.map((entry) => (
-              <TransactionRow
-                key={entry.id}
-                entry={entry}
-                formatValue={formatValue}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <ShowMoreButton expanded={expanded} onClick={() => setExpanded(!expanded)} />
-      </Box>
-    </Box>
+    <BaseDataTable
+      data={mockData}
+      columns={["transaction", "date", "asset", "network", "type", "quantity"]}
+      renderRow={(entry) => (
+        <TransactionRow
+          key={entry.id}
+          entry={entry}
+          formatValue={formatValue}
+        />
+      )}
+      searchTerm={searchTerm}
+      onSearchChange={setSearchTerm}
+      title="AMO Transactions"
+      formatDate={formatDate}
+    />
   );
 };
 
