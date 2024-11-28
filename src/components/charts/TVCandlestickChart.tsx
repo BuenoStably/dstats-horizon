@@ -29,15 +29,31 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
         timeVisible: true,
         secondsVisible: false,
       },
+      rightPriceScale: {
+        autoScale: false,
+        scaleMargins: {
+          top: 0.1,
+          bottom: 0.1,
+        },
+      },
     });
 
-    // Create candlestick series
+    // Create candlestick series with fixed price range
     const candlestickSeries = chart.addCandlestickSeries({
       upColor: '#22C55E',
       downColor: '#EF4444',
       borderVisible: false,
       wickUpColor: '#22C55E',
       wickDownColor: '#EF4444',
+    });
+
+    // Set the fixed price range
+    candlestickSeries.applyOptions({
+      priceFormat: {
+        type: 'price',
+        precision: 4,
+        minMove: 0.0001,
+      },
     });
 
     // Transform data for candlestick format
@@ -62,6 +78,18 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
     });
 
     candlestickSeries.setData(candleData);
+    
+    // Set the fixed price range (1 ± 0.1)
+    chart.priceScale('right').applyOptions({
+      autoScale: false,
+      scaleMargins: {
+        top: 0.1,
+        bottom: 0.1,
+      },
+      minValue: 0.9,
+      maxValue: 1.1,
+    });
+
     chart.timeScale().fitContent();
 
     // Handle resize
