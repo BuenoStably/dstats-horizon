@@ -10,10 +10,10 @@ import {
   Button,
   Box,
 } from "@mui/material";
-import { ArrowUpDown } from "lucide-react";
 import { BalanceSheetHeader } from "./balance-sheet/BalanceSheetHeader";
 import { BalanceSheetRow } from "./balance-sheet/BalanceSheetRow";
 import { BalanceSheetEntry } from "./balance-sheet/types";
+import { SortableTableHeader } from "./shared/SortableTableHeader";
 
 const mockData: BalanceSheetEntry[] = [
   {
@@ -170,20 +170,11 @@ const BalanceSheetTable = () => {
           <TableHead>
             <TableRow>
               {["address", "asset", "network", "quantity", "exchangeRate", "value"].map((column) => (
-                <TableCell
+                <SortableTableHeader
                   key={column}
-                  onClick={() => handleSort(column as keyof BalanceSheetEntry)}
-                  sx={{ 
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1,
-                    justifyContent: 'flex-start'
-                  }}
-                >
-                  {column.charAt(0).toUpperCase() + column.slice(1)}
-                  <ArrowUpDown className="h-4 w-4" />
-                </TableCell>
+                  column={column}
+                  onSort={() => handleSort(column as keyof BalanceSheetEntry)}
+                />
               ))}
             </TableRow>
           </TableHead>

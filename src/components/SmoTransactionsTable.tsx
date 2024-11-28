@@ -14,6 +14,7 @@ import { ArrowUpDown } from "lucide-react";
 import { TransactionHeader } from "./transactions/TransactionHeader";
 import { TransactionRow } from "./transactions/TransactionRow";
 import { TransactionEntry } from "./transactions/types";
+import { SortableTableHeader } from "./shared/SortableTableHeader";
 
 interface SmoTransaction {
   id: string;
@@ -164,20 +165,11 @@ const SmoTransactionsTable = () => {
           <TableHead>
             <TableRow>
               {["transaction", "date", "asset", "network", "type", "quantity"].map((column) => (
-                <TableCell
+                <SortableTableHeader
                   key={column}
-                  onClick={() => handleSort(column as keyof TransactionEntry)}
-                  sx={{ 
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1,
-                    justifyContent: 'flex-start'
-                  }}
-                >
-                  {column.charAt(0).toUpperCase() + column.slice(1)}
-                  <ArrowUpDown className="h-4 w-4" />
-                </TableCell>
+                  column={column}
+                  onSort={() => handleSort(column as keyof TransactionEntry)}
+                />
               ))}
             </TableRow>
           </TableHead>
