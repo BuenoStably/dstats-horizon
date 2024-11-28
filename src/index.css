@@ -35,8 +35,8 @@ body {
 }
 
 .recharts-default-tooltip {
-  background-color: rgb(18, 17, 28) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
   border-radius: 8px !important;
   padding: 12px !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
@@ -44,7 +44,7 @@ body {
 }
 
 .recharts-tooltip-label {
-  color: #9CA3AF !important;
+  color: var(--text-muted) !important;
   font-family: Inter !important;
   font-size: 12px !important;
   margin-bottom: 4px !important;
@@ -52,28 +52,51 @@ body {
 
 /* Chart axis styles */
 .recharts-cartesian-axis.recharts-xAxis .recharts-cartesian-axis-line {
-  stroke: #4B5563;
+  stroke: var(--chart-grid);
 }
 
 .recharts-cartesian-axis.recharts-yAxis .recharts-cartesian-axis-line {
-  stroke: #4B5563;
+  stroke: var(--chart-grid);
 }
 
 .recharts-cartesian-axis.recharts-xAxis .recharts-text,
 .recharts-cartesian-axis.recharts-yAxis .recharts-text {
-  fill: #9CA3AF !important;
+  fill: var(--text-muted) !important;
   font-size: 12px;
 }
 
 .recharts-cartesian-grid-horizontal line,
 .recharts-cartesian-grid-vertical line {
-  stroke: rgba(75, 85, 99, 0.2);
+  stroke: var(--chart-grid-opaque);
 }
 
 .candlestick-up {
-  --candlestick-color: #22C55E;
+  --candlestick-color: var(--success);
 }
 
 .candlestick-down {
-  --candlestick-color: #EF4444;
+  --candlestick-color: var(--error);
+}
+
+:root {
+  --background: rgb(18, 17, 28);
+  --surface: rgb(23, 22, 36);
+  --card: rgb(31, 29, 43);
+  --card-hover: rgb(35, 33, 47);
+  --primary: #8702ff;
+  --primary-light: #9b87f5;
+  --primary-dark: #6E59A5;
+  --secondary: #22C55E;
+  --secondary-light: #34d673;
+  --secondary-dark: #15803d;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: #9CA3AF;
+  --chart-grid: #4B5563;
+  --chart-grid-opaque: rgba(75, 85, 99, 0.2);
+  --success: #22C55E;
+  --error: #EF4444;
+  --warning: #F97316;
+  --info: #3B82F6;
+  --border: rgba(255, 255, 255, 0.1);
 }
