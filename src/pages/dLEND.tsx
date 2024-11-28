@@ -67,25 +67,29 @@ const DLENDPage = () => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-          <ChartCard 
-            title="Raw dUSD Supply APY" 
-            onTimeframeChange={setSupplyTimeframe}
-          >
-            <LineChartWithGradient
-              data={filterDataByTimeframe(supplyApyData, supplyTimeframe)}
-              valueFormatter={formatPercentage}
-            />
-          </ChartCard>
+          <Grid container item>
+            <ChartCard 
+              title="Raw dUSD Supply APY" 
+              onTimeframeChange={setSupplyTimeframe}
+            >
+              <LineChartWithGradient
+                data={filterDataByTimeframe(supplyApyData, supplyTimeframe)}
+                valueFormatter={formatPercentage}
+              />
+            </ChartCard>
+          </Grid>
 
-          <ChartCard 
-            title="Raw dUSD Borrow APY" 
-            onTimeframeChange={setBorrowTimeframe}
-          >
-            <LineChartWithGradient
-              data={filterDataByTimeframe(borrowApyData, borrowTimeframe)}
-              valueFormatter={formatPercentage}
-            />
-          </ChartCard>
+          <Grid container item>
+            <ChartCard 
+              title="Raw dUSD Borrow APY" 
+              onTimeframeChange={setBorrowTimeframe}
+            >
+              <LineChartWithGradient
+                data={filterDataByTimeframe(borrowApyData, borrowTimeframe)}
+                valueFormatter={formatPercentage}
+              />
+            </ChartCard>
+          </Grid>
         </div>
       </main>
     </div>
