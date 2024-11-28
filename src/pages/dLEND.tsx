@@ -17,31 +17,31 @@ const DLENDPage = () => {
       value: "9.0",
       label: "Debt Ratio",
       tooltip: "Current debt ratio of the protocol",
-      icon: <ArrowUpDown sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }} />,
+      icon: <Box sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }}><ArrowUpDown /></Box>,
     },
     {
       value: "80.0%",
       label: "Current LTV",
       tooltip: "Current Loan to Value ratio",
-      icon: <BarChart3 sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }} />,
+      icon: <Box sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }}><BarChart3 /></Box>,
     },
     {
       value: "90.0%",
       label: "Current Utilization",
       tooltip: "Current protocol utilization rate",
-      icon: <Percent sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }} />,
+      icon: <Box sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }}><Percent /></Box>,
     },
     {
       value: "268",
       label: "Lenders",
       tooltip: "Total number of unique lenders",
-      icon: <Users sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }} />,
+      icon: <Box sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }}><Users /></Box>,
     },
     {
       value: "127",
       label: "Borrowers",
       tooltip: "Total number of unique borrowers",
-      icon: <UserMinus sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }} />,
+      icon: <Box sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }}><UserMinus /></Box>,
     },
   ];
 
