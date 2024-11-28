@@ -9,7 +9,7 @@ import {
   Legend,
 } from "recharts";
 import { format } from "date-fns";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 interface RevenueChartProps {
   data: any[];
