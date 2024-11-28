@@ -1,4 +1,4 @@
-import { TableRow, TableCell, Link } from "@mui/material";
+import { TableRow, TableCell, Link, Tooltip } from "@mui/material";
 import { BalanceSheetEntry } from "./types";
 
 interface BalanceSheetRowProps {
@@ -17,20 +17,26 @@ export const BalanceSheetRow = ({
   return (
     <TableRow>
       <TableCell>
-        <Link
-          href={`https://explorer.fraxtal.io/address/${entry.address}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          underline="hover"
-        >
-          {entry.address}
-        </Link>
+        <Tooltip title={entry.address} arrow placement="top">
+          <Link
+            href={`https://explorer.fraxtal.io/address/${entry.address}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            underline="hover"
+          >
+            {entry.address}
+          </Link>
+        </Tooltip>
       </TableCell>
       <TableCell>{entry.asset}</TableCell>
       <TableCell>{entry.network}</TableCell>
       <TableCell>{formatQuantity(entry.quantity)}</TableCell>
       <TableCell>{formatExchangeRate(entry.exchangeRate)}</TableCell>
-      <TableCell>{formatValue(entry.value)}</TableCell>
+      <TableCell>
+        <Tooltip title={formatValue(entry.value)} arrow placement="top">
+          <span>{formatValue(entry.value)}</span>
+        </Tooltip>
+      </TableCell>
     </TableRow>
   );
 };
