@@ -25,41 +25,29 @@ const LineChartWithGradient = ({
   valueFormatter = (value: number) => value.toString(),
   showSecondLine,
   secondLineData,
-  secondLineKey = "ethereumValue",
+  secondLineKey = "value",
   secondLineColor = "#22C55E",
   yAxisDomain = ['auto', 'auto'],
   useAreaGradient = false,
 }: LineChartWithGradientProps) => {
-  const generateTicks = (domain: [number, number]) => {
-    const [min, max] = domain;
-    const ticks: number[] = [];
-    let current = Math.floor(min * 4) / 4;
-    while (current <= max) {
-      ticks.push(current);
-      current += 0.25;
-    }
-    return ticks;
-  };
-
   const getEffectiveDomain = () => {
     const values = data.map(item => item.value);
+    if (showSecondLine && secondLineData) {
+      values.push(...secondLineData.map(item => item.value));
+    }
     const minValue = Math.min(...values);
     const maxValue = Math.max(...values);
-    const min = minValue - (Math.abs(minValue) * 0.05);
-    const max = maxValue + (Math.abs(maxValue) * 0.05);
-    return [min, max] as [number, number];
+    const padding = (maxValue - minValue) * 0.05; // Reduced padding to 5%
+    return [minValue - padding, maxValue + padding] as [number, number];
   };
-
-  const domain = getEffectiveDomain();
-  const ticks = generateTicks(domain);
 
   // Calculate interval based on data length
   const calculateInterval = () => {
     const dataLength = data.length;
-    if (dataLength <= 10) return 0; // Show all points for small datasets
-    if (dataLength <= 20) return 1; // Show every other point
-    if (dataLength <= 40) return 2; // Show every third point
-    return Math.floor(dataLength / 10); // Show roughly 10 points for larger datasets
+    if (dataLength <= 10) return 0;
+    if (dataLength <= 20) return 1;
+    if (dataLength <= 40) return 2;
+    return Math.floor(dataLength / 10);
   };
 
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -81,7 +69,7 @@ const LineChartWithGradient = ({
           </Typography>
           {payload.map((entry: any, index: number) => (
             <Typography key={index} variant="body2" sx={{ color: entry.color }}>
-              {entry.dataKey === "value" ? "Value" : "Value"}: {valueFormatter(entry.value)}
+              {entry.dataKey === "value" ? "AMO TVL" : "Reserve TVL"}: {valueFormatter(entry.value)}
             </Typography>
           ))}
         </Paper>
@@ -94,7 +82,7 @@ const LineChartWithGradient = ({
     <Box sx={{ width: "100%", height: 400 }}>
       <ResponsiveContainer>
         <AreaChart
-          data={showSecondLine ? secondLineData : data}
+          data={data}
           margin={{ top: 10, right: 10, left: 10, bottom: 25 }}
         >
           <defs>
@@ -128,20 +116,9 @@ const LineChartWithGradient = ({
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             width={60}
-            domain={domain}
-            ticks={ticks}
+            domain={yAxisDomain === ['auto', 'auto'] ? getEffectiveDomain() : yAxisDomain}
           />
           <Tooltip content={<CustomTooltip />} />
-          {showSecondLine && (
-            <Area
-              type="monotone"
-              dataKey={secondLineKey}
-              stroke={secondLineColor}
-              strokeWidth={2}
-              fill={useAreaGradient ? "url(#colorEthereum)" : "none"}
-              fillOpacity={1}
-            />
-          )}
           <Area
             type="monotone"
             dataKey="value"
@@ -150,6 +127,17 @@ const LineChartWithGradient = ({
             fill={useAreaGradient ? "url(#colorValue)" : "none"}
             fillOpacity={1}
           />
+          {showSecondLine && secondLineData && (
+            <Area
+              type="monotone"
+              data={secondLineData}
+              dataKey="value"
+              stroke={secondLineColor}
+              strokeWidth={2}
+              fill={useAreaGradient ? "url(#colorEthereum)" : "none"}
+              fillOpacity={1}
+            />
+          )}
         </AreaChart>
       </ResponsiveContainer>
     </Box>
