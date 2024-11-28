@@ -1,8 +1,18 @@
+import { Box, Container, Grid, Typography } from "@mui/material";
+import { DollarSign, TrendingUp, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import MetricCard from "@/components/MetricCard";
-import { DollarSign, TrendingUp, Users } from "lucide-react";
+import ChartCard from "@/components/ChartCard";
+import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
+import PageWrapper from "@/components/layout/PageWrapper";
+import { generateMockApyData } from "@/utils/mockApyData";
+import { useState } from "react";
+import { filterDataByTimeframe } from "@/utils/dateUtils";
 
 const LiquidityPage = () => {
+  const [volumeTimeframe, setVolumeTimeframe] = useState("7D");
+  const [tvlTimeframe, setTvlTimeframe] = useState("7D");
+  
   const metrics = [
     {
       value: "$5.2M",
@@ -24,21 +34,61 @@ const LiquidityPage = () => {
     },
   ];
 
+  // Mock data for charts
+  const volumeData = generateMockApyData(40000, 45000);
+  const tvlData = generateMockApyData(5000000, 5400000);
+
+  const formatCurrency = (value: number) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      notation: "compact",
+      maximumFractionDigits: 2,
+    }).format(value);
+
   return (
-    <div className="min-h-screen bg-surface">
+    <>
       <Navbar />
-      <main className="container mx-auto px-3 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-73px)]">
-        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Liquidity Analytics</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
+      <PageWrapper title="Liquidity Analytics">
+        <Grid container spacing={2} sx={{ mb: 4 }}>
           {metrics.map((metric, index) => (
-            <MetricCard key={index} {...metric} />
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <MetricCard {...metric} />
+            </Grid>
           ))}
-        </div>
-        <div className="text-center text-gray-500 mt-8">
-          More analytics features coming soon
-        </div>
-      </main>
-    </div>
+        </Grid>
+
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={6}>
+            <ChartCard 
+              title="Trading Volume" 
+              onTimeframeChange={setVolumeTimeframe}
+            >
+              <LineChartWithGradient
+                data={filterDataByTimeframe(volumeData, volumeTimeframe)}
+                valueFormatter={formatCurrency}
+                useAreaGradient={true}
+                yAxisDomain={[0, 'auto']}
+              />
+            </ChartCard>
+          </Grid>
+
+          <Grid item xs={12} lg={6}>
+            <ChartCard 
+              title="Total Value Locked" 
+              onTimeframeChange={setTvlTimeframe}
+            >
+              <LineChartWithGradient
+                data={filterDataByTimeframe(tvlData, tvlTimeframe)}
+                valueFormatter={formatCurrency}
+                useAreaGradient={true}
+                yAxisDomain={[0, 'auto']}
+              />
+            </ChartCard>
+          </Grid>
+        </Grid>
+      </PageWrapper>
+    </>
   );
 };
 
