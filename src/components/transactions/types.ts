@@ -14,3 +14,8 @@ export interface TransactionEntry {
   type: string;
   quantity: number;
 }
+
+export interface TransactionRowProps {
+  entry: TransactionEntry;
+  formatValue: (value: number) => string;
+}
