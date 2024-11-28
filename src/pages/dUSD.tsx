@@ -141,7 +141,7 @@ const DUSDPage = () => {
                 title="dUSD NAV" 
                 onTimeframeChange={setNavTimeframe}
                 legend={[
-                  { color: "#4B5563", label: "AMO TVL" },
+                  { color: "#8702ff", label: "AMO TVL" },
                   { color: "#22C55E", label: "Reserve TVL" }
                 ]}
               >

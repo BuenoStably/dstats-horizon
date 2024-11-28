@@ -98,6 +98,7 @@ const LineChartWithGradient = ({
               <stop offset="95%" stopColor={secondLineColor} stopOpacity={0} />
             </linearGradient>
           </defs>
+
           <XAxis
             dataKey="date"
             tickFormatter={(date) => format(new Date(date), "MMM d")}
@@ -134,7 +135,7 @@ const LineChartWithGradient = ({
             <Area
               type="monotone"
               data={secondLineData}
-              dataKey="value"
+              dataKey={secondLineKey}
               stroke={secondLineColor}
               strokeWidth={2}
               fill={useAreaGradient ? "url(#colorEthereum)" : "none"}
