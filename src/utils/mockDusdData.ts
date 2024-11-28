@@ -16,7 +16,7 @@ export interface DusdMockData {
 }
 
 export const generateDusdMockData = (): DusdMockData => {
-  // Generate dates for the last 365 days instead of 30
+  // Generate dates for the last 365 days
   const dates = Array.from({ length: 365 }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() - (364 - i));
@@ -24,13 +24,28 @@ export const generateDusdMockData = (): DusdMockData => {
   });
 
   // Generate price data with natural volatility around 1.00
-  const price = dates.map(date => {
-    const randomVolatility = (Math.random() - 0.5) * 0.005; // ±0.25% daily volatility
-    return {
+  const price = dates.reduce((acc, date, i) => {
+    const prevPrice = i > 0 ? acc[i - 1].value : 1.00;
+    
+    // Create more natural price movements
+    const trend = Math.sin(i / 30) * 0.0002; // Slight cyclical trend
+    const dailyVolatility = (Math.random() - 0.5) * 0.002; // Random daily movement
+    const momentum = i > 0 ? (acc[i - 1].value - (i > 1 ? acc[i - 2].value : 1.00)) * 0.2 : 0; // Price momentum
+    
+    // Calculate new price with mean reversion to 1.00
+    const meanReversion = (1.00 - prevPrice) * 0.01;
+    const newPrice = prevPrice + trend + dailyVolatility + momentum + meanReversion;
+    
+    // Ensure price stays within reasonable bounds (0.98 - 1.02)
+    const boundedPrice = Math.max(0.98, Math.min(1.02, newPrice));
+    
+    acc.push({
       date,
-      value: 1.00 + randomVolatility
-    };
-  });
+      value: boundedPrice
+    });
+    
+    return acc;
+  }, [] as Array<{ date: string; value: number }>);
 
   // Generate TVL data (growing trend from 4.8M to 5.2M)
   const tvl = dates.map((date, i) => ({
