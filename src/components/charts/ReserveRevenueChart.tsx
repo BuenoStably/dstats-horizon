@@ -27,17 +27,17 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
       return (
         <Box
           sx={{
-            bgcolor: "rgba(255, 255, 255, 0.05)",
+            bgcolor: 'rgb(31, 29, 43)',
             p: 1.5,
-            border: "1px solid rgba(255, 255, 255, 0.1)",
+            border: "1px solid rgba(255, 255, 255, 0.2)",
             borderRadius: 1,
-            backdropFilter: "blur(10px)",
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2)',
           }}
         >
-          <Typography variant="body2" sx={{ color: "rgb(156, 163, 175)" }}>
+          <Typography variant="body2" sx={{ color: "rgb(156, 163, 175)", mb: 1 }}>
             {format(new Date(label), "MMM d, yyyy")}
           </Typography>
-          <Typography variant="body2" sx={{ color: "#8702ff" }}>
+          <Typography variant="body2" sx={{ color: "#8702ff", mb: 0.5 }}>
             APY Estimate: {formatPercentage(payload[1].value)}
           </Typography>
           <Typography variant="body2" sx={{ color: "#22C55E" }}>
