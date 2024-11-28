@@ -49,7 +49,7 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
 
     // Add horizontal line at 1.0000
     const horizontalLine = chart.addLineSeries({
-      color: '#22C55E',
+      color: '#3B82F6', // Changed from '#22C55E' to blue
       lineStyle: LineStyle.Dotted,
       lineWidth: 1,
     });
