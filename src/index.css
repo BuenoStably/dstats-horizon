@@ -36,16 +36,18 @@ body {
 }
 
 .recharts-cartesian-axis.recharts-yAxis .recharts-cartesian-axis-line {
-  stroke: transparent;
+  stroke: #4B5563;
 }
 
-.recharts-cartesian-axis.recharts-xAxis .recharts-text {
-  fill: #ffffff !important;
+.recharts-cartesian-axis.recharts-xAxis .recharts-text,
+.recharts-cartesian-axis.recharts-yAxis .recharts-text {
+  fill: #9CA3AF !important;
+  font-size: 12px;
 }
 
 .recharts-cartesian-grid-horizontal line,
 .recharts-cartesian-grid-vertical line {
-  display: none;
+  stroke: rgba(75, 85, 99, 0.2);
 }
 
 .candlestick-up {
