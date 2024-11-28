@@ -5,7 +5,7 @@ import MetricCard from "@/components/MetricCard";
 import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import HorizontalBarChart from "@/components/charts/HorizontalBarChart";
-import RevenueChart from "@/components/charts/RevenueChart";
+import ReserveRevenueChart from "@/components/charts/ReserveRevenueChart";
 import TVCandlestickChart from "@/components/charts/TVCandlestickChart";
 import BalanceSheetTable from "@/components/BalanceSheetTable";
 import AmoTransactionsTable from "@/components/AmoTransactionsTable";
@@ -196,7 +196,7 @@ const DUSDPage = () => {
                 { color: "#22C55E", label: "Earnings Estimate" }
               ]}
             >
-              <RevenueChart 
+              <ReserveRevenueChart 
                 data={filterDataByTimeframe(mockData.reserveRevenue, revenueTimeframe)}
                 formatCurrency={formatCurrency}
               />
