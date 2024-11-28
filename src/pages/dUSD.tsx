@@ -6,7 +6,7 @@ import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import HorizontalBarChart from "@/components/charts/HorizontalBarChart";
 import RevenueChart from "@/components/charts/RevenueChart";
-import CandlestickChart from "@/components/charts/CandlestickChart";
+import TVCandlestickChart from "@/components/charts/TVCandlestickChart";
 import BalanceSheetTable from "@/components/BalanceSheetTable";
 import AmoTransactionsTable from "@/components/AmoTransactionsTable";
 import SmoTransactionsTable from "@/components/SmoTransactionsTable";
@@ -64,7 +64,7 @@ const DUSDPage = () => {
   const [priceTimeframe, setPriceTimeframe] = useState("7D");
   const [supplyTimeframe, setSupplyTimeframe] = useState("7D");
   const [navTimeframe, setNavTimeframe] = useState("7D");
-  const [reserveRevenueTimeframe, setReserveRevenueTimeframe] = useState("7D");
+  const [revenueTimeframe, setRevenueTimeframe] = useState("7D");
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-US", {
@@ -118,7 +118,7 @@ const DUSDPage = () => {
           <Grid container spacing={4}>
             <Grid container item xs={12} md={6}>
               <ChartCard title="dUSD Price (USD)" onTimeframeChange={setPriceTimeframe}>
-                <CandlestickChart
+                <TVCandlestickChart
                   data={filterDataByTimeframe(mockData.price, priceTimeframe)}
                   valueFormatter={formatPrice}
                 />
