@@ -53,6 +53,15 @@ const LineChartWithGradient = ({
   const domain = getEffectiveDomain();
   const ticks = generateTicks(domain);
 
+  // Calculate interval based on data length
+  const calculateInterval = () => {
+    const dataLength = data.length;
+    if (dataLength <= 10) return 0; // Show all points for small datasets
+    if (dataLength <= 20) return 1; // Show every other point
+    if (dataLength <= 40) return 2; // Show every third point
+    return Math.floor(dataLength / 10); // Show roughly 10 points for larger datasets
+  };
+
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -109,8 +118,8 @@ const LineChartWithGradient = ({
             angle={-45}
             textAnchor="end"
             height={45}
-            interval={0}
-            minTickGap={5}
+            interval={calculateInterval()}
+            minTickGap={30}
           />
           <YAxis
             tickFormatter={valueFormatter}
