@@ -35,11 +35,11 @@ body {
 }
 
 .recharts-default-tooltip {
-  background-color: rgb(31, 29, 43) !important;
+  background-color: rgb(18, 17, 28) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 8px !important;
   padding: 12px !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
   backdrop-filter: blur(10px) !important;
 }
 
