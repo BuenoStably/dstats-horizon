@@ -98,7 +98,7 @@ const DUSDPage = () => {
     const allValues = [...amoData.map(d => d.value), ...reserveData.map(d => d[secondLineKey] || 0)];
     const min = Math.min(...allValues);
     const max = Math.max(...allValues);
-    const padding = (max - min) * 0.1;
+    const padding = (max - min) * 0.02; // Reduced padding from 0.1 to 0.02 (2% instead of 10%)
     return [min - padding, max + padding] as [number, number];
   };
 
