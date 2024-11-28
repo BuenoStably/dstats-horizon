@@ -4,22 +4,16 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+  TableContainer,
+  Paper,
+  Button,
+  Box,
+} from "@mui/material";
 import { ArrowUpDown } from "lucide-react";
-
-interface BalanceSheetEntry {
-  id: string;
-  address: string;
-  asset: string;
-  network: string;
-  quantity: number;
-  exchangeRate: number;
-  value: number;
-}
+import { BalanceSheetHeader } from "./balance-sheet/BalanceSheetHeader";
+import { BalanceSheetRow } from "./balance-sheet/BalanceSheetRow";
+import { BalanceSheetEntry } from "./balance-sheet/types";
 
 const mockData: BalanceSheetEntry[] = [
   {
@@ -164,77 +158,52 @@ const BalanceSheetTable = () => {
     : sortedAndFilteredData.slice(0, 5);
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-start">
-        <div className="space-y-1">
-          <h2 className="text-xl font-semibold leading-none">Balance Sheet Details</h2>
-          <p className="text-sm text-gray-500">
-            (Last updated: {formattedDate})
-          </p>
-        </div>
-        <Input
-          placeholder="Search Table"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="max-w-sm"
-        />
-      </div>
+    <Box>
+      <BalanceSheetHeader
+        formattedDate={formattedDate}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+      />
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("address")}>
-              Address <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("asset")}>
-              Asset <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("network")}>
-              Network <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("quantity")}>
-              Quantity <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("exchangeRate")}>
-              Exchange Rate <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-            <TableHead className="cursor-pointer text-left" onClick={() => handleSort("value")}>
-              Value <ArrowUpDown className="inline h-4 w-4 ml-1" />
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {displayedData.map((entry) => (
-            <TableRow key={entry.id}>
-              <TableCell className="text-left">
-                <a 
-                  href={`https://explorer.fraxtal.io/address/${entry.address}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 hover:text-blue-700"
+      <TableContainer component={Paper} sx={{ mb: 2 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {["address", "asset", "network", "quantity", "exchangeRate", "value"].map((column) => (
+                <TableCell
+                  key={column}
+                  onClick={() => handleSort(column as keyof BalanceSheetEntry)}
+                  sx={{ cursor: 'pointer' }}
                 >
-                  {entry.address}
-                </a>
-              </TableCell>
-              <TableCell className="text-left">{entry.asset}</TableCell>
-              <TableCell className="text-left">{entry.network}</TableCell>
-              <TableCell className="text-left">{formatQuantity(entry.quantity)}</TableCell>
-              <TableCell className="text-left">{formatExchangeRate(entry.exchangeRate)}</TableCell>
-              <TableCell className="text-left">{formatValue(entry.value)}</TableCell>
+                  {column.charAt(0).toUpperCase() + column.slice(1)}
+                  <ArrowUpDown className="inline h-4 w-4 ml-1" />
+                </TableCell>
+              ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {displayedData.map((entry) => (
+              <BalanceSheetRow
+                key={entry.id}
+                entry={entry}
+                formatQuantity={formatQuantity}
+                formatExchangeRate={formatExchangeRate}
+                formatValue={formatValue}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-      <div className="flex justify-center mt-4">
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
-          variant="outline"
+          variant="outlined"
           onClick={() => setExpanded(!expanded)}
         >
           {expanded ? "Show Less" : "Show More"}
         </Button>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
