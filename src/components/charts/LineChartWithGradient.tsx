@@ -16,7 +16,6 @@ interface LineChartWithGradientProps {
   secondLineData?: any[];
   secondLineKey?: string;
   secondLineColor?: string;
-  yAxisDomain?: [number | 'auto' | undefined, number | 'auto' | undefined];
   useAreaGradient?: boolean;
 }
 
@@ -75,7 +74,7 @@ const LineChartWithGradient = ({
                 mb: 0.5
               }}
             >
-              <span style={{ color: entry.color }}>{entry.name}:</span>
+              <span style={{ color: entry.color }}>{entry.name || "Value"}:</span>
               <span style={{ fontFamily: 'monospace' }}>{valueFormatter(entry.value)}</span>
             </Typography>
           ))}
@@ -106,10 +105,10 @@ const LineChartWithGradient = ({
           <XAxis
             dataKey="date"
             tickFormatter={(date) => format(new Date(date), "MMM d")}
-            stroke="rgba(75, 85, 99, 1)"
-            tick={{ fill: '#ffffff' }}
-            tickLine={{ stroke: 'rgba(75, 85, 99, 1)' }}
-            axisLine={{ stroke: 'rgba(75, 85, 99, 1)' }}
+            stroke="#4B5563"
+            tick={{ fill: '#4B5563' }}
+            tickLine={{ stroke: '#4B5563' }}
+            axisLine={{ stroke: '#4B5563' }}
             dy={8}
             angle={-45}
             textAnchor="end"
