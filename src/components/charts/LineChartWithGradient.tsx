@@ -12,6 +12,7 @@ import { Box, Typography } from "@mui/material";
 interface LineChartWithGradientProps {
   data: Array<{ date: string; value: number }>;
   valueFormatter?: (value: number) => string;
+  yAxisFormatter?: (value: number) => string;
   showSecondLine?: boolean;
   secondLineData?: any[];
   secondLineKey?: string;
@@ -25,6 +26,7 @@ interface LineChartWithGradientProps {
 const LineChartWithGradient = ({
   data,
   valueFormatter = (value: number) => value.toString(),
+  yAxisFormatter,
   showSecondLine,
   secondLineData,
   secondLineKey = "value",
@@ -51,7 +53,12 @@ const LineChartWithGradient = ({
     return Math.floor(dataLength / 10);
   };
 
-  const formatYAxisTick = (value: number) => Math.round(value).toString();
+  const formatYAxisTick = (value: number) => {
+    if (yAxisFormatter) {
+      return yAxisFormatter(value);
+    }
+    return Math.round(value).toString();
+  };
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {

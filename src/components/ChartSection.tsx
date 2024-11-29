@@ -46,6 +46,12 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
       maximumFractionDigits: 2,
     }).format(value);
 
+  const formatIntlNumber = (value: number) =>
+    new Intl.NumberFormat("en-US", {
+      notation: "standard",
+      maximumFractionDigits: 0,
+    }).format(value);
+
   const formatPercentage = (value: number) => `${value.toFixed(2)}%`;
   const formatNumber = (value: number) => value.toFixed(0);
 
@@ -65,6 +71,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             <LineChartWithGradient
               data={filterDataByTimeframe(mockData.tvl, tvlTimeframe)}
               valueFormatter={formatCurrency}
+              yAxisFormatter={formatIntlNumber}
               showSecondLine
               secondLineData={generateEthereumTVL(filterDataByTimeframe(mockData.tvl, tvlTimeframe))}
               secondLineKey="ethereumValue"
@@ -82,6 +89,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             <LineChartWithGradient
               data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
               valueFormatter={formatCurrency}
+              yAxisFormatter={formatIntlNumber}
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
               mainLineLabel="Total dUSD Supply"
