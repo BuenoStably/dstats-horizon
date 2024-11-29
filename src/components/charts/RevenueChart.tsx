@@ -21,8 +21,6 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
     return format(new Date(dateStr), "MMM d");
   };
 
-  const formatPercentage = (value: number) => `${(value * 100).toFixed(2)}%`;
-
   // Calculate interval based on data length
   const calculateInterval = () => {
     const dataLength = data.length;
@@ -30,6 +28,22 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
     if (dataLength <= 20) return 1; // Show every other point
     if (dataLength <= 40) return 2; // Show every third point
     return Math.floor(dataLength / 10); // Show roughly 10 points for larger datasets
+  };
+
+  // Calculate dynamic Y-axis domain and ticks for revenue
+  const calculateRevenueDomain = () => {
+    const values = data.map(item => item.revenueTvl);
+    const maxValue = Math.max(...values);
+    const roundedMax = Math.ceil(maxValue / 20000) * 20000; // Round up to nearest 20k
+    return [0, roundedMax];
+  };
+
+  // Calculate dynamic Y-axis domain and ticks for annualized revenue
+  const calculateAnnualizedDomain = () => {
+    const values = data.map(item => item.annualizedRevenue);
+    const maxValue = Math.max(...values);
+    const roundedMax = Math.ceil(maxValue * 10) / 10; // Round up to nearest 0.1
+    return [0, roundedMax];
   };
 
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -76,6 +90,9 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
     return null;
   };
 
+  const [minRevenue, maxRevenue] = calculateRevenueDomain();
+  const [minAnnualized, maxAnnualized] = calculateAnnualizedDomain();
+
   return (
     <Box sx={{ width: "100%", height: 400, mt: 2 }}>
       <ResponsiveContainer>
@@ -97,9 +114,8 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
           />
           <YAxis
             yAxisId="left"
-            domain={[0, 140000]}
+            domain={[minRevenue, maxRevenue]}
             tickFormatter={(value) => value.toLocaleString()}
-            ticks={[0, 20000, 40000, 60000, 80000, 100000, 120000, 140000]}
             stroke="transparent"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}
@@ -110,9 +126,8 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
           <YAxis
             yAxisId="right"
             orientation="right"
-            domain={[0, 0.5]}
+            domain={[minAnnualized, maxAnnualized]}
             tickFormatter={(value) => `${(value * 100)}%`}
-            ticks={[0, 0.1, 0.2, 0.3, 0.4, 0.5]}
             stroke="transparent"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}
