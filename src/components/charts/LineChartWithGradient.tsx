@@ -76,7 +76,6 @@ const LineChartWithGradient = ({
             {format(new Date(label), "MMM d, yyyy")}
           </Typography>
           {payload.map((entry: any, index: number) => {
-            // Check if this is the main line (value) or second line (secondLineKey)
             const isMainLine = entry.dataKey === "value";
             return (
               <Typography 
@@ -143,7 +142,7 @@ const LineChartWithGradient = ({
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
-            width={60}
+            width={80}
             domain={yAxisDomain || [0, getMaxValue()]}
             allowDecimals={false}
             tickFormatter={formatYAxisTick}
