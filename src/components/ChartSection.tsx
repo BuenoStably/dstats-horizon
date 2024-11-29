@@ -18,21 +18,12 @@ interface ChartSectionProps {
 }
 
 export const ChartSection = ({ mockData }: ChartSectionProps) => {
-  // Each chart now has its own timeframe state
-  const [timeframes, setTimeframes] = useState({
-    tvl: "7D",
-    supply: "7D",
-    apy: "7D",
-    users: "7D",
-    revenue: "7D"
-  });
-
-  const handleTimeframeChange = (chart: keyof typeof timeframes) => (newTimeframe: string) => {
-    setTimeframes(prev => ({
-      ...prev,
-      [chart]: newTimeframe
-    }));
-  };
+  // Separate state for each chart's timeframe
+  const [tvlTimeframe, setTvlTimeframe] = useState("7D");
+  const [supplyTimeframe, setSupplyTimeframe] = useState("7D");
+  const [apyTimeframe, setApyTimeframe] = useState("7D");
+  const [usersTimeframe, setUsersTimeframe] = useState("7D");
+  const [revenueTimeframe, setRevenueTimeframe] = useState("7D");
 
   const generateEthereumTVL = (data: any[]) => {
     const baseEthValue = 3500000;
@@ -72,7 +63,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
         <Grid item xs={12} lg={6} container>
           <ChartCard 
             title="Total Protocol TVL" 
-            onTimeframeChange={handleTimeframeChange('tvl')}
+            onTimeframeChange={setTvlTimeframe}
             legend={[
               { color: "#8702ff", label: "Fraxtal TVL" },
               { color: "#0EA5E9", label: "Ethereum TVL" }
@@ -80,11 +71,11 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             className="flex flex-col"
           >
             <LineChartWithGradient
-              data={filterDataByTimeframe(mockData.tvl, timeframes.tvl)}
+              data={filterDataByTimeframe(mockData.tvl, tvlTimeframe)}
               valueFormatter={formatCurrency}
               yAxisFormatter={formatCurrency}
               showSecondLine
-              secondLineData={generateEthereumTVL(filterDataByTimeframe(mockData.tvl, timeframes.tvl))}
+              secondLineData={generateEthereumTVL(filterDataByTimeframe(mockData.tvl, tvlTimeframe))}
               secondLineKey="ethereumValue"
               secondLineColor="#0EA5E9"
               useAreaGradient={true}
@@ -96,9 +87,12 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
         </Grid>
 
         <Grid item xs={12} lg={6} container>
-          <ChartCard title="Total dUSD Supply" onTimeframeChange={handleTimeframeChange('supply')}>
+          <ChartCard 
+            title="Total dUSD Supply" 
+            onTimeframeChange={setSupplyTimeframe}
+          >
             <LineChartWithGradient
-              data={filterDataByTimeframe(mockData.supply, timeframes.supply)}
+              data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
               valueFormatter={formatCurrency}
               yAxisFormatter={formatCurrency}
               useAreaGradient={true}
@@ -109,9 +103,12 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
         </Grid>
 
         <Grid item xs={12} lg={6} container>
-          <ChartCard title="Net dUSD Borrow APY" onTimeframeChange={handleTimeframeChange('apy')}>
+          <ChartCard 
+            title="Net dUSD Borrow APY" 
+            onTimeframeChange={setApyTimeframe}
+          >
             <LineChartWithGradient
-              data={filterDataByTimeframe(mockData.apy, timeframes.apy)}
+              data={filterDataByTimeframe(mockData.apy, apyTimeframe)}
               valueFormatter={formatPercentage}
               yAxisFormatter={formatPercentage}
               useAreaGradient={false}
@@ -122,9 +119,12 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
         </Grid>
 
         <Grid item xs={12} lg={6} container>
-          <ChartCard title="Total Users" onTimeframeChange={handleTimeframeChange('users')}>
+          <ChartCard 
+            title="Total Users" 
+            onTimeframeChange={setUsersTimeframe}
+          >
             <LineChartWithGradient
-              data={filterDataByTimeframe(mockData.users, timeframes.users)}
+              data={filterDataByTimeframe(mockData.users, usersTimeframe)}
               valueFormatter={formatNumber}
               yAxisFormatter={formatNumber}
               useAreaGradient={true}
@@ -160,10 +160,10 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
         <Grid item xs={12} container>
           <ChartCard 
             title="Protocol Revenue" 
-            onTimeframeChange={handleTimeframeChange('revenue')}
+            onTimeframeChange={setRevenueTimeframe}
           >
             <RevenueChart 
-              data={filterDataByTimeframe(mockData.revenue, timeframes.revenue)}
+              data={filterDataByTimeframe(mockData.revenue, revenueTimeframe)}
               formatCurrency={formatCurrency}
             />
           </ChartCard>
