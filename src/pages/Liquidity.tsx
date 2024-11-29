@@ -6,7 +6,6 @@ import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { generateMockApyData } from "@/utils/mockApyData";
-import { filterDataByTimeframe } from "@/utils/dateUtils";
 import { useMetrics } from "@/hooks/useMetrics";
 import MetricCard from "@/components/MetricCard";
 
@@ -15,19 +14,15 @@ const LiquidityPage = () => {
   const [volumeTimeframe, setVolumeTimeframe] = useState("7D");
   const [tvlTimeframe, setTvlTimeframe] = useState("7D");
 
-  // Generate mock data
-  const volumeData = useMemo(() => generateMockApyData(40000, 45000), []);
-  const tvlData = useMemo(() => generateMockApyData(5000000, 5400000), []);
-
-  // Filter data based on timeframe
-  const filteredVolumeData = useMemo(
-    () => filterDataByTimeframe(volumeData, volumeTimeframe),
-    [volumeData, volumeTimeframe]
+  // Generate data based on current timeframe
+  const volumeData = useMemo(
+    () => generateMockApyData(40000, 45000, volumeTimeframe),
+    [volumeTimeframe]
   );
 
-  const filteredTvlData = useMemo(
-    () => filterDataByTimeframe(tvlData, tvlTimeframe),
-    [tvlData, tvlTimeframe]
+  const tvlData = useMemo(
+    () => generateMockApyData(5000000, 5400000, tvlTimeframe),
+    [tvlTimeframe]
   );
 
   const formatCurrency = (value: number) =>
@@ -82,7 +77,7 @@ const LiquidityPage = () => {
               onTimeframeChange={setVolumeTimeframe}
             >
               <LineChartWithGradient
-                data={filteredVolumeData}
+                data={volumeData}
                 valueFormatter={formatCurrency}
                 useAreaGradient={true}
                 yAxisDomain={[0, 'auto']}
@@ -96,7 +91,7 @@ const LiquidityPage = () => {
               onTimeframeChange={setTvlTimeframe}
             >
               <LineChartWithGradient
-                data={filteredTvlData}
+                data={tvlData}
                 valueFormatter={formatCurrency}
                 useAreaGradient={true}
                 yAxisDomain={[0, 'auto']}

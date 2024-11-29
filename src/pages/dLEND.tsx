@@ -5,7 +5,6 @@ import { Percent, Users, ArrowUpDown, BarChart3, UserMinus } from "lucide-react"
 import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import { generateMockApyData } from "@/utils/mockApyData";
-import { filterDataByTimeframe } from "@/utils/dateUtils";
 import PageWrapper from "@/components/layout/PageWrapper";
 import MetricsGrid from "@/components/metrics/MetricsGrid";
 import { useMetrics } from "@/hooks/useMetrics";
@@ -15,19 +14,15 @@ const DLENDPage = () => {
   const [supplyTimeframe, setSupplyTimeframe] = useState("7D");
   const [borrowTimeframe, setBorrowTimeframe] = useState("7D");
 
-  // Memoize the mock data generation
-  const supplyApyData = useMemo(() => generateMockApyData(3.5, 4.8), []);
-  const borrowApyData = useMemo(() => generateMockApyData(5.2, 5.9), []);
-
-  // Memoize filtered data
-  const filteredSupplyData = useMemo(
-    () => filterDataByTimeframe(supplyApyData, supplyTimeframe),
-    [supplyApyData, supplyTimeframe]
+  // Generate data based on current timeframe
+  const supplyApyData = useMemo(
+    () => generateMockApyData(3.5, 4.8, supplyTimeframe),
+    [supplyTimeframe]
   );
 
-  const filteredBorrowData = useMemo(
-    () => filterDataByTimeframe(borrowApyData, borrowTimeframe),
-    [borrowApyData, borrowTimeframe]
+  const borrowApyData = useMemo(
+    () => generateMockApyData(5.2, 5.9, borrowTimeframe),
+    [borrowTimeframe]
   );
 
   const metricsConfig = [
@@ -78,7 +73,7 @@ const DLENDPage = () => {
                 onTimeframeChange={setSupplyTimeframe}
               >
                 <LineChartWithGradient
-                  data={filteredSupplyData}
+                  data={supplyApyData}
                   valueFormatter={formatPercentage}
                   mainLineLabel="Supply APY"
                 />
@@ -91,7 +86,7 @@ const DLENDPage = () => {
                 onTimeframeChange={setBorrowTimeframe}
               >
                 <LineChartWithGradient
-                  data={filteredBorrowData}
+                  data={borrowApyData}
                   valueFormatter={formatPercentage}
                   mainLineLabel="Borrow APY"
                 />
