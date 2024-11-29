@@ -73,6 +73,8 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               secondLineColor="#0EA5E9"
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
+              mainLineLabel="Fraxtal TVL"
+              secondLineLabel="Ethereum TVL"
             />
           </ChartCard>
         </Grid>
@@ -84,6 +86,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               valueFormatter={formatCurrency}
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
+              mainLineLabel="Total Supply"
             />
           </ChartCard>
         </Grid>
@@ -95,6 +98,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               valueFormatter={formatPercentage}
               useAreaGradient={false}
               yAxisDomain={[0, 'auto']}
+              mainLineLabel="APY"
             />
           </ChartCard>
         </Grid>
@@ -106,6 +110,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               valueFormatter={formatNumber}
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
+              mainLineLabel="Users"
             />
           </ChartCard>
         </Grid>

@@ -114,6 +114,7 @@ const DUSDPage = () => {
                   valueFormatter={formatCurrency}
                   yAxisDomain={[0, 'auto']}
                   useAreaGradient={true}
+                  mainLineLabel="Total Supply"
                 />
               </ChartCard>
             </Grid>
