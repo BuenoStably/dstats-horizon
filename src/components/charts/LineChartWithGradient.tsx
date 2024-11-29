@@ -82,7 +82,7 @@ const LineChartWithGradient = ({
                 }}
               >
                 <span style={{ color: entry.color }}>
-                  {isSecondLine ? "Reserve TVL" : "AMO TVL"}:
+                  {isSecondLine ? "Ethereum TVL" : "Fraxtal TVL"}:
                 </span>
                 <span style={{ fontFamily: 'monospace' }}>
                   {valueFormatter(entry.value)}
@@ -146,7 +146,7 @@ const LineChartWithGradient = ({
             strokeWidth={2}
             fill={useAreaGradient ? "url(#colorValue)" : "none"}
             fillOpacity={1}
-            name="AMO TVL"
+            name="Fraxtal TVL"
           />
           {showSecondLine && secondLineData && (
             <Area
@@ -157,7 +157,7 @@ const LineChartWithGradient = ({
               strokeWidth={2}
               fill={useAreaGradient ? "url(#colorEthereum)" : "none"}
               fillOpacity={1}
-              name="Reserve TVL"
+              name="Ethereum TVL"
             />
           )}
         </AreaChart>
