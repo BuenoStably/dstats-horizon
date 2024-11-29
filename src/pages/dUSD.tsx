@@ -41,6 +41,14 @@ const DUSDPage = () => {
       maximumFractionDigits: 4,
     }).format(value);
 
+  const getNavDomain = () => {
+    const values = [...mockData.amoTvl, ...mockData.reserveTvl].map(item => item.value);
+    const minValue = Math.min(...values);
+    const maxValue = Math.max(...values);
+    const padding = (maxValue - minValue) * 0.1;
+    return [minValue - padding, maxValue + padding];
+  };
+
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "transparent" }}>
       <Navbar />
