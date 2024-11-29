@@ -104,7 +104,7 @@ const DUSDPage = () => {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "transparent" }}>
       <Navbar />
       <Container sx={{ py: 4, minHeight: "calc(100vh - 73px)" }}>
         <Typography variant="h4" component="h1" sx={{ mb: 3, fontWeight: "bold" }}>
