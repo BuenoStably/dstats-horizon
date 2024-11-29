@@ -49,6 +49,10 @@ const LineChartWithGradient = ({
     return Math.floor(dataLength / 10);
   };
 
+  const formatYAxisTick = (value: number) => {
+    return Math.floor(value).toString();
+  };
+
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -125,7 +129,7 @@ const LineChartWithGradient = ({
             minTickGap={30}
           />
           <YAxis
-            tickFormatter={valueFormatter}
+            tickFormatter={formatYAxisTick}
             stroke="transparent"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}
