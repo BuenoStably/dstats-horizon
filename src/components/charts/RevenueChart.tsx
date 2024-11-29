@@ -42,7 +42,8 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
   const calculateAnnualizedDomain = () => {
     const values = data.map(item => item.annualizedRevenue);
     const maxValue = Math.max(...values);
-    const roundedMax = Math.ceil(maxValue * 10) / 10; // Round up to nearest 0.1
+    // Increase the scale slightly to prevent overlap
+    const roundedMax = Math.ceil(maxValue * 10) / 10 + 0.1; // Add 0.1 to give more space
     return [0, roundedMax];
   };
 
