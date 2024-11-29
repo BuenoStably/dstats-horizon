@@ -41,7 +41,7 @@ const DUSDPage = () => {
       maximumFractionDigits: 4,
     }).format(value);
 
-  const getNavDomain = () => {
+  const getNavDomain = (): [number, number] => {
     const values = [...mockData.amoTvl, ...mockData.reserveTvl].map(item => item.value);
     const minValue = Math.min(...values);
     const maxValue = Math.max(...values);
