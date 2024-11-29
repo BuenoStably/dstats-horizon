@@ -78,7 +78,7 @@ const LineChartWithGradient = ({
             >
               <span style={{ color: entry.color }}>{entry.name || "Value"}:</span>
               <span style={{ fontFamily: 'monospace' }}>
-                {valueFormatter(Number(entry.value))}
+                {valueFormatter(parseFloat(entry.value))}
               </span>
             </Typography>
           ))}
@@ -128,6 +128,7 @@ const LineChartWithGradient = ({
             width={60}
             domain={yAxisDomain || [0, getMaxValue()]}
             allowDecimals={true}
+            tickFormatter={valueFormatter}
           />
           <Tooltip content={<CustomTooltip />} />
           <Area
