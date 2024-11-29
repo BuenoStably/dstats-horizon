@@ -28,15 +28,7 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
     const min = Math.min(...values);
     const max = Math.max(...values);
     const padding = (max - min) * 0.1;
-    return [Math.max(0, min - padding), max + padding];
-  };
-
-  const calculateApyDomain = () => {
-    const values = data.map(item => item.apy);
-    const min = Math.min(...values);
-    const max = Math.max(...values);
-    const padding = (max - min) * 0.1;
-    return [Math.max(0, min - padding), max + padding];
+    return [Math.max(0, Math.floor(min - padding)), Math.ceil(max + padding)];
   };
 
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -67,7 +59,6 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
   };
 
   const [minEarnings, maxEarnings] = calculateEarningsDomain();
-  const [minApy, maxApy] = calculateApyDomain();
 
   return (
     <Box sx={{ width: "100%", height: 400, mt: 2 }}>
@@ -91,7 +82,7 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
           <YAxis
             yAxisId="left"
             domain={[minEarnings, maxEarnings]}
-            tickFormatter={(value) => `$${value}`}
+            tickFormatter={(value) => Math.round(value).toString()}
             stroke="transparent"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}
@@ -102,8 +93,8 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
           <YAxis
             yAxisId="right"
             orientation="right"
-            domain={[minApy, maxApy]}
-            tickFormatter={(value) => `${(value * 100)}%`}
+            domain={[0, 1]}
+            tickFormatter={(value) => `${Math.round(value * 100)}%`}
             stroke="transparent"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}
