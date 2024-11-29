@@ -46,14 +46,13 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
       maximumFractionDigits: 2,
     }).format(value);
 
-  const formatIntlNumber = (value: number) =>
+  const formatPercentage = (value: number) => `${value.toFixed(2)}%`;
+
+  const formatNumber = (value: number) =>
     new Intl.NumberFormat("en-US", {
-      notation: "standard",
+      notation: "compact",
       maximumFractionDigits: 0,
     }).format(value);
-
-  const formatPercentage = (value: number) => `${value.toFixed(2)}%`;
-  const formatNumber = (value: number) => value.toFixed(0);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -71,7 +70,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             <LineChartWithGradient
               data={filterDataByTimeframe(mockData.tvl, tvlTimeframe)}
               valueFormatter={formatCurrency}
-              yAxisFormatter={formatIntlNumber}
+              yAxisFormatter={formatCurrency}
               showSecondLine
               secondLineData={generateEthereumTVL(filterDataByTimeframe(mockData.tvl, tvlTimeframe))}
               secondLineKey="ethereumValue"
@@ -89,7 +88,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             <LineChartWithGradient
               data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
               valueFormatter={formatCurrency}
-              yAxisFormatter={formatIntlNumber}
+              yAxisFormatter={formatCurrency}
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
               mainLineLabel="Total dUSD Supply"
@@ -102,6 +101,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             <LineChartWithGradient
               data={filterDataByTimeframe(mockData.apy, apyTimeframe)}
               valueFormatter={formatPercentage}
+              yAxisFormatter={formatPercentage}
               useAreaGradient={false}
               yAxisDomain={[0, 'auto']}
               mainLineLabel="Net dUSD Borrow APY"
@@ -114,6 +114,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             <LineChartWithGradient
               data={filterDataByTimeframe(mockData.users, usersTimeframe)}
               valueFormatter={formatNumber}
+              yAxisFormatter={formatNumber}
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
               mainLineLabel="Total Users"
