@@ -9,6 +9,7 @@ import { useState } from "react";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
 import { useMetrics } from "@/hooks/useMetrics";
 import MetricsGrid from "@/components/metrics/MetricsGrid";
+import MetricCard from "@/components/MetricCard";
 
 const LiquidityPage = () => {
   const { data: metrics, isLoading, error } = useMetrics();
@@ -55,7 +56,7 @@ const LiquidityPage = () => {
         <Grid container spacing={2} sx={{ mb: 4 }}>
           {metricsConfig.map((metric, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-              <MetricCard {...metric} />
+              <MetricCard {...metric} isLoading={isLoading} error={error} />
             </Grid>
           ))}
         </Grid>

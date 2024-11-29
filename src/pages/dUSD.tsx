@@ -1,5 +1,5 @@
-import { DollarSign, Users, Wallet } from "lucide-react";
-import { Box, Container, Grid } from "@mui/material";
+import { DollarSign, Users } from "lucide-react";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import Navbar from "@/components/Navbar";
 import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
@@ -25,39 +25,6 @@ const DUSDPage = () => {
   const [navTimeframe, setNavTimeframe] = useState("7D");
   const [revenueTimeframe, setRevenueTimeframe] = useState("7D");
 
-  const metricsConfig = [
-    {
-      value: metrics?.dusdSupply || "$3.0M",
-      label: "Total dUSD Supply",
-      tooltip: "Total amount of dUSD tokens in circulation",
-      icon: <Wallet className="w-5 h-5 sm:w-6 sm:h-6" />,
-    },
-    {
-      value: metrics?.nav || "$3.1M",
-      label: "Total NAV",
-      tooltip: "Net Asset Value of all dUSD tokens",
-      icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
-    },
-    {
-      value: metrics?.unitNav || "$1.0334",
-      label: "Unit NAV",
-      tooltip: "Net Asset Value per dUSD token",
-      icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
-    },
-    {
-      value: metrics?.lastPrice || "$1.0069",
-      label: "Last Price",
-      tooltip: "Most recent trading price of dUSD",
-      icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
-    },
-    {
-      value: metrics?.holders || "420",
-      label: "dUSD Holders",
-      tooltip: "Number of unique addresses holding dUSD",
-      icon: <Users className="w-5 h-5 sm:w-6 sm:h-6" />,
-    },
-  ];
-
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -74,26 +41,6 @@ const DUSDPage = () => {
       maximumFractionDigits: 4,
     }).format(value);
 
-  const getSupplyDomain = () => {
-    const data = filterDataByTimeframe(mockData.supply, supplyTimeframe);
-    const values = data.map(d => d.value);
-    const min = Math.min(...values);
-    const max = Math.max(...values);
-    const padding = (max - min) * 0.1;
-    return [min - padding, max + padding] as [number, number];
-  };
-
-  const getNavDomain = () => {
-    const amoData = filterDataByTimeframe(mockData.amoTvl, navTimeframe);
-    const reserveData = filterDataByTimeframe(mockData.reserveTvl, navTimeframe);
-    const secondLineKey = "value";
-    const allValues = [...amoData.map(d => d.value), ...reserveData.map(d => d[secondLineKey] || 0)];
-    const min = Math.min(...allValues);
-    const max = Math.max(...allValues);
-    const padding = (max - min) * 0.02;
-    return [min - padding, max + padding] as [number, number];
-  };
-
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "transparent" }}>
       <Navbar />
@@ -103,7 +50,42 @@ const DUSDPage = () => {
         </Typography>
         
         <Box sx={{ mb: 4 }}>
-          <MetricsSection />
+          <MetricsGrid 
+            metrics={[
+              {
+                value: metrics?.dusdSupply || "$3.0M",
+                label: "Total dUSD Supply",
+                tooltip: "Total amount of dUSD tokens in circulation",
+                icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
+              },
+              {
+                value: metrics?.nav || "$3.1M",
+                label: "Total NAV",
+                tooltip: "Net Asset Value of all dUSD tokens",
+                icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
+              },
+              {
+                value: metrics?.unitNav || "$1.0334",
+                label: "Unit NAV",
+                tooltip: "Net Asset Value per dUSD token",
+                icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
+              },
+              {
+                value: metrics?.lastPrice || "$1.0069",
+                label: "Last Price",
+                tooltip: "Most recent trading price of dUSD",
+                icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
+              },
+              {
+                value: metrics?.holders || "420",
+                label: "dUSD Holders",
+                tooltip: "Number of unique addresses holding dUSD",
+                icon: <Users className="w-5 h-5 sm:w-6 sm:h-6" />,
+              },
+            ]}
+            isLoading={isLoading}
+            error={error instanceof Error ? error : null}
+          />
         </Box>
         
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>

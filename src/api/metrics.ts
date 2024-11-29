@@ -4,6 +4,22 @@ export interface MetricsData {
   apy: string;
   lendingRewards: string;
   lpRewards: string;
+  // Liquidity page metrics
+  liquidity: string;
+  volume24h: string;
+  activeLPs: string;
+  // dLEND page metrics
+  debtRatio: string;
+  ltv: string;
+  utilization: string;
+  lenders: string;
+  borrowers: string;
+  // dUSD page metrics
+  dusdSupply: string;
+  nav: string;
+  unitNav: string;
+  lastPrice: string;
+  holders: string;
 }
 
 export const fetchMetrics = async (): Promise<MetricsData> => {
