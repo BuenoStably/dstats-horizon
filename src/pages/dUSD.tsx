@@ -11,19 +11,46 @@ import AmoTransactionsTable from "@/components/AmoTransactionsTable";
 import SmoTransactionsTable from "@/components/SmoTransactionsTable";
 import TableWrapper from "@/components/TableWrapper";
 import { generateDusdMockData } from "@/utils/mockDusdData";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
 import { useMetrics } from "@/hooks/useMetrics";
-import PageWrapper from "@/components/layout/PageWrapper";
 import MetricsGrid from "@/components/metrics/MetricsGrid";
 
 const DUSDPage = () => {
   const { data: metrics, isLoading, error } = useMetrics();
-  const mockData = generateDusdMockData();
   const [priceTimeframe, setPriceTimeframe] = useState("7D");
   const [supplyTimeframe, setSupplyTimeframe] = useState("7D");
   const [navTimeframe, setNavTimeframe] = useState("7D");
   const [revenueTimeframe, setRevenueTimeframe] = useState("7D");
+
+  // Memoize mock data generation
+  const mockData = useMemo(() => generateDusdMockData(), []);
+
+  // Memoize filtered data for each chart
+  const filteredPriceData = useMemo(
+    () => filterDataByTimeframe(mockData.price, priceTimeframe),
+    [mockData.price, priceTimeframe]
+  );
+
+  const filteredSupplyData = useMemo(
+    () => filterDataByTimeframe(mockData.supply, supplyTimeframe),
+    [mockData.supply, supplyTimeframe]
+  );
+
+  const filteredNavAmoData = useMemo(
+    () => filterDataByTimeframe(mockData.amoTvl, navTimeframe),
+    [mockData.amoTvl, navTimeframe]
+  );
+
+  const filteredNavReserveData = useMemo(
+    () => filterDataByTimeframe(mockData.reserveTvl, navTimeframe),
+    [mockData.reserveTvl, navTimeframe]
+  );
+
+  const filteredRevenueData = useMemo(
+    () => filterDataByTimeframe(mockData.reserveRevenue, revenueTimeframe),
+    [mockData.reserveRevenue, revenueTimeframe]
+  );
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-US", {
@@ -48,6 +75,8 @@ const DUSDPage = () => {
     const padding = (maxValue - minValue) * 0.1;
     return [minValue - padding, maxValue + padding];
   };
+
+  // ... keep existing code (metrics configuration and return JSX)
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "transparent" }}>
@@ -101,7 +130,7 @@ const DUSDPage = () => {
             <Grid container item xs={12} md={6}>
               <ChartCard title="dUSD Price (USD)" onTimeframeChange={setPriceTimeframe}>
                 <TVCandlestickChart
-                  data={filterDataByTimeframe(mockData.price, priceTimeframe)}
+                  data={filteredPriceData}
                   valueFormatter={formatPrice}
                 />
               </ChartCard>
@@ -110,7 +139,7 @@ const DUSDPage = () => {
             <Grid container item xs={12} md={6}>
               <ChartCard title="Total dUSD Supply" onTimeframeChange={setSupplyTimeframe}>
                 <LineChartWithGradient
-                  data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
+                  data={filteredSupplyData}
                   valueFormatter={formatCurrency}
                   yAxisDomain={[0, 'auto']}
                   useAreaGradient={true}
@@ -129,11 +158,11 @@ const DUSDPage = () => {
                 ]}
               >
                 <LineChartWithGradient
-                  data={filterDataByTimeframe(mockData.amoTvl, navTimeframe)}
+                  data={filteredNavAmoData}
                   valueFormatter={formatCurrency}
                   yAxisDomain={getNavDomain()}
                   showSecondLine
-                  secondLineData={filterDataByTimeframe(mockData.reserveTvl, navTimeframe)}
+                  secondLineData={filteredNavReserveData}
                   secondLineColor="#22C55E"
                   mainLineLabel="AMO TVL"
                   secondLineLabel="Reserve TVL"
@@ -182,7 +211,7 @@ const DUSDPage = () => {
               ]}
             >
               <ReserveRevenueChart 
-                data={filterDataByTimeframe(mockData.reserveRevenue, revenueTimeframe)}
+                data={filteredRevenueData}
                 formatCurrency={formatCurrency}
               />
             </ChartCard>
