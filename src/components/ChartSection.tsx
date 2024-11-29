@@ -86,7 +86,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               valueFormatter={formatCurrency}
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
-              mainLineLabel="Total Supply"
+              mainLineLabel="Total dUSD Tokens in Circulation"
             />
           </ChartCard>
         </Grid>
@@ -98,7 +98,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               valueFormatter={formatPercentage}
               useAreaGradient={false}
               yAxisDomain={[0, 'auto']}
-              mainLineLabel="APY"
+              mainLineLabel="Net Annual Percentage Yield for dUSD Borrowing"
             />
           </ChartCard>
         </Grid>
@@ -110,7 +110,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               valueFormatter={formatNumber}
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
-              mainLineLabel="Users"
+              mainLineLabel="Total Number of Active Protocol Users"
             />
           </ChartCard>
         </Grid>
