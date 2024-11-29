@@ -69,7 +69,8 @@ const LineChartWithGradient = ({
             {format(new Date(label), "MMM d, yyyy")}
           </Typography>
           {payload.map((entry: any, index: number) => {
-            const isSecondLine = entry.dataKey === secondLineKey;
+            // Check if this is the main line (value) or second line (secondLineKey)
+            const isMainLine = entry.dataKey === "value";
             return (
               <Typography 
                 key={index} 
@@ -84,7 +85,7 @@ const LineChartWithGradient = ({
                 }}
               >
                 <span style={{ color: entry.color }}>
-                  {isSecondLine ? secondLineLabel : mainLineLabel}:
+                  {isMainLine ? mainLineLabel : secondLineLabel}:
                 </span>
                 <span style={{ fontFamily: 'monospace' }}>
                   {valueFormatter(entry.value)}
