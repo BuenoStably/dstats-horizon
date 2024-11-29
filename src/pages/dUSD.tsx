@@ -134,6 +134,8 @@ const DUSDPage = () => {
                   showSecondLine
                   secondLineData={filterDataByTimeframe(mockData.reserveTvl, navTimeframe)}
                   secondLineColor="#22C55E"
+                  mainLineLabel="AMO TVL"
+                  secondLineLabel="Reserve TVL"
                 />
               </ChartCard>
             </Grid>

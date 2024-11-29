@@ -18,6 +18,8 @@ interface LineChartWithGradientProps {
   secondLineColor?: string;
   useAreaGradient?: boolean;
   yAxisDomain?: [number | string | undefined, number | string | undefined];
+  mainLineLabel?: string;
+  secondLineLabel?: string;
 }
 
 const LineChartWithGradient = ({
@@ -29,6 +31,8 @@ const LineChartWithGradient = ({
   secondLineColor = "#22C55E",
   useAreaGradient = false,
   yAxisDomain,
+  mainLineLabel = "Value",
+  secondLineLabel = "Second Value",
 }: LineChartWithGradientProps) => {
   const getMaxValue = () => {
     const values = data.map(item => item.value);
@@ -82,7 +86,7 @@ const LineChartWithGradient = ({
                 }}
               >
                 <span style={{ color: entry.color }}>
-                  {isSecondLine ? "Ethereum TVL" : "Fraxtal TVL"}:
+                  {isSecondLine ? secondLineLabel : mainLineLabel}:
                 </span>
                 <span style={{ fontFamily: 'monospace' }}>
                   {valueFormatter(entry.value)}
@@ -146,7 +150,7 @@ const LineChartWithGradient = ({
             strokeWidth={2}
             fill={useAreaGradient ? "url(#colorValue)" : "none"}
             fillOpacity={1}
-            name="Fraxtal TVL"
+            name={mainLineLabel}
           />
           {showSecondLine && secondLineData && (
             <Area
@@ -157,7 +161,7 @@ const LineChartWithGradient = ({
               strokeWidth={2}
               fill={useAreaGradient ? "url(#colorEthereum)" : "none"}
               fillOpacity={1}
-              name="Ethereum TVL"
+              name={secondLineLabel}
             />
           )}
         </AreaChart>
