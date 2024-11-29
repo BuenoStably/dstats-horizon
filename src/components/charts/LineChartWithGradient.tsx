@@ -17,6 +17,7 @@ interface LineChartWithGradientProps {
   secondLineKey?: string;
   secondLineColor?: string;
   useAreaGradient?: boolean;
+  yAxisDomain?: [number | string | undefined, number | string | undefined];
 }
 
 const LineChartWithGradient = ({
@@ -27,6 +28,7 @@ const LineChartWithGradient = ({
   secondLineKey = "value",
   secondLineColor = "#22C55E",
   useAreaGradient = false,
+  yAxisDomain,
 }: LineChartWithGradientProps) => {
   const getMaxValue = () => {
     const values = data.map(item => item.value);
@@ -122,7 +124,7 @@ const LineChartWithGradient = ({
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             width={60}
-            domain={[0, getMaxValue()]}
+            domain={yAxisDomain || [0, getMaxValue()]}
             allowDecimals={false}
           />
           <Tooltip content={<CustomTooltip />} />
