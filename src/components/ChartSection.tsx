@@ -33,7 +33,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
       const ethereumValue = baseEthValue + trendFactor + volatility;
       return {
         ...item,
-        ethereumValue: item.value + ethereumValue,
+        ethereumValue: ethereumValue,
       };
     });
   };
