@@ -50,7 +50,7 @@ const LineChartWithGradient = ({
   };
 
   const formatYAxisTick = (value: number) => {
-    return Math.floor(value).toString();
+    return value.toString().split('.')[0];
   };
 
   const CustomTooltip = ({ active, payload, label }: any) => {
