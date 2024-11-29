@@ -25,13 +25,17 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
   const [usersTimeframe, setUsersTimeframe] = useState("7D");
   const [revenueTimeframe, setRevenueTimeframe] = useState("7D");
 
+  // Memoize the filtered data for each chart
+  const filteredTvlData = filterDataByTimeframe([...mockData.tvl], tvlTimeframe);
+  const filteredSupplyData = filterDataByTimeframe([...mockData.supply], supplyTimeframe);
+  const filteredApyData = filterDataByTimeframe([...mockData.apy], apyTimeframe);
+  const filteredUsersData = filterDataByTimeframe([...mockData.users], usersTimeframe);
+  const filteredRevenueData = filterDataByTimeframe([...mockData.revenue], revenueTimeframe);
+
   const generateEthereumTVL = (data: any[]) => {
     const baseEthValue = 3500000;
-    let volatility = 0;
-
     return data.map((item, index) => {
-      volatility += (Math.random() - 0.45) * 100000;
-      volatility = Math.max(Math.min(volatility, 500000), -500000);
+      const volatility = (Math.random() - 0.45) * 100000;
       const trendFactor = index * 5000;
       const ethereumValue = baseEthValue + trendFactor + volatility;
       return {
@@ -71,11 +75,11 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             className="flex flex-col"
           >
             <LineChartWithGradient
-              data={filterDataByTimeframe(mockData.tvl, tvlTimeframe)}
+              data={filteredTvlData}
               valueFormatter={formatCurrency}
               yAxisFormatter={formatCurrency}
               showSecondLine
-              secondLineData={generateEthereumTVL(filterDataByTimeframe(mockData.tvl, tvlTimeframe))}
+              secondLineData={generateEthereumTVL(filteredTvlData)}
               secondLineKey="ethereumValue"
               secondLineColor="#0EA5E9"
               useAreaGradient={true}
@@ -92,7 +96,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             onTimeframeChange={setSupplyTimeframe}
           >
             <LineChartWithGradient
-              data={filterDataByTimeframe(mockData.supply, supplyTimeframe)}
+              data={filteredSupplyData}
               valueFormatter={formatCurrency}
               yAxisFormatter={formatCurrency}
               useAreaGradient={true}
@@ -108,7 +112,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             onTimeframeChange={setApyTimeframe}
           >
             <LineChartWithGradient
-              data={filterDataByTimeframe(mockData.apy, apyTimeframe)}
+              data={filteredApyData}
               valueFormatter={formatPercentage}
               yAxisFormatter={formatPercentage}
               useAreaGradient={false}
@@ -124,7 +128,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             onTimeframeChange={setUsersTimeframe}
           >
             <LineChartWithGradient
-              data={filterDataByTimeframe(mockData.users, usersTimeframe)}
+              data={filteredUsersData}
               valueFormatter={formatNumber}
               yAxisFormatter={formatNumber}
               useAreaGradient={true}
@@ -163,7 +167,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             onTimeframeChange={setRevenueTimeframe}
           >
             <RevenueChart 
-              data={filterDataByTimeframe(mockData.revenue, revenueTimeframe)}
+              data={filteredRevenueData}
               formatCurrency={formatCurrency}
             />
           </ChartCard>
