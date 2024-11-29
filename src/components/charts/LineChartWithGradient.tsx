@@ -77,7 +77,9 @@ const LineChartWithGradient = ({
               }}
             >
               <span style={{ color: entry.color }}>{entry.name || "Value"}:</span>
-              <span style={{ fontFamily: 'monospace' }}>{valueFormatter(entry.value)}</span>
+              <span style={{ fontFamily: 'monospace' }}>
+                {valueFormatter(Number(entry.value))}
+              </span>
             </Typography>
           ))}
         </Paper>
@@ -125,7 +127,7 @@ const LineChartWithGradient = ({
             axisLine={{ stroke: 'transparent' }}
             width={60}
             domain={yAxisDomain || [0, getMaxValue()]}
-            allowDecimals={false}
+            allowDecimals={true}
           />
           <Tooltip content={<CustomTooltip />} />
           <Area
