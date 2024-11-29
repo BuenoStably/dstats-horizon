@@ -14,31 +14,31 @@ const Index = () => {
     {
       value: metrics?.tvl || "$0",
       label: "Total Protocol TVL",
-      tooltip: "Total Value Locked across all protocol products",
+      tooltip: "Total value locked across all dTrinity products, including dUSD, dLEND, and liquidity pools",
       icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
       value: metrics?.supply || "$0",
       label: "Total dUSD Supply",
-      tooltip: "Current total supply of dUSD in circulation",
+      tooltip: "Total amount of dUSD tokens currently in circulation, backed by protocol reserves",
       icon: <Wallet className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
       value: metrics?.apy || "0%",
       label: "Net Borrow APY",
-      tooltip: "Current net borrowing annual percentage yield",
+      tooltip: "Current annualized percentage yield for borrowing, including all fees and rewards",
       icon: <Percent className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
       value: "$12.7K",
       label: "Total Rebates",
-      tooltip: "Total rebates distributed to users",
+      tooltip: "Cumulative value of rebates distributed to protocol users through various incentive programs",
       icon: <Gift className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
     {
       value: metrics?.lpRewards || "0x",
       label: "LP Rewards",
-      tooltip: "Current liquidity provider reward multiplier",
+      tooltip: "Current multiplier for liquidity provider rewards, indicating boost in yield for LP token holders",
       icon: <Gift className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
   ];
