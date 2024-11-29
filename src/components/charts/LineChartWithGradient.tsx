@@ -35,7 +35,8 @@ const LineChartWithGradient = ({
     if (showSecondLine && secondLineData) {
       values.push(...secondLineData.map(item => item[secondLineKey]));
     }
-    return Math.ceil(Math.max(...values));
+    const maxValue = Math.ceil(Math.max(...values));
+    return Math.max(maxValue, 10); // Ensure minimum max value is 10
   };
 
   const calculateInterval = () => {
