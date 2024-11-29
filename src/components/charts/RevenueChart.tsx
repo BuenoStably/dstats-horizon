@@ -21,7 +21,6 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
     return format(new Date(dateStr), "MMM d");
   };
 
-  // Calculate interval based on data length
   const calculateInterval = () => {
     const dataLength = data.length;
     if (dataLength <= 10) return 0; // Show all points for small datasets
@@ -116,7 +115,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
           <YAxis
             yAxisId="left"
             domain={[minRevenue, maxRevenue]}
-            tickFormatter={(value) => value.toLocaleString()}
+            tickFormatter={(value) => Math.round(value).toLocaleString()}
             stroke="transparent"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}
@@ -128,7 +127,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             yAxisId="right"
             orientation="right"
             domain={[minAnnualized, maxAnnualized]}
-            tickFormatter={(value) => `${(value * 100)}%`}
+            tickFormatter={(value) => `${Math.round(value * 100)}%`}
             stroke="transparent"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}
