@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { DollarSign, TrendingUp, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ChartCard from "@/components/ChartCard";
@@ -8,7 +8,6 @@ import { generateMockApyData } from "@/utils/mockApyData";
 import { useState, useMemo } from "react";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
 import { useMetrics } from "@/hooks/useMetrics";
-import MetricsGrid from "@/components/metrics/MetricsGrid";
 import MetricCard from "@/components/MetricCard";
 
 const LiquidityPage = () => {

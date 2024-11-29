@@ -15,6 +15,21 @@ const DLENDPage = () => {
   const [supplyTimeframe, setSupplyTimeframe] = useState("7D");
   const [borrowTimeframe, setBorrowTimeframe] = useState("7D");
 
+  // Memoize the mock data generation
+  const supplyApyData = useMemo(() => generateMockApyData(3.5, 4.8), []);
+  const borrowApyData = useMemo(() => generateMockApyData(5.2, 5.9), []);
+
+  // Memoize filtered data
+  const filteredSupplyData = useMemo(
+    () => filterDataByTimeframe(supplyApyData, supplyTimeframe),
+    [supplyApyData, supplyTimeframe]
+  );
+
+  const filteredBorrowData = useMemo(
+    () => filterDataByTimeframe(borrowApyData, borrowTimeframe),
+    [borrowApyData, borrowTimeframe]
+  );
+
   const metricsConfig = [
     {
       value: metrics?.debtRatio || "9.0",
@@ -47,21 +62,6 @@ const DLENDPage = () => {
       icon: <Box sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 } }}><UserMinus /></Box>,
     },
   ];
-
-  // Memoize the mock data generation
-  const supplyApyData = useMemo(() => generateMockApyData(3.5, 4.8), []);
-  const borrowApyData = useMemo(() => generateMockApyData(5.2, 5.9), []);
-
-  // Memoize filtered data
-  const filteredSupplyData = useMemo(
-    () => filterDataByTimeframe(supplyApyData, supplyTimeframe),
-    [supplyApyData, supplyTimeframe]
-  );
-
-  const filteredBorrowData = useMemo(
-    () => filterDataByTimeframe(borrowApyData, borrowTimeframe),
-    [borrowApyData, borrowTimeframe]
-  );
 
   const formatPercentage = (value: number) => `${value.toFixed(4)}%`;
 
