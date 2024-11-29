@@ -57,7 +57,10 @@ const LineChartWithGradient = ({
     if (yAxisFormatter) {
       return yAxisFormatter(value);
     }
-    return value.toString();
+    return new Intl.NumberFormat('en-US', {
+      notation: 'compact',
+      maximumFractionDigits: 1
+    }).format(value);
   };
 
   const CustomTooltip = ({ active, payload, label }: any) => {
