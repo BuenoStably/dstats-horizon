@@ -10,6 +10,7 @@ import TVCandlestickChart from "@/components/charts/TVCandlestickChart";
 import BalanceSheetTable from "@/components/BalanceSheetTable";
 import AmoTransactionsTable from "@/components/AmoTransactionsTable";
 import SmoTransactionsTable from "@/components/SmoTransactionsTable";
+import TableWrapper from "@/components/TableWrapper";
 import { generateDusdMockData } from "@/utils/mockDusdData";
 import { useState } from "react";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
@@ -98,7 +99,7 @@ const DUSDPage = () => {
     const allValues = [...amoData.map(d => d.value), ...reserveData.map(d => d[secondLineKey] || 0)];
     const min = Math.min(...allValues);
     const max = Math.max(...allValues);
-    const padding = (max - min) * 0.02; // Reduced padding from 0.1 to 0.02 (2% instead of 10%)
+    const padding = (max - min) * 0.02;
     return [min - padding, max + padding] as [number, number];
   };
 
@@ -175,19 +176,19 @@ const DUSDPage = () => {
             </Grid>
           </Grid>
 
-          <Box sx={{ bgcolor: "background.paper", borderRadius: 2, p: 3, mb: 4 }}>
+          <TableWrapper>
             <BalanceSheetTable />
-          </Box>
+          </TableWrapper>
           
-          <Box sx={{ bgcolor: "background.paper", borderRadius: 2, p: 3, mb: 4 }}>
+          <TableWrapper>
             <AmoTransactionsTable />
-          </Box>
+          </TableWrapper>
           
-          <Box sx={{ bgcolor: "background.paper", borderRadius: 2, p: 3, mb: 4 }}>
+          <TableWrapper>
             <SmoTransactionsTable />
-          </Box>
+          </TableWrapper>
           
-          <Box sx={{ bgcolor: "background.paper", borderRadius: 2, p: 3 }}>
+          <TableWrapper>
             <ChartCard 
               title="dUSD Reserve Revenue (Yields + SMO Earnings)" 
               onTimeframeChange={setRevenueTimeframe}
@@ -201,7 +202,7 @@ const DUSDPage = () => {
                 formatCurrency={formatCurrency}
               />
             </ChartCard>
-          </Box>
+          </TableWrapper>
         </Box>
       </Container>
     </Box>
