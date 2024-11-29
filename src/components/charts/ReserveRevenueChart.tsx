@@ -22,6 +22,23 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
 
   const formatPercentage = (value: number) => `${(value * 100).toFixed(2)}%`;
 
+  // Calculate dynamic domains
+  const calculateEarningsDomain = () => {
+    const values = data.map(item => item.earnings);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const padding = (max - min) * 0.1;
+    return [Math.max(0, min - padding), max + padding];
+  };
+
+  const calculateApyDomain = () => {
+    const values = data.map(item => item.apy);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const padding = (max - min) * 0.1;
+    return [Math.max(0, min - padding), max + padding];
+  };
+
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -49,6 +66,9 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
     return null;
   };
 
+  const [minEarnings, maxEarnings] = calculateEarningsDomain();
+  const [minApy, maxApy] = calculateApyDomain();
+
   return (
     <Box sx={{ width: "100%", height: 400, mt: 2 }}>
       <ResponsiveContainer>
@@ -70,9 +90,8 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
           />
           <YAxis
             yAxisId="left"
-            domain={[0, 1250]}
+            domain={[minEarnings, maxEarnings]}
             tickFormatter={(value) => `$${value}`}
-            ticks={[0, 250, 500, 750, 1000, 1250]}
             stroke="transparent"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}
@@ -83,9 +102,8 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
           <YAxis
             yAxisId="right"
             orientation="right"
-            domain={[0, 0.5]}
+            domain={[minApy, maxApy]}
             tickFormatter={(value) => `${(value * 100)}%`}
-            ticks={[0, 0.1, 0.2, 0.3, 0.4, 0.5]}
             stroke="transparent"
             tick={{ fill: '#ffffff' }}
             tickLine={{ stroke: 'transparent' }}

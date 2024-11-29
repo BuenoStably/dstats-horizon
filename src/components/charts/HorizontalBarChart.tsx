@@ -19,6 +19,16 @@ interface HorizontalBarChartProps {
 }
 
 const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
+  // Calculate dynamic domain
+  const calculateDomain = () => {
+    const values = data.map(item => item.value);
+    const max = Math.max(...values);
+    const padding = max * 0.1;
+    return [0, max + padding];
+  };
+
+  const [minValue, maxValue] = calculateDomain();
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart
@@ -53,8 +63,7 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
           type="number"
           stroke="#4B5563"
           tickFormatter={formatValue}
-          domain={[0, 4000000]}
-          tickCount={5}
+          domain={[minValue, maxValue]}
           axisLine={{ stroke: '#4B5563' }}
           tick={{ fill: '#4B5563' }}
           tickLine={{ stroke: '#4B5563' }}
