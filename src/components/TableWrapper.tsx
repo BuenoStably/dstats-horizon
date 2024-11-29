@@ -9,7 +9,7 @@ const TableWrapper = ({ children }: TableWrapperProps) => {
   return (
     <Box 
       sx={{ 
-        bgcolor: "transparent",
+        bgcolor: "rgb(23, 22, 36)",
         borderRadius: 2, 
         p: 3, 
         mb: 4 
