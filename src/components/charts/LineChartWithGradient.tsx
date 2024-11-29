@@ -27,18 +27,14 @@ const LineChartWithGradient = ({
   secondLineData,
   secondLineKey = "value",
   secondLineColor = "#22C55E",
-  yAxisDomain,
   useAreaGradient = false,
 }: LineChartWithGradientProps) => {
-  const getEffectiveDomain = () => {
+  const getMaxValue = () => {
     const values = data.map(item => item.value);
     if (showSecondLine && secondLineData) {
       values.push(...secondLineData.map(item => item[secondLineKey]));
     }
-    const minValue = Math.min(...values);
-    const maxValue = Math.max(...values);
-    const padding = (maxValue - minValue) * 0.05;
-    return [minValue - padding, maxValue + padding] as [number, number];
+    return Math.ceil(Math.max(...values));
   };
 
   const calculateInterval = () => {
@@ -89,9 +85,6 @@ const LineChartWithGradient = ({
     return null;
   };
 
-  const shouldUseEffectiveDomain = !yAxisDomain || 
-    (Array.isArray(yAxisDomain) && yAxisDomain[0] === 'auto' && yAxisDomain[1] === 'auto');
-
   return (
     <Box sx={{ width: "100%", height: 400 }}>
       <ResponsiveContainer>
@@ -130,7 +123,8 @@ const LineChartWithGradient = ({
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             width={60}
-            domain={shouldUseEffectiveDomain ? getEffectiveDomain() : yAxisDomain}
+            domain={[0, getMaxValue()]}
+            allowDecimals={false}
           />
           <Tooltip content={<CustomTooltip />} />
           <Area
