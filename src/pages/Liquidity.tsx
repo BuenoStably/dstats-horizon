@@ -5,7 +5,7 @@ import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { generateMockApyData } from "@/utils/mockApyData";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
 import { useMetrics } from "@/hooks/useMetrics";
 import MetricsGrid from "@/components/metrics/MetricsGrid";
@@ -16,6 +16,21 @@ const LiquidityPage = () => {
   const [volumeTimeframe, setVolumeTimeframe] = useState("7D");
   const [tvlTimeframe, setTvlTimeframe] = useState("7D");
   
+  // Memoize the mock data generation
+  const volumeData = useMemo(() => generateMockApyData(40000, 45000), []);
+  const tvlData = useMemo(() => generateMockApyData(5000000, 5400000), []);
+
+  // Memoize filtered data
+  const filteredVolumeData = useMemo(
+    () => filterDataByTimeframe(volumeData, volumeTimeframe),
+    [volumeData, volumeTimeframe]
+  );
+
+  const filteredTvlData = useMemo(
+    () => filterDataByTimeframe(tvlData, tvlTimeframe),
+    [tvlData, tvlTimeframe]
+  );
+
   const metricsConfig = [
     {
       value: metrics?.liquidity || "$5.2M",
@@ -36,10 +51,6 @@ const LiquidityPage = () => {
       icon: <Users className="w-5 h-5 sm:w-6 sm:h-6" />,
     },
   ];
-
-  // Mock data for charts
-  const volumeData = generateMockApyData(40000, 45000);
-  const tvlData = generateMockApyData(5000000, 5400000);
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-US", {
@@ -68,7 +79,7 @@ const LiquidityPage = () => {
               onTimeframeChange={setVolumeTimeframe}
             >
               <LineChartWithGradient
-                data={filterDataByTimeframe(volumeData, volumeTimeframe)}
+                data={filteredVolumeData}
                 valueFormatter={formatCurrency}
                 useAreaGradient={true}
                 yAxisDomain={[0, 'auto']}
@@ -82,7 +93,7 @@ const LiquidityPage = () => {
               onTimeframeChange={setTvlTimeframe}
             >
               <LineChartWithGradient
-                data={filterDataByTimeframe(tvlData, tvlTimeframe)}
+                data={filteredTvlData}
                 valueFormatter={formatCurrency}
                 useAreaGradient={true}
                 yAxisDomain={[0, 'auto']}

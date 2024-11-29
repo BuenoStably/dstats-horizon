@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import { Box, Grid } from "@mui/material";
 import { Percent, Users, ArrowUpDown, BarChart3, UserMinus } from "lucide-react";
@@ -48,10 +48,21 @@ const DLENDPage = () => {
     },
   ];
 
-  const supplyApyData = generateMockApyData(3.5, 4.8);
-  const borrowApyData = generateMockApyData(5.2, 5.9);
+  // Memoize the mock data generation
+  const supplyApyData = useMemo(() => generateMockApyData(3.5, 4.8), []);
+  const borrowApyData = useMemo(() => generateMockApyData(5.2, 5.9), []);
 
-  // Updated to show exact decimal values
+  // Memoize filtered data
+  const filteredSupplyData = useMemo(
+    () => filterDataByTimeframe(supplyApyData, supplyTimeframe),
+    [supplyApyData, supplyTimeframe]
+  );
+
+  const filteredBorrowData = useMemo(
+    () => filterDataByTimeframe(borrowApyData, borrowTimeframe),
+    [borrowApyData, borrowTimeframe]
+  );
+
   const formatPercentage = (value: number) => `${value.toFixed(4)}%`;
 
   return (
@@ -67,7 +78,7 @@ const DLENDPage = () => {
                 onTimeframeChange={setSupplyTimeframe}
               >
                 <LineChartWithGradient
-                  data={filterDataByTimeframe(supplyApyData, supplyTimeframe)}
+                  data={filteredSupplyData}
                   valueFormatter={formatPercentage}
                   mainLineLabel="Supply APY"
                 />
@@ -80,7 +91,7 @@ const DLENDPage = () => {
                 onTimeframeChange={setBorrowTimeframe}
               >
                 <LineChartWithGradient
-                  data={filterDataByTimeframe(borrowApyData, borrowTimeframe)}
+                  data={filteredBorrowData}
                   valueFormatter={formatPercentage}
                   mainLineLabel="Borrow APY"
                 />
