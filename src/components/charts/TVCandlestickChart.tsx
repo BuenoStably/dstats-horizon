@@ -49,7 +49,7 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
 
     // Add horizontal line at 1.0000
     const horizontalLine = chart.addLineSeries({
-      color: '#3B82F6', // Changed from '#22C55E' to blue
+      color: '#3B82F6',
       lineStyle: LineStyle.Dotted,
       lineWidth: 1,
     });
@@ -63,34 +63,36 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
       },
     });
 
-    // Transform data for candlestick format
-    const candleData = data.map((item, index) => {
-      const timestamp = new Date(item.date).getTime() / 1000;
-      const baseValue = item.value;
-      const volatility = 0.002;
-      const isBullish = Math.random() > 0.5;
-      
-      let open, close, high, low;
-      
-      if (isBullish) {
-        open = baseValue * (1 - Math.random() * volatility);
-        close = baseValue * (1 + Math.random() * volatility);
-      } else {
-        open = baseValue * (1 + Math.random() * volatility);
-        close = baseValue * (1 - Math.random() * volatility);
-      }
-      
-      high = Math.max(open, close) * (1 + Math.random() * volatility);
-      low = Math.min(open, close) * (1 - Math.random() * volatility);
+    // Transform and sort data for candlestick format
+    const candleData = data
+      .map((item, index) => {
+        const timestamp = Math.floor(new Date(item.date).getTime() / 1000);
+        const baseValue = item.value;
+        const volatility = 0.002;
+        const isBullish = Math.random() > 0.5;
+        
+        let open, close, high, low;
+        
+        if (isBullish) {
+          open = baseValue * (1 - Math.random() * volatility);
+          close = baseValue * (1 + Math.random() * volatility);
+        } else {
+          open = baseValue * (1 + Math.random() * volatility);
+          close = baseValue * (1 - Math.random() * volatility);
+        }
+        
+        high = Math.max(open, close) * (1 + Math.random() * volatility);
+        low = Math.min(open, close) * (1 - Math.random() * volatility);
 
-      return {
-        time: timestamp as Time,
-        open,
-        high,
-        low,
-        close,
-      };
-    });
+        return {
+          time: timestamp as Time,
+          open,
+          high,
+          low,
+          close,
+        };
+      })
+      .sort((a, b) => (a.time as number) - (b.time as number)); // Sort by timestamp
 
     candlestickSeries.setData(candleData);
 
