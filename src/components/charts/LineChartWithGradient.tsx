@@ -7,7 +7,7 @@ import {
   Tooltip,
 } from "recharts";
 import { format } from "date-fns";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 interface LineChartWithGradientProps {
   data: Array<{ date: string; value: number }>;
@@ -40,7 +40,7 @@ const LineChartWithGradient = ({
       values.push(...secondLineData.map(item => item[secondLineKey]));
     }
     const maxValue = Math.ceil(Math.max(...values));
-    return Math.max(maxValue, 10); // Ensure minimum max value is 10
+    return Math.max(maxValue, 10);
   };
 
   const calculateInterval = () => {
@@ -51,14 +51,12 @@ const LineChartWithGradient = ({
     return Math.floor(dataLength / 10);
   };
 
-  // Format Y-axis ticks as integers
   const formatYAxisTick = (value: number) => Math.round(value).toString();
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <Paper
-          elevation={3}
+        <Box
           sx={{
             bgcolor: 'rgb(31, 29, 43)',
             p: 1.5,
@@ -94,7 +92,7 @@ const LineChartWithGradient = ({
               </Typography>
             );
           })}
-        </Paper>
+        </Box>
       );
     }
     return null;
