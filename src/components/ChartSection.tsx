@@ -140,7 +140,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             <HorizontalBarChart
               data={mockData.balanceSheet}
               formatValue={formatCurrency}
-              yAxisWidth={120}
+              yAxisWidth={60}
             />
           </ChartCard>
         </Grid>
