@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import ChartCard from "./ChartCard";
 import LineChartWithGradient from "./charts/LineChartWithGradient";
 import RevenueChart from "./charts/RevenueChart";
@@ -18,7 +18,6 @@ interface ChartSectionProps {
 }
 
 export const ChartSection = ({ mockData }: ChartSectionProps) => {
-  // Separate state for each chart's timeframe
   const [tvlTimeframe, setTvlTimeframe] = useState("7D");
   const [supplyTimeframe, setSupplyTimeframe] = useState("7D");
   const [apyTimeframe, setApyTimeframe] = useState("7D");
@@ -26,15 +25,35 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
   const [revenueTimeframe, setRevenueTimeframe] = useState("7D");
 
   // Memoize the filtered data for each chart
-  const filteredTvlData = filterDataByTimeframe([...mockData.tvl], tvlTimeframe);
-  const filteredSupplyData = filterDataByTimeframe([...mockData.supply], supplyTimeframe);
-  const filteredApyData = filterDataByTimeframe([...mockData.apy], apyTimeframe);
-  const filteredUsersData = filterDataByTimeframe([...mockData.users], usersTimeframe);
-  const filteredRevenueData = filterDataByTimeframe([...mockData.revenue], revenueTimeframe);
+  const filteredTvlData = useMemo(() => 
+    filterDataByTimeframe([...mockData.tvl], tvlTimeframe),
+    [mockData.tvl, tvlTimeframe]
+  );
 
-  const generateEthereumTVL = (data: any[]) => {
+  const filteredSupplyData = useMemo(() => 
+    filterDataByTimeframe([...mockData.supply], supplyTimeframe),
+    [mockData.supply, supplyTimeframe]
+  );
+
+  const filteredApyData = useMemo(() => 
+    filterDataByTimeframe([...mockData.apy], apyTimeframe),
+    [mockData.apy, apyTimeframe]
+  );
+
+  const filteredUsersData = useMemo(() => 
+    filterDataByTimeframe([...mockData.users], usersTimeframe),
+    [mockData.users, usersTimeframe]
+  );
+
+  const filteredRevenueData = useMemo(() => 
+    filterDataByTimeframe([...mockData.revenue], revenueTimeframe),
+    [mockData.revenue, revenueTimeframe]
+  );
+
+  // Memoize the Ethereum TVL data generation
+  const ethereumTVLData = useMemo(() => {
     const baseEthValue = 3500000;
-    return data.map((item, index) => {
+    return filteredTvlData.map((item, index) => {
       const volatility = (Math.random() - 0.45) * 100000;
       const trendFactor = index * 5000;
       const ethereumValue = baseEthValue + trendFactor + volatility;
@@ -43,7 +62,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
         ethereumValue: ethereumValue,
       };
     });
-  };
+  }, [filteredTvlData]);
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-US", {
@@ -79,7 +98,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               valueFormatter={formatCurrency}
               yAxisFormatter={formatCurrency}
               showSecondLine
-              secondLineData={generateEthereumTVL(filteredTvlData)}
+              secondLineData={ethereumTVLData}
               secondLineKey="ethereumValue"
               secondLineColor="#0EA5E9"
               useAreaGradient={true}
