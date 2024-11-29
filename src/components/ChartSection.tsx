@@ -4,6 +4,7 @@ import LineChartWithGradient from "./charts/LineChartWithGradient";
 import RevenueChart from "./charts/RevenueChart";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
 import { Box, Grid } from "@mui/material";
+import HorizontalBarChart from "./charts/HorizontalBarChart";
 
 interface ChartSectionProps {
   mockData: {
@@ -118,6 +119,27 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
               mainLineLabel="Total Users"
+            />
+          </ChartCard>
+        </Grid>
+      </Grid>
+
+      <Grid container>
+        <Grid item xs={12} container>
+          <ChartCard 
+            title="dUSD Balance Sheet"
+            showTimeframes={false}
+            legend={[
+              { color: "#22C55E", label: "Yieldcoins" },
+              { color: "#15803d", label: "Stablecoins" },
+              { color: "#dc2626", label: "dUSD" },
+              { color: "#4B5563", label: "Curve LP (AMO)" }
+            ]}
+          >
+            <HorizontalBarChart
+              data={mockData.balanceSheet}
+              formatValue={formatCurrency}
+              yAxisWidth={120}
             />
           </ChartCard>
         </Grid>
