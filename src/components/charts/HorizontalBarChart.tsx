@@ -38,7 +38,7 @@ const HorizontalBarChart = ({ data, formatValue, yAxisWidth = 80 }: HorizontalBa
         margin={{ 
           top: 20,
           right: 20,
-          left: 20,
+          left: 0,
           bottom: 20
         }}
       >
