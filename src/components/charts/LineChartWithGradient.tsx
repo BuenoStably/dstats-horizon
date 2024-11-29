@@ -57,35 +57,39 @@ const LineChartWithGradient = ({
           elevation={3}
           sx={{
             bgcolor: 'rgb(31, 29, 43)',
-            p: 2,
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '8px',
-            backdropFilter: 'blur(10px)',
-            minWidth: '200px',
+            p: 1.5,
+            border: "1px solid rgba(255, 255, 255, 0.2)",
+            borderRadius: 1,
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2)',
           }}
         >
-          <Typography variant="body2" sx={{ color: 'rgb(156, 163, 175)', mb: 1 }}>
+          <Typography variant="body2" sx={{ color: "rgb(156, 163, 175)", mb: 1 }}>
             {format(new Date(label), "MMM d, yyyy")}
           </Typography>
-          {payload.map((entry: any, index: number) => (
-            <Typography 
-              key={index} 
-              variant="body2" 
-              sx={{ 
-                color: '#ffffff',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                gap: 2,
-                mb: 0.5
-              }}
-            >
-              <span style={{ color: entry.color }}>{entry.name || "Value"}:</span>
-              <span style={{ fontFamily: 'monospace' }}>
-                {valueFormatter(parseFloat(entry.value))}
-              </span>
-            </Typography>
-          ))}
+          {payload.map((entry: any, index: number) => {
+            const isSecondLine = entry.dataKey === secondLineKey;
+            return (
+              <Typography 
+                key={index} 
+                variant="body2" 
+                sx={{ 
+                  color: '#ffffff',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  gap: 2,
+                  mb: 0.5
+                }}
+              >
+                <span style={{ color: entry.color }}>
+                  {isSecondLine ? "Reserve TVL" : "AMO TVL"}:
+                </span>
+                <span style={{ fontFamily: 'monospace' }}>
+                  {valueFormatter(entry.value)}
+                </span>
+              </Typography>
+            );
+          })}
         </Paper>
       );
     }
