@@ -16,9 +16,10 @@ interface BarData {
 interface HorizontalBarChartProps {
   data: BarData[];
   formatValue: (value: number) => string;
+  yAxisWidth?: number;
 }
 
-const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
+const HorizontalBarChart = ({ data, formatValue, yAxisWidth = 80 }: HorizontalBarChartProps) => {
   // Calculate dynamic domain
   const calculateDomain = () => {
     const values = data.map(item => item.value);
@@ -83,7 +84,7 @@ const HorizontalBarChart = ({ data, formatValue }: HorizontalBarChartProps) => {
             fontSize: '12px',
             fontFamily: 'Inter'
           }}
-          width={80}
+          width={yAxisWidth}
         />
         <Tooltip
           formatter={(value: number) => [formatValue(value), "Balance"]}

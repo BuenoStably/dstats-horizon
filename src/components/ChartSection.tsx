@@ -13,6 +13,7 @@ interface ChartSectionProps {
     apy: any[];
     users: any[];
     revenue: any[];
+    balanceSheet: Array<{ name: string; value: number }>;
   };
 }
 
