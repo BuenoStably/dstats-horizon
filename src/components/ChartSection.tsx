@@ -23,19 +23,17 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
   const [revenueTimeframe, setRevenueTimeframe] = useState("7D");
 
   const generateEthereumTVL = (data: any[]) => {
-    const baseEthValue = 3500000; // 3.5M
+    const baseEthValue = 3500000;
     let volatility = 0;
 
     return data.map((item, index) => {
-      volatility += (Math.random() - 0.45) * 100000; // Slight upward bias
+      volatility += (Math.random() - 0.45) * 100000;
       volatility = Math.max(Math.min(volatility, 500000), -500000);
-
-      const trendFactor = index * 5000; // Gradual upward trend
+      const trendFactor = index * 5000;
       const ethereumValue = baseEthValue + trendFactor + volatility;
-
       return {
         ...item,
-        ethereumValue: item.value + ethereumValue, // Add Fraxtal TVL to get total
+        ethereumValue: item.value + ethereumValue,
       };
     });
   };
@@ -73,8 +71,8 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               secondLineColor="#0EA5E9"
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
-              mainLineLabel="Total Value Locked in Fraxtal Protocol"
-              secondLineLabel="Total Value Locked in Ethereum"
+              mainLineLabel="Fraxtal TVL"
+              secondLineLabel="Ethereum TVL"
             />
           </ChartCard>
         </Grid>
@@ -86,7 +84,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               valueFormatter={formatCurrency}
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
-              mainLineLabel="Total dUSD Tokens in Circulation"
+              mainLineLabel="Total dUSD Supply"
             />
           </ChartCard>
         </Grid>
@@ -98,7 +96,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               valueFormatter={formatPercentage}
               useAreaGradient={false}
               yAxisDomain={[0, 'auto']}
-              mainLineLabel="Net Annual Percentage Yield for dUSD Borrowing"
+              mainLineLabel="Net dUSD Borrow APY"
             />
           </ChartCard>
         </Grid>
@@ -110,7 +108,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               valueFormatter={formatNumber}
               useAreaGradient={true}
               yAxisDomain={[0, 'auto']}
-              mainLineLabel="Total Number of Active Protocol Users"
+              mainLineLabel="Total Users"
             />
           </ChartCard>
         </Grid>
