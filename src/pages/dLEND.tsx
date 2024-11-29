@@ -51,7 +51,8 @@ const DLENDPage = () => {
   const supplyApyData = generateMockApyData(3.5, 4.8);
   const borrowApyData = generateMockApyData(5.2, 5.9);
 
-  const formatPercentage = (value: number) => `${Math.round(value)}%`;
+  // Updated to show exact decimal values
+  const formatPercentage = (value: number) => `${value.toFixed(4)}%`;
 
   return (
     <>
