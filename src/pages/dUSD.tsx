@@ -1,7 +1,6 @@
 import { DollarSign, Users, Wallet } from "lucide-react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import Navbar from "@/components/Navbar";
-import MetricCard from "@/components/MetricCard";
 import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import HorizontalBarChart from "@/components/charts/HorizontalBarChart";
@@ -14,58 +13,50 @@ import TableWrapper from "@/components/TableWrapper";
 import { generateDusdMockData } from "@/utils/mockDusdData";
 import { useState } from "react";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
-
-const MetricsSection = () => {
-  const metrics = [
-    {
-      value: "$3.0M",
-      label: "Total dUSD Supply",
-      tooltip: "Total amount of dUSD tokens in circulation",
-      icon: <Wallet className="w-5 h-5 sm:w-6 sm:h-6" />,
-    },
-    {
-      value: "$3.1M",
-      label: "Total NAV",
-      tooltip: "Net Asset Value of all dUSD tokens",
-      icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
-    },
-    {
-      value: "$1.0334",
-      label: "Unit NAV",
-      tooltip: "Net Asset Value per dUSD token",
-      icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
-    },
-    {
-      value: "$1.0069",
-      label: "Last Price",
-      tooltip: "Most recent trading price of dUSD",
-      icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
-    },
-    {
-      value: "420",
-      label: "dUSD Holders",
-      tooltip: "Number of unique addresses holding dUSD",
-      icon: <Users className="w-5 h-5 sm:w-6 sm:h-6" />,
-    },
-  ];
-
-  return (
-    <Grid container spacing={2}>
-      {metrics.map((metric, index) => (
-        <Grid item xs={12} sm={6} md={4} lg={2.4} key={index}>
-          <MetricCard {...metric} />
-        </Grid>
-      ))}
-    </Grid>
-  );
-};
+import { useMetrics } from "@/hooks/useMetrics";
+import PageWrapper from "@/components/layout/PageWrapper";
+import MetricsGrid from "@/components/metrics/MetricsGrid";
 
 const DUSDPage = () => {
+  const { data: metrics, isLoading, error } = useMetrics();
   const mockData = generateDusdMockData();
   const [priceTimeframe, setPriceTimeframe] = useState("7D");
   const [supplyTimeframe, setSupplyTimeframe] = useState("7D");
   const [navTimeframe, setNavTimeframe] = useState("7D");
   const [revenueTimeframe, setRevenueTimeframe] = useState("7D");
+
+  const metricsConfig = [
+    {
+      value: metrics?.dusdSupply || "$3.0M",
+      label: "Total dUSD Supply",
+      tooltip: "Total amount of dUSD tokens in circulation",
+      icon: <Wallet className="w-5 h-5 sm:w-6 sm:h-6" />,
+    },
+    {
+      value: metrics?.nav || "$3.1M",
+      label: "Total NAV",
+      tooltip: "Net Asset Value of all dUSD tokens",
+      icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
+    },
+    {
+      value: metrics?.unitNav || "$1.0334",
+      label: "Unit NAV",
+      tooltip: "Net Asset Value per dUSD token",
+      icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
+    },
+    {
+      value: metrics?.lastPrice || "$1.0069",
+      label: "Last Price",
+      tooltip: "Most recent trading price of dUSD",
+      icon: <DollarSign className="w-5 h-5 sm:w-6 sm:h-6" />,
+    },
+    {
+      value: metrics?.holders || "420",
+      label: "dUSD Holders",
+      tooltip: "Number of unique addresses holding dUSD",
+      icon: <Users className="w-5 h-5 sm:w-6 sm:h-6" />,
+    },
+  ];
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-US", {
