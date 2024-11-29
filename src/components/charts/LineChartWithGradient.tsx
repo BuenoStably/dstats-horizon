@@ -46,6 +46,9 @@ const LineChartWithGradient = ({
     return Math.floor(dataLength / 10);
   };
 
+  // Format Y-axis ticks as integers
+  const formatYAxisTick = (value: number) => Math.round(value).toString();
+
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -127,8 +130,8 @@ const LineChartWithGradient = ({
             axisLine={{ stroke: 'transparent' }}
             width={60}
             domain={yAxisDomain || [0, getMaxValue()]}
-            allowDecimals={true}
-            tickFormatter={valueFormatter}
+            allowDecimals={false}
+            tickFormatter={formatYAxisTick}
           />
           <Tooltip content={<CustomTooltip />} />
           <Area
