@@ -64,51 +64,23 @@ const ChartCard = ({
           spacing={2}
           mb={3}
         >
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              color: 'white', 
-              fontWeight: 600,
-              pl: 0,
-              textAlign: 'left'
-            }}
-          >
-            {title}
-          </Typography>
-          
           <Stack 
             direction="row" 
             justifyContent="space-between"
             alignItems="center"
             spacing={2}
           >
-            {legend && (
-              <Stack 
-                direction="row" 
-                spacing={2} 
-                sx={{ 
-                  pl: 0,
-                  flexWrap: 'wrap',
-                  gap: 1
-                }}
-              >
-                {legend.map((item, index) => (
-                  <Stack key={index} direction="row" spacing={1} alignItems="center">
-                    <Box 
-                      sx={{ 
-                        width: '12px', 
-                        height: '12px', 
-                        borderRadius: '2px',
-                        bgcolor: item.color 
-                      }} 
-                    />
-                    <Typography variant="body2" sx={{ color: 'rgb(156, 163, 175)' }}>
-                      {item.label}
-                    </Typography>
-                  </Stack>
-                ))}
-              </Stack>
-            )}
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                color: 'white', 
+                fontWeight: 600,
+                pl: 0,
+                textAlign: 'left'
+              }}
+            >
+              {title}
+            </Typography>
             
             {showTimeframes && onTimeframeChange && (
               <Stack direction="row" spacing={1}>
@@ -134,6 +106,34 @@ const ChartCard = ({
               </Stack>
             )}
           </Stack>
+          
+          {legend && (
+            <Stack 
+              direction="row" 
+              spacing={2} 
+              sx={{ 
+                pl: 0,
+                flexWrap: 'wrap',
+                gap: 1
+              }}
+            >
+              {legend.map((item, index) => (
+                <Stack key={index} direction="row" spacing={1} alignItems="center">
+                  <Box 
+                    sx={{ 
+                      width: '12px', 
+                      height: '12px', 
+                      borderRadius: '2px',
+                      bgcolor: item.color 
+                    }} 
+                  />
+                  <Typography variant="body2" sx={{ color: 'rgb(156, 163, 175)' }}>
+                    {item.label}
+                  </Typography>
+                </Stack>
+              ))}
+            </Stack>
+          )}
         </Stack>
         <Grid container sx={{ flex: 1, minHeight: 0, alignItems: 'flex-end', alignSelf: 'flex-end', '& > *': { height: '350px', width: '100%' } }}>
           {children}
