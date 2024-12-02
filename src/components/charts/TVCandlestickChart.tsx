@@ -28,13 +28,6 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
       timeScale: {
         timeVisible: true,
         secondsVisible: false,
-        tickMarkFormatter: (time: number) => {
-          const date = new Date(time * 1000);
-          return date.toLocaleDateString('en-US', { 
-            month: 'short',
-            day: 'numeric'
-          });
-        },
       },
       rightPriceScale: {
         autoScale: false,
@@ -71,40 +64,35 @@ const TVCandlestickChart = ({ data, valueFormatter }: TVCandlestickChartProps) =
     });
 
     // Transform and sort data for candlestick format
-    // Group data points by day to reduce granularity
-    const groupedData = new Map();
-    
-    data.forEach((item) => {
-      const date = new Date(item.date);
-      const dayKey = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
-      
-      if (!groupedData.has(dayKey)) {
-        groupedData.set(dayKey, {
-          values: [item.value],
-          timestamp: Math.floor(dayKey / 1000),
-        });
-      } else {
-        groupedData.get(dayKey).values.push(item.value);
-      }
-    });
+    const candleData = data
+      .map((item, index) => {
+        const timestamp = Math.floor(new Date(item.date).getTime() / 1000);
+        const baseValue = item.value;
+        const volatility = 0.002;
+        const isBullish = Math.random() > 0.5;
+        
+        let open, close, high, low;
+        
+        if (isBullish) {
+          open = baseValue * (1 - Math.random() * volatility);
+          close = baseValue * (1 + Math.random() * volatility);
+        } else {
+          open = baseValue * (1 + Math.random() * volatility);
+          close = baseValue * (1 - Math.random() * volatility);
+        }
+        
+        high = Math.max(open, close) * (1 + Math.random() * volatility);
+        low = Math.min(open, close) * (1 - Math.random() * volatility);
 
-    const candleData = Array.from(groupedData.values()).map(({ values, timestamp }) => {
-      const dayValues = values.sort((a, b) => a - b);
-      const volatility = 0.001; // Reduced volatility
-      
-      const open = dayValues[0];
-      const close = dayValues[dayValues.length - 1];
-      const high = Math.max(...dayValues) * (1 + volatility);
-      const low = Math.min(...dayValues) * (1 - volatility);
-
-      return {
-        time: timestamp as Time,
-        open,
-        high,
-        low,
-        close,
-      };
-    }).sort((a, b) => (a.time as number) - (b.time as number));
+        return {
+          time: timestamp as Time,
+          open,
+          high,
+          low,
+          close,
+        };
+      })
+      .sort((a, b) => (a.time as number) - (b.time as number)); // Sort by timestamp
 
     candlestickSeries.setData(candleData);
 

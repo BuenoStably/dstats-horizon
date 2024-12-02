@@ -16,19 +16,12 @@ export interface DusdMockData {
 }
 
 export const generateDusdMockData = (): DusdMockData => {
-  // Generate hourly dates for the last 7 days and daily dates for the rest
+  // Generate daily dates for the last 365 days
   const dates: string[] = [];
   const now = new Date();
   
-  // Add hourly data points for the last 7 days
-  for (let i = 7 * 24 - 1; i >= 0; i--) {
-    const date = new Date(now);
-    date.setHours(date.getHours() - i);
-    dates.push(date.toISOString());
-  }
-  
-  // Add daily data points for the remaining days up to 365
-  for (let i = 8; i <= 365; i++) {
+  // Add daily data points for 365 days
+  for (let i = 0; i <= 365; i++) {
     const date = new Date(now);
     date.setDate(date.getDate() - i);
     date.setHours(0, 0, 0, 0);
@@ -37,14 +30,10 @@ export const generateDusdMockData = (): DusdMockData => {
 
   // Generate price data with natural volatility around 1.00
   let currentPrice = 1.00;
-  const price = dates.map((date, i) => {
-    // Higher volatility for hourly data (first 7 days)
-    const isHourly = i < 7 * 24;
-    const volatilityMultiplier = isHourly ? 0.5 : 1; // Reduce volatility for hourly movements
-    
+  const price = dates.map(date => {
     // Add small random walk with mean reversion
-    const dailyVolatility = (Math.random() - 0.5) * 0.002 * volatilityMultiplier;
-    const meanReversion = (1.00 - currentPrice) * 0.1 * volatilityMultiplier;
+    const dailyVolatility = (Math.random() - 0.5) * 0.002;
+    const meanReversion = (1.00 - currentPrice) * 0.1;
     currentPrice = currentPrice + dailyVolatility + meanReversion;
     
     // Ensure price stays within reasonable bounds
