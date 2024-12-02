@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import { format } from "date-fns";
 import { Box, Typography } from "@mui/material";
+import { colors } from '../../theme';
 
 interface ReserveRevenueChartProps {
   data: any[];
@@ -22,7 +23,6 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
 
   const formatPercentage = (value: number) => `${(value * 100).toFixed(2)}%`;
 
-  // Calculate dynamic domains
   const calculateEarningsDomain = () => {
     const values = data.map(item => item.earnings);
     const min = Math.min(...values);
@@ -36,20 +36,20 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
       return (
         <Box
           sx={{
-            bgcolor: 'rgb(31, 29, 43)',
+            bgcolor: colors.card,
             p: 1.5,
-            border: "1px solid rgba(255, 255, 255, 0.2)",
+            border: `1px solid ${colors.border}`,
             borderRadius: 1,
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2)',
           }}
         >
-          <Typography variant="body2" sx={{ color: "rgb(156, 163, 175)", mb: 1 }}>
+          <Typography variant="body2" sx={{ color: colors.textMuted, mb: 1 }}>
             {format(new Date(label), "MMM d, yyyy")}
           </Typography>
-          <Typography variant="body2" sx={{ color: "#8702ff", mb: 0.5 }}>
+          <Typography variant="body2" sx={{ color: colors.primary, mb: 0.5 }}>
             APY Estimate: {formatPercentage(payload[1].value)}
           </Typography>
-          <Typography variant="body2" sx={{ color: "#22C55E" }}>
+          <Typography variant="body2" sx={{ color: colors.secondary }}>
             Earnings Estimate: {formatCurrency(payload[0].value)}
           </Typography>
         </Box>
@@ -67,10 +67,10 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
           <XAxis
             dataKey="date"
             tickFormatter={formatXAxis}
-            stroke="#4B5563"
-            tick={{ fill: '#4B5563' }}
-            tickLine={{ stroke: '#4B5563' }}
-            axisLine={{ stroke: '#4B5563' }}
+            stroke={colors.chartGrid}
+            tick={{ fill: colors.chartGrid }}
+            tickLine={{ stroke: colors.chartGrid }}
+            axisLine={{ stroke: colors.chartGrid }}
             interval="preserveStartEnd"
             minTickGap={50}
             style={{ fontFamily: 'Inter' }}
@@ -80,7 +80,7 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
             domain={[minEarnings, maxEarnings]}
             tickFormatter={(value) => Math.round(value).toString()}
             stroke="transparent"
-            tick={{ fill: '#ffffff' }}
+            tick={{ fill: colors.textPrimary }}
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             style={{ fontFamily: 'Inter' }}
@@ -92,7 +92,7 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
             domain={[0, 1]}
             tickFormatter={(value) => `${Math.round(value * 100)}%`}
             stroke="transparent"
-            tick={{ fill: '#ffffff' }}
+            tick={{ fill: colors.textPrimary }}
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             style={{ fontFamily: 'Inter' }}
@@ -102,7 +102,7 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
           <Bar
             yAxisId="left"
             dataKey="earnings"
-            fill="#22C55E"
+            fill={colors.secondary}
             name="Earnings Estimate"
             barSize={20}
           />
@@ -110,7 +110,7 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
             yAxisId="right"
             type="monotone"
             dataKey="apy"
-            stroke="#8702ff"
+            stroke={colors.primary}
             strokeWidth={2}
             dot={false}
             name="APY Estimate"

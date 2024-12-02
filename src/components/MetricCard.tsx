@@ -1,5 +1,6 @@
 import { HelpOutline } from '@mui/icons-material';
 import { Card, CardContent, Typography, Box, Tooltip, Skeleton } from '@mui/material';
+import { colors } from '../theme';
 
 interface MetricCardProps {
   value: string;
@@ -14,14 +15,14 @@ const MetricCard = ({ value, label, tooltip, icon, isLoading, error }: MetricCar
   return (
     <Card 
       sx={{
-        bgcolor: 'rgba(255, 255, 255, 0.05)',
+        bgcolor: colors.card,
         backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
+        border: `1px solid ${colors.border}`,
         borderRadius: '12px',
         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         transition: 'background-color 0.2s',
         '&:hover': {
-          bgcolor: 'rgba(255, 255, 255, 0.08)'
+          bgcolor: colors.cardHover
         }
       }}
     >
@@ -31,7 +32,7 @@ const MetricCard = ({ value, label, tooltip, icon, isLoading, error }: MetricCar
             variant="h5" 
             component="div" 
             sx={{ 
-              color: error ? 'error.main' : '#8702ff',
+              color: error ? colors.error : colors.primary,
               fontWeight: 'bold',
               fontSize: { xs: '1.25rem', sm: '1.5rem' }
             }}
@@ -44,13 +45,13 @@ const MetricCard = ({ value, label, tooltip, icon, isLoading, error }: MetricCar
               value
             )}
           </Typography>
-          {icon && <Box sx={{ color: '#8702ff' }}>{icon}</Box>}
+          {icon && <Box sx={{ color: colors.primary }}>{icon}</Box>}
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
           <Typography 
             variant="body2" 
             sx={{ 
-              color: 'white',
+              color: colors.textPrimary,
               fontSize: { xs: '0.75rem', sm: '0.875rem' }
             }}
           >
@@ -59,11 +60,11 @@ const MetricCard = ({ value, label, tooltip, icon, isLoading, error }: MetricCar
           <Tooltip 
             title={error ? error.message : tooltip}
             sx={{
-              bgcolor: 'rgb(36, 36, 36)',
+              bgcolor: colors.surface,
               '& .MuiTooltip-tooltip': {
-                bgcolor: 'rgb(36, 36, 36)',
-                color: 'white',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                bgcolor: colors.surface,
+                color: colors.textPrimary,
+                border: `1px solid ${colors.border}`,
                 borderRadius: '8px',
                 fontSize: { xs: '0.75rem', sm: '0.875rem' }
               }
@@ -72,7 +73,7 @@ const MetricCard = ({ value, label, tooltip, icon, isLoading, error }: MetricCar
             <HelpOutline sx={{ 
               width: { xs: '0.75rem', sm: '1rem' }, 
               height: { xs: '0.75rem', sm: '1rem' },
-              color: 'white',
+              color: colors.textPrimary,
               cursor: 'pointer'
             }} />
           </Tooltip>

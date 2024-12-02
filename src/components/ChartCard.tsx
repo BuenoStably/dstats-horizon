@@ -1,5 +1,6 @@
 import { Card, CardContent, Typography, Box, Button, Stack, Grid } from '@mui/material';
 import { useState } from "react";
+import { colors } from '../theme';
 
 interface LegendItem {
   color: string;
@@ -36,9 +37,9 @@ const ChartCard = ({
   return (
     <Card 
       sx={{
-        bgcolor: 'rgba(255, 255, 255, 0.05)',
+        bgcolor: colors.card,
         backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
+        border: `1px solid ${colors.border}`,
         borderRadius: '12px',
         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         p: { xs: 2, sm: 3 },
@@ -73,7 +74,7 @@ const ChartCard = ({
             <Typography 
               variant="h6" 
               sx={{ 
-                color: 'white', 
+                color: colors.textPrimary, 
                 fontWeight: 600,
                 pl: 0,
                 textAlign: 'left'
@@ -93,10 +94,10 @@ const ChartCard = ({
                     sx={{
                       minWidth: 0,
                       px: 1.5,
-                      color: selectedTimeframe === tf ? 'white' : 'rgb(156, 163, 175)',
-                      bgcolor: selectedTimeframe === tf ? '#8702ff' : 'transparent',
+                      color: selectedTimeframe === tf ? colors.textPrimary : colors.textMuted,
+                      bgcolor: selectedTimeframe === tf ? colors.primary : 'transparent',
                       '&:hover': {
-                        bgcolor: selectedTimeframe === tf ? '#7002d6' : 'rgba(255, 255, 255, 0.1)'
+                        bgcolor: selectedTimeframe === tf ? colors.primaryDark : 'rgba(255, 255, 255, 0.1)'
                       }
                     }}
                   >
@@ -127,7 +128,7 @@ const ChartCard = ({
                       bgcolor: item.color 
                     }} 
                   />
-                  <Typography variant="body2" sx={{ color: 'rgb(156, 163, 175)' }}>
+                  <Typography variant="body2" sx={{ color: colors.textMuted }}>
                     {item.label}
                   </Typography>
                 </Stack>
