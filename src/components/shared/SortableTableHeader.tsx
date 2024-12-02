@@ -7,19 +7,41 @@ interface SortableTableHeaderProps {
 }
 
 export const SortableTableHeader = ({ column, onSort }: SortableTableHeaderProps) => {
+  // Define specific widths for different column types
+  const getColumnWidth = (columnName: string) => {
+    switch (columnName.toLowerCase()) {
+      case 'transaction':
+      case 'address':
+        return '140px';  // For hash addresses
+      case 'date':
+        return '120px';
+      case 'asset':
+      case 'network':
+      case 'type':
+        return '100px';
+      case 'quantity':
+      case 'value':
+      case 'exchangerate':
+        return '90px';
+      default:
+        return '100px';
+    }
+  };
+
   return (
     <TableCell
       onClick={() => onSort(column)}
       sx={{ 
         cursor: 'pointer',
-        textAlign: 'center',
+        textAlign: 'left',
         '& > div': {
           display: 'inline-flex',
           alignItems: 'center',
           gap: 1,
         },
-        minWidth: '150px',
-        padding: '16px'
+        width: getColumnWidth(column),
+        minWidth: getColumnWidth(column),
+        padding: '12px'
       }}
     >
       <div>
