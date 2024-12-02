@@ -1,9 +1,10 @@
+import { Components } from '@mui/material/styles';
 import { colors } from '../colors';
 
-export const paperOverrides = {
+export const paperOverrides: Components['MuiPaper'] = {
   variants: [
     {
-      props: { variant: 'metric' },
+      props: { variant: 'metric' as const },
       style: {
         borderRadius: '12px',
         backdropFilter: 'blur(10px)',
@@ -18,7 +19,7 @@ export const paperOverrides = {
       },
     },
     {
-      props: { variant: 'chart' },
+      props: { variant: 'chart' as const },
       style: {
         borderRadius: '12px',
         backdropFilter: 'blur(10px)',
