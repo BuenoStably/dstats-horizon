@@ -121,7 +121,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             style={{ fontFamily: 'Inter' }}
-            width={window.innerWidth < 768 ? 45 : 80}
+            width={window.innerWidth < 768 ? 35 : 50}
           />
           <YAxis
             yAxisId="right"
@@ -133,7 +133,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             style={{ fontFamily: 'Inter' }}
-            width={window.innerWidth < 768 ? 45 : 80}
+            width={window.innerWidth < 768 ? 35 : 50}
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend

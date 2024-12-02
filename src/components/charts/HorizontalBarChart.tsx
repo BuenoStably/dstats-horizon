@@ -19,7 +19,7 @@ interface HorizontalBarChartProps {
   yAxisWidth?: number;
 }
 
-const HorizontalBarChart = ({ data, formatValue, yAxisWidth = window.innerWidth < 768 ? 45 : 80 }: HorizontalBarChartProps) => {
+const HorizontalBarChart = ({ data, formatValue, yAxisWidth = window.innerWidth < 768 ? 35 : 50 }: HorizontalBarChartProps) => {
   // Calculate dynamic domain
   const calculateDomain = () => {
     const values = data.map(item => item.value);
