@@ -30,7 +30,6 @@ function App() {
               overflowX: "hidden",
             }}
           >
-            <Navbar />
             <Box 
               sx={{ 
                 flexGrow: 1, 
@@ -50,6 +49,7 @@ function App() {
                 }
               }}
             >
+              <Navbar />
               <Box component="main" sx={{ flexGrow: 1, position: "relative", zIndex: 1, width: "100%" }}>
                 <Container 
                   maxWidth="lg" 
