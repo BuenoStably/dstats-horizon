@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography, Box, Button, Stack, Grid } from '@mui/material';
+import { Card, CardContent, Typography, Box, Button, Stack } from '@mui/material';
 import { useState } from "react";
 import { colors } from '../theme';
 
@@ -40,7 +40,6 @@ const ChartCard = ({
       variant="chart"
       sx={{ 
         width: '100%',
-        height: '100%',
         display: 'flex',
         flexDirection: 'column'
       }}
@@ -51,8 +50,6 @@ const ChartCard = ({
           p: 0, 
           display: 'flex', 
           flexDirection: 'column',
-          flex: 1,
-          minHeight: 0,
           '&:last-child': { pb: 0 }
         }}
       >
@@ -131,11 +128,8 @@ const ChartCard = ({
           )}
         </Stack>
         <Box sx={{ 
-          flex: 1, 
-          minHeight: 0, 
           width: '100%',
           '& > *': { 
-            height: '350px', 
             width: '100%' 
           }
         }}>
