@@ -38,6 +38,12 @@ const ChartCard = ({
     <Card 
       elevation={0}
       variant="chart"
+      sx={{ 
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
       className={className}
     >
       <CardContent 
@@ -124,9 +130,17 @@ const ChartCard = ({
             </Stack>
           )}
         </Stack>
-        <Grid container sx={{ flex: 1, minHeight: 0, alignItems: 'flex-end', alignSelf: 'flex-end', '& > *': { height: '350px', width: '100%' } }}>
+        <Box sx={{ 
+          flex: 1, 
+          minHeight: 0, 
+          width: '100%',
+          '& > *': { 
+            height: '350px', 
+            width: '100%' 
+          }
+        }}>
           {children}
-        </Grid>
+        </Box>
       </CardContent>
     </Card>
   );
