@@ -72,7 +72,8 @@ const MetricCard = ({ value, label, tooltip, icon, isLoading, error }: MetricCar
             <HelpOutline sx={{ 
               width: { xs: '0.75rem', sm: '1rem' }, 
               height: { xs: '0.75rem', sm: '1rem' },
-              color: 'white'
+              color: 'white',
+              cursor: 'pointer'
             }} />
           </Tooltip>
         </Box>
