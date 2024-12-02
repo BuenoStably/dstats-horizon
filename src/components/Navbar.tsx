@@ -41,7 +41,7 @@ const Navbar = () => {
             style={{ height: '24px', width: 'auto' }}
           />
           <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'white' }}>
-            dSTATS
+            <i>d</i>STATS
           </Typography>
         </Box>
         
