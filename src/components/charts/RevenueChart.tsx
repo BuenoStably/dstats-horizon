@@ -21,19 +21,11 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
     return format(new Date(dateStr), "MMM d");
   };
 
-  const calculateInterval = () => {
-    const dataLength = data.length;
-    if (dataLength <= 10) return 0; // Show all points for small datasets
-    if (dataLength <= 20) return 1; // Show every other point
-    if (dataLength <= 40) return 2; // Show every third point
-    return Math.floor(dataLength / 10); // Show roughly 10 points for larger datasets
-  };
-
   // Calculate dynamic Y-axis domain and ticks for revenue
   const calculateRevenueDomain = () => {
     const values = data.map(item => item.revenueTvl);
     const maxValue = Math.max(...values);
-    const roundedMax = Math.ceil(maxValue / 20000) * 20000; // Round up to nearest 20k
+    const roundedMax = Math.ceil(maxValue / 20000) * 20000;
     return [0, roundedMax];
   };
 
@@ -41,8 +33,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
   const calculateAnnualizedDomain = () => {
     const values = data.map(item => item.annualizedRevenue);
     const maxValue = Math.max(...values);
-    // Increase the scale slightly to prevent overlap
-    const roundedMax = Math.ceil(maxValue * 10) / 10 + 0.1; // Add 0.1 to give more space
+    const roundedMax = Math.ceil(maxValue * 10) / 10 + 0.1;
     return [0, roundedMax];
   };
 
@@ -94,21 +85,29 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
   const [minAnnualized, maxAnnualized] = calculateAnnualizedDomain();
 
   return (
-    <Box sx={{ width: "100%", height: 400, mt: 2 }}>
+    <Box sx={{ width: "100%", height: { xs: 450, sm: 400 }, mt: { xs: 4, sm: 2 } }}>
       <ResponsiveContainer>
-        <ComposedChart data={data} margin={{ left: 20, right: 20, top: 20, bottom: 25 }}>
+        <ComposedChart 
+          data={data} 
+          margin={{ 
+            left: 0,
+            right: 0, 
+            top: 20, 
+            bottom: window.innerWidth < 768 ? 60 : 25 
+          }}
+        >
           <XAxis
             dataKey="date"
             tickFormatter={formatXAxis}
             stroke="#4B5563"
-            tick={{ fill: '#4B5563' }}
+            tick={{ fill: '#4B5563', fontSize: 11 }}
             tickLine={{ stroke: '#4B5563' }}
             axisLine={{ stroke: '#4B5563' }}
             dy={8}
             angle={-45}
             textAnchor="end"
-            height={45}
-            interval={calculateInterval()}
+            height={60}
+            interval="preserveStartEnd"
             minTickGap={30}
             style={{ fontFamily: 'Inter' }}
           />
@@ -117,7 +116,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             domain={[minRevenue, maxRevenue]}
             tickFormatter={(value) => Math.round(value).toLocaleString()}
             stroke="transparent"
-            tick={{ fill: '#ffffff' }}
+            tick={{ fill: '#ffffff', fontSize: 11 }}
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             style={{ fontFamily: 'Inter' }}
@@ -129,7 +128,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             domain={[minAnnualized, maxAnnualized]}
             tickFormatter={(value) => `${Math.round(value * 100)}%`}
             stroke="transparent"
-            tick={{ fill: '#ffffff' }}
+            tick={{ fill: '#ffffff', fontSize: 11 }}
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             style={{ fontFamily: 'Inter' }}
@@ -142,7 +141,12 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             formatter={(value) => {
               return value === "revenueTvl" ? "Revenue/TVL" : "Annualized Revenue";
             }}
-            wrapperStyle={{ fontFamily: 'Inter', color: '#ffffff' }}
+            wrapperStyle={{ 
+              fontFamily: 'Inter', 
+              color: '#ffffff',
+              fontSize: '12px',
+              paddingBottom: '16px'
+            }}
           />
           <Line
             yAxisId="left"
