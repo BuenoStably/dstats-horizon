@@ -12,19 +12,19 @@ export const SortableTableHeader = ({ column, onSort }: SortableTableHeaderProps
     switch (columnName.toLowerCase()) {
       case 'transaction':
       case 'address':
-        return '140px';  // For hash addresses
+        return '120px';  // Reduced from 140px for hash addresses
       case 'date':
-        return '120px';
+        return '140px';  // Increased from 120px
       case 'asset':
       case 'network':
       case 'type':
-        return '100px';
+        return '120px';  // Increased from 100px
       case 'quantity':
       case 'value':
       case 'exchangerate':
-        return '90px';
+        return '110px';  // Increased from 90px
       default:
-        return '100px';
+        return '120px';
     }
   };
 
