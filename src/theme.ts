@@ -87,16 +87,95 @@ export const theme = createTheme({
           borderRadius: '8px',
         },
       },
+      variants: [
+        {
+          props: { variant: 'chart-timeframe' },
+          style: {
+            minWidth: 0,
+            padding: '6px 12px',
+            color: colors.textMuted,
+            backgroundColor: 'transparent',
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            },
+            '&.Mui-selected': {
+              color: colors.textPrimary,
+              backgroundColor: colors.primary,
+              '&:hover': {
+                backgroundColor: colors.primaryDark,
+              },
+            },
+          },
+        },
+      ],
     },
     MuiCard: {
       styleOverrides: {
         root: {
           borderRadius: '12px',
           backdropFilter: 'blur(10px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          backgroundColor: colors.card,
           borderColor: colors.border,
+          transition: 'background-color 0.2s',
+          '&:hover': {
+            backgroundColor: colors.cardHover,
+          },
         },
       },
+      variants: [
+        {
+          props: { variant: 'metric' },
+          style: {
+            padding: '16px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+          },
+        },
+        {
+          props: { variant: 'chart' },
+          style: {
+            padding: '24px',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+          },
+        },
+      ],
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: colors.card,
+          color: colors.textPrimary,
+          border: `1px solid ${colors.border}`,
+          borderRadius: '8px',
+          padding: '12px',
+          fontSize: '0.875rem',
+        },
+        arrow: {
+          color: colors.card,
+        },
+      },
+    },
+    MuiTypography: {
+      variants: [
+        {
+          props: { variant: 'metric-value' },
+          style: {
+            fontSize: '1.5rem',
+            fontWeight: 600,
+            color: colors.primary,
+          },
+        },
+        {
+          props: { variant: 'metric-label' },
+          style: {
+            fontSize: '0.875rem',
+            color: colors.textMuted,
+          },
+        },
+      ],
     },
   },
 });
