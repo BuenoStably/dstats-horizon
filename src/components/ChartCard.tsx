@@ -63,7 +63,7 @@ const ChartCard = ({
           direction={{ xs: 'column', sm: 'row' }} 
           justifyContent="space-between" 
           alignItems={{ xs: 'flex-start', sm: 'center' }}
-          spacing={{ xs: 1.5, sm: 2 }}
+          spacing={2}
           mb={3}
         >
           <Grid container item xs sx={{ width: '100%', textAlign: 'left' }}>
@@ -72,7 +72,7 @@ const ChartCard = ({
               sx={{ 
                 color: 'white', 
                 fontWeight: 600, 
-                mb: { xs: legend ? 1 : 0, sm: 0 },
+                mb: legend ? 1 : 0,
                 pl: 0,
                 textAlign: 'left'
               }}
@@ -80,16 +80,7 @@ const ChartCard = ({
               {title}
             </Typography>
             {legend && (
-              <Stack 
-                direction="row" 
-                spacing={2} 
-                sx={{ 
-                  pl: 0,
-                  flexWrap: 'wrap',
-                  gap: 1,
-                  mt: { xs: 1, sm: 0 }
-                }}
-              >
+              <Stack direction="row" spacing={2} sx={{ pl: 0 }}>
                 {legend.map((item, index) => (
                   <Stack key={index} direction="row" spacing={1} alignItems="center">
                     <Box 
