@@ -17,6 +17,12 @@ declare module '@mui/material/Typography' {
   }
 }
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    gradient: true;
+  }
+}
+
 declare module '@mui/material/Card' {
   interface CardPropsVariantOverrides {
     'metric': true;
