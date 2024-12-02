@@ -1,9 +1,13 @@
+import { Components } from '@mui/material/styles';
 import { colors } from '../colors';
 
-export const buttonOverrides = {
+export const buttonOverrides: Components['MuiButton'] = {
+  defaultProps: {
+    disableElevation: true,
+  },
   styleOverrides: {
     root: {
-      textTransform: 'none',
+      textTransform: 'none' as const,
       borderRadius: '8px',
     },
   },
