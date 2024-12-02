@@ -1,9 +1,10 @@
+import { Components } from '@mui/material/styles';
 import { colors } from '../colors';
 
-export const cardOverrides = {
+export const cardOverrides: Components['MuiCard'] = {
   variants: [
     {
-      props: { variant: 'metric' },
+      props: { variant: 'metric' as const },
       style: {
         borderRadius: '12px',
         backdropFilter: 'blur(10px)',
@@ -18,7 +19,7 @@ export const cardOverrides = {
       },
     },
     {
-      props: { variant: 'chart' },
+      props: { variant: 'chart' as const },
       style: {
         borderRadius: '12px',
         backdropFilter: 'blur(10px)',
