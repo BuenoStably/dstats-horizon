@@ -63,7 +63,7 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
   return (
     <Box sx={{ width: "100%", height: 400, mt: 2 }}>
       <ResponsiveContainer>
-        <ComposedChart data={data} margin={{ left: 20, right: 20, top: 20, bottom: 40 }}>
+        <ComposedChart data={data} margin={{ left: 20, right: 20, top: 20, bottom: 20 }}>
           <XAxis
             dataKey="date"
             tickFormatter={formatXAxis}
@@ -71,10 +71,6 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
             tick={{ fill: '#4B5563' }}
             tickLine={{ stroke: '#4B5563' }}
             axisLine={{ stroke: '#4B5563' }}
-            dy={10}
-            angle={-45}
-            textAnchor="end"
-            height={60}
             interval="preserveStartEnd"
             minTickGap={50}
             style={{ fontFamily: 'Inter' }}
