@@ -95,6 +95,8 @@ const ChartCard = ({
           width: '100%',
           flex: 1,
           minHeight: 0,
+          display: 'flex',
+          alignItems: 'flex-end',
           '& > *': { 
             width: '100%',
             height: '100%'
