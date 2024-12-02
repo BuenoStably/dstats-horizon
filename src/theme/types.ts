@@ -50,4 +50,11 @@ declare module '@mui/material/Card' {
   }
 }
 
+declare module '@mui/material/Paper' {
+  interface PaperPropsVariantOverrides {
+    'metric': true;
+    'chart': true;
+  }
+}
+
 export {};
