@@ -97,20 +97,98 @@ export const theme = createTheme({
           borderRadius: '8px',
         },
       },
-    },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          borderRadius: '12px',
-          backdropFilter: 'blur(10px)',
-          backgroundColor: colors.card,
-          borderColor: colors.border,
-          transition: 'background-color 0.2s',
-          '&:hover': {
-            backgroundColor: colors.cardHover,
+      variants: [
+        {
+          props: { variant: 'gradient' },
+          style: {
+            background: 'linear-gradient(45deg, #8702ff 30%, #9b87f5 90%)',
+            color: 'white',
+            boxShadow: '0 3px 5px 2px rgba(135, 2, 255, .3)',
+            '&:hover': {
+              background: 'linear-gradient(45deg, #7502dd 30%, #8b77e5 90%)',
+            },
           },
         },
-      },
+        {
+          props: { variant: 'outlined', color: 'primary' },
+          style: {
+            borderColor: colors.primary,
+            color: colors.primary,
+            '&:hover': {
+              borderColor: colors.primaryLight,
+              backgroundColor: 'rgba(135, 2, 255, 0.04)',
+            },
+          },
+        },
+      ],
+    },
+    MuiCard: {
+      variants: [
+        {
+          props: { variant: 'metric' },
+          style: {
+            borderRadius: '12px',
+            backdropFilter: 'blur(10px)',
+            backgroundColor: colors.card,
+            borderColor: colors.border,
+            padding: '16px',
+            transition: 'all 0.2s',
+            '&:hover': {
+              backgroundColor: colors.cardHover,
+              transform: 'translateY(-2px)',
+            },
+          },
+        },
+        {
+          props: { variant: 'chart' },
+          style: {
+            borderRadius: '12px',
+            backdropFilter: 'blur(10px)',
+            backgroundColor: colors.card,
+            borderColor: colors.border,
+            padding: '24px',
+            height: '100%',
+            transition: 'background-color 0.2s',
+            '&:hover': {
+              backgroundColor: colors.cardHover,
+            },
+          },
+        },
+      ],
+    },
+    MuiPaper: {
+      variants: [
+        {
+          props: { variant: 'metric' },
+          style: {
+            borderRadius: '12px',
+            backdropFilter: 'blur(10px)',
+            backgroundColor: colors.card,
+            borderColor: colors.border,
+            padding: '16px',
+            transition: 'all 0.2s',
+            '&:hover': {
+              backgroundColor: colors.cardHover,
+              transform: 'translateY(-2px)',
+            },
+          },
+        },
+        {
+          props: { variant: 'chart' },
+          style: {
+            borderRadius: '12px',
+            backdropFilter: 'blur(10px)',
+            backgroundColor: colors.card,
+            borderColor: colors.border,
+            padding: '24px',
+            height: '100%',
+            transition: 'background-color 0.2s',
+            '&:hover': {
+              backgroundColor: colors.cardHover,
+            },
+          },
+        },
+      ],
     },
     MuiTooltip: {
       styleOverrides: {
