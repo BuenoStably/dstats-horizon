@@ -40,7 +40,6 @@ const ChartCard = ({
       variant="chart"
       sx={{ 
         width: '100%',
-        height: '100%',
         display: 'flex',
         flexDirection: 'column'
       }}
@@ -51,7 +50,6 @@ const ChartCard = ({
           p: 0, 
           display: 'flex', 
           flexDirection: 'column',
-          flexGrow: 1,
           '&:last-child': { pb: 0 }
         }}
       >
@@ -131,11 +129,8 @@ const ChartCard = ({
         </Stack>
         <Box sx={{ 
           width: '100%',
-          flexGrow: 1,
-          display: 'flex',
           '& > *': { 
-            width: '100%',
-            height: '100%'
+            width: '100%' 
           }
         }}>
           {children}
