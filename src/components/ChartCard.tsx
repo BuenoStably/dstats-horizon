@@ -41,7 +41,8 @@ const ChartCard = ({
       sx={{ 
         width: '100%',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        overflow: 'hidden'
       }}
       className={className}
     >
@@ -50,7 +51,9 @@ const ChartCard = ({
           p: 0, 
           display: 'flex', 
           flexDirection: 'column',
-          '&:last-child': { pb: 0 }
+          height: '100%',
+          '&:last-child': { pb: 0 },
+          overflow: 'hidden'
         }}
       >
         <Stack 
@@ -129,8 +132,11 @@ const ChartCard = ({
         </Stack>
         <Box sx={{ 
           width: '100%',
+          flex: 1,
+          minHeight: 0,
           '& > *': { 
-            width: '100%' 
+            width: '100%',
+            height: '100%'
           }
         }}>
           {children}
