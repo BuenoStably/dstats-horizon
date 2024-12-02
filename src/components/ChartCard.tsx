@@ -60,27 +60,38 @@ const ChartCard = ({
         }}
       >
         <Stack 
-          direction={{ xs: 'column', sm: 'row' }} 
-          justifyContent="space-between" 
-          alignItems={{ xs: 'flex-start', sm: 'center' }}
+          direction="column"
           spacing={2}
           mb={3}
         >
-          <Grid container item xs sx={{ width: '100%', textAlign: 'left' }}>
-            <Typography 
-              variant="h6" 
-              sx={{ 
-                color: 'white', 
-                fontWeight: 600, 
-                mb: legend ? 1 : 0,
-                pl: 0,
-                textAlign: 'left'
-              }}
-            >
-              {title}
-            </Typography>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              color: 'white', 
+              fontWeight: 600,
+              pl: 0,
+              textAlign: 'left'
+            }}
+          >
+            {title}
+          </Typography>
+          
+          <Stack 
+            direction="row" 
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+          >
             {legend && (
-              <Stack direction="row" spacing={2} sx={{ pl: 0 }}>
+              <Stack 
+                direction="row" 
+                spacing={2} 
+                sx={{ 
+                  pl: 0,
+                  flexWrap: 'wrap',
+                  gap: 1
+                }}
+              >
                 {legend.map((item, index) => (
                   <Stack key={index} direction="row" spacing={1} alignItems="center">
                     <Box 
@@ -98,30 +109,31 @@ const ChartCard = ({
                 ))}
               </Stack>
             )}
-          </Grid>
-          {showTimeframes && onTimeframeChange && (
-            <Stack direction="row" spacing={1}>
-              {timeframes.map((tf) => (
-                <Button
-                  key={tf}
-                  variant={selectedTimeframe === tf ? "contained" : "text"}
-                  size="small"
-                  onClick={() => handleTimeframeClick(tf)}
-                  sx={{
-                    minWidth: 0,
-                    px: 1.5,
-                    color: selectedTimeframe === tf ? 'white' : 'rgb(156, 163, 175)',
-                    bgcolor: selectedTimeframe === tf ? '#8702ff' : 'transparent',
-                    '&:hover': {
-                      bgcolor: selectedTimeframe === tf ? '#7002d6' : 'rgba(255, 255, 255, 0.1)'
-                    }
-                  }}
-                >
-                  {tf}
-                </Button>
-              ))}
-            </Stack>
-          )}
+            
+            {showTimeframes && onTimeframeChange && (
+              <Stack direction="row" spacing={1}>
+                {timeframes.map((tf) => (
+                  <Button
+                    key={tf}
+                    variant={selectedTimeframe === tf ? "contained" : "text"}
+                    size="small"
+                    onClick={() => handleTimeframeClick(tf)}
+                    sx={{
+                      minWidth: 0,
+                      px: 1.5,
+                      color: selectedTimeframe === tf ? 'white' : 'rgb(156, 163, 175)',
+                      bgcolor: selectedTimeframe === tf ? '#8702ff' : 'transparent',
+                      '&:hover': {
+                        bgcolor: selectedTimeframe === tf ? '#7002d6' : 'rgba(255, 255, 255, 0.1)'
+                      }
+                    }}
+                  >
+                    {tf}
+                  </Button>
+                ))}
+              </Stack>
+            )}
+          </Stack>
         </Stack>
         <Grid container sx={{ flex: 1, minHeight: 0, alignItems: 'flex-end', alignSelf: 'flex-end', '& > *': { height: '350px', width: '100%' } }}>
           {children}
