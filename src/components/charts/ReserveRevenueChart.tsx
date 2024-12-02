@@ -88,7 +88,7 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             style={{ fontFamily: 'Inter' }}
-            width={80}
+            width={window.innerWidth < 768 ? 45 : 80}
           />
           <YAxis
             yAxisId="right"
@@ -100,7 +100,7 @@ const ReserveRevenueChart = ({ data, formatCurrency }: ReserveRevenueChartProps)
             tickLine={{ stroke: 'transparent' }}
             axisLine={{ stroke: 'transparent' }}
             style={{ fontFamily: 'Inter' }}
-            width={80}
+            width={window.innerWidth < 768 ? 45 : 80}
           />
           <Tooltip content={<CustomTooltip />} />
           <Bar
