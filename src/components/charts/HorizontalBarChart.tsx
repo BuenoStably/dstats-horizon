@@ -72,6 +72,8 @@ const HorizontalBarChart = ({ data, formatValue, yAxisWidth = window.innerWidth 
             fontSize: '12px',
             fontFamily: 'Inter'
           }}
+          interval="preserveEnd"
+          minTickGap={50}
         />
         <YAxis
           type="category"

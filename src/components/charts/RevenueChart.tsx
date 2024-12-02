@@ -93,7 +93,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             left: 0,
             right: 0, 
             top: 20, 
-            bottom: window.innerWidth < 768 ? 60 : 25 
+            bottom: 25
           }}
         >
           <XAxis
@@ -103,14 +103,11 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
             tick={{ fill: '#4B5563', fontSize: 11 }}
             tickLine={{ stroke: '#4B5563' }}
             axisLine={{ stroke: '#4B5563' }}
-            dy={8}
-            angle={-45}
-            textAnchor="end"
-            height={60}
-            interval="preserveStartEnd"
-            minTickGap={30}
+            interval="preserveEnd"
+            minTickGap={80}
             style={{ fontFamily: 'Inter' }}
           />
+          
           <YAxis
             yAxisId="left"
             domain={[minRevenue, maxRevenue]}

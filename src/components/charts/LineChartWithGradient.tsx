@@ -47,10 +47,8 @@ const LineChartWithGradient = ({
 
   const calculateInterval = () => {
     const dataLength = data.length;
-    if (dataLength <= 10) return 0;
-    if (dataLength <= 20) return 1;
-    if (dataLength <= 40) return 2;
-    return Math.floor(dataLength / 10);
+    if (dataLength <= 5) return 0;
+    return Math.ceil(dataLength / 5); // Show roughly 5 points
   };
 
   const formatYAxisTick = (value: number) => {
@@ -133,12 +131,8 @@ const LineChartWithGradient = ({
             tick={{ fill: '#4B5563' }}
             tickLine={{ stroke: '#4B5563' }}
             axisLine={{ stroke: '#4B5563' }}
-            dy={8}
-            angle={-45}
-            textAnchor="end"
-            height={45}
             interval={calculateInterval()}
-            minTickGap={30}
+            minTickGap={50}
           />
           <YAxis
             stroke="transparent"
