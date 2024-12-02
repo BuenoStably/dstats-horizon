@@ -73,12 +73,12 @@ const BaseDataTable = <T extends { id: string }>({
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-        <Box>
-          <Typography variant="h5" sx={{ fontWeight: 600, mb: 0.5 }}>
+        <Box sx={{ textAlign: 'left' }}>
+          <Typography variant="h5" sx={{ fontWeight: 600, mb: 0.5, textAlign: 'left' }}>
             {title}
           </Typography>
           {formatDate && (
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'left' }}>
               (Last updated: {formatDate()})
             </Typography>
           )}
