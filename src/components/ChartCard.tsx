@@ -36,7 +36,18 @@ const ChartCard = ({
 
   return (
     <Card 
-      variant="chart"
+      elevation={0}
+      sx={{ 
+        backgroundColor: colors.card,
+        borderRadius: '12px',
+        padding: '24px',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        '&:hover': {
+          backgroundColor: colors.cardHover,
+        },
+      }}
       className={className}
     >
       <CardContent 
@@ -76,8 +87,16 @@ const ChartCard = ({
                 {timeframes.map((tf) => (
                   <Button
                     key={tf}
-                    variant="chart-timeframe"
-                    className={selectedTimeframe === tf ? 'Mui-selected' : ''}
+                    variant={selectedTimeframe === tf ? 'contained' : 'text'}
+                    sx={{
+                      minWidth: 0,
+                      padding: '6px 12px',
+                      color: selectedTimeframe === tf ? colors.textPrimary : colors.textMuted,
+                      backgroundColor: selectedTimeframe === tf ? colors.primary : 'transparent',
+                      '&:hover': {
+                        backgroundColor: selectedTimeframe === tf ? colors.primaryDark : 'rgba(255, 255, 255, 0.1)',
+                      },
+                    }}
                     onClick={() => handleTimeframeClick(tf)}
                   >
                     {tf}

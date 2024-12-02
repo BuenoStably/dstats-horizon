@@ -13,7 +13,20 @@ interface MetricCardProps {
 
 const MetricCard = ({ value, label, tooltip, icon, isLoading, error }: MetricCardProps) => {
   return (
-    <Card variant="metric">
+    <Card 
+      elevation={0}
+      sx={{ 
+        backgroundColor: colors.card,
+        borderRadius: '12px',
+        padding: '16px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+        '&:hover': {
+          backgroundColor: colors.cardHover,
+        },
+      }}
+    >
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
         <Typography 
           variant="metric-value"

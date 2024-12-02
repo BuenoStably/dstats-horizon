@@ -97,27 +97,6 @@ export const theme = createTheme({
           borderRadius: '8px',
         },
       },
-      variants: [
-        {
-          props: { variant: 'chart-timeframe' },
-          style: {
-            minWidth: 0,
-            padding: '6px 12px',
-            color: colors.textMuted,
-            backgroundColor: 'transparent',
-            '&:hover': {
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            },
-            '&.Mui-selected': {
-              color: colors.textPrimary,
-              backgroundColor: colors.primary,
-              '&:hover': {
-                backgroundColor: colors.primaryDark,
-              },
-            },
-          },
-        },
-      ],
     },
     MuiCard: {
       styleOverrides: {
@@ -132,26 +111,6 @@ export const theme = createTheme({
           },
         },
       },
-      variants: [
-        {
-          props: { variant: 'metric' },
-          style: {
-            padding: '16px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-          },
-        },
-        {
-          props: { variant: 'chart' },
-          style: {
-            padding: '24px',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-          },
-        },
-      ],
     },
     MuiTooltip: {
       styleOverrides: {
