@@ -42,6 +42,7 @@ const ChartCard = ({
         borderRadius: '12px',
         padding: '24px',
         height: '100%',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         '&:hover': {
@@ -76,7 +77,8 @@ const ChartCard = ({
               sx={{ 
                 fontWeight: 600,
                 pl: 0,
-                textAlign: 'left'
+                textAlign: 'left',
+                color: colors.textPrimary
               }}
             >
               {title}
@@ -126,7 +128,12 @@ const ChartCard = ({
                       bgcolor: item.color 
                     }} 
                   />
-                  <Typography variant="metric-label">
+                  <Typography 
+                    sx={{ 
+                      fontSize: '0.875rem',
+                      color: colors.textMuted
+                    }}
+                  >
                     {item.label}
                   </Typography>
                 </Stack>
@@ -134,9 +141,18 @@ const ChartCard = ({
             </Stack>
           )}
         </Stack>
-        <Grid container sx={{ flex: 1, minHeight: 0, alignItems: 'flex-end', alignSelf: 'flex-end', '& > *': { height: '350px', width: '100%' } }}>
+        <Box sx={{ 
+          flex: 1, 
+          minHeight: 0,
+          height: '350px',
+          width: '100%',
+          '& > *': { 
+            height: '100% !important',
+            width: '100% !important'
+          }
+        }}>
           {children}
-        </Grid>
+        </Box>
       </CardContent>
     </Card>
   );
