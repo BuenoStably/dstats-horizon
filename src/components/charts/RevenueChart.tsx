@@ -37,6 +37,13 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
     return [0, roundedMax];
   };
 
+  const formatYAxisTicker = (value: number) => {
+    return new Intl.NumberFormat('en-US', {
+      notation: 'compact',
+      maximumFractionDigits: 1
+    }).format(value);
+  };
+
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -111,7 +118,7 @@ const RevenueChart = ({ data, formatCurrency }: RevenueChartProps) => {
           <YAxis
             yAxisId="left"
             domain={[minRevenue, maxRevenue]}
-            tickFormatter={(value) => Math.round(value).toLocaleString()}
+            tickFormatter={formatYAxisTicker}
             stroke="transparent"
             tick={{ fill: '#ffffff', fontSize: 11 }}
             tickLine={{ stroke: 'transparent' }}
