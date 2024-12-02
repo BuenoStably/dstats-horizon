@@ -24,10 +24,13 @@ const Navbar = () => {
       sx={{ 
         bgcolor: 'rgb(18, 17, 28)', 
         boxShadow: 'none',
-        borderBottom: '1px solid transparent'
+        borderBottom: '1px solid transparent',
+        width: '100%',
+        margin: 0,
+        padding: 0
       }}
     >
-      <Toolbar sx={{ px: 3, py: 2 }}>
+      <Toolbar sx={{ px: { xs: 2, sm: 3 }, py: 2, maxWidth: '1400px', width: '100%', mx: 'auto' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <img 
             src="https://app.testnet.dtrinity.org/dlend/trinity.svg" 
