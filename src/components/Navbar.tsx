@@ -25,11 +25,12 @@ const Navbar = () => {
         bgcolor: 'rgb(18, 17, 28)', 
         boxShadow: 'none',
         borderBottom: '1px solid transparent',
-        width: '100vw',
+        width: '100%',
         margin: 0,
         padding: 0,
-        left: 0,
-        right: 0
+        position: 'relative',
+        left: 'auto',
+        right: 'auto'
       }}
     >
       <Toolbar sx={{ px: { xs: 2, sm: 3 }, py: 2, maxWidth: '1400px', width: '100%', mx: 'auto' }}>
