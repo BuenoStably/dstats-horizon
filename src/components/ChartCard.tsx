@@ -1,6 +1,7 @@
-import { Card, CardContent, Typography, Box, Button, Stack } from '@mui/material';
+import { Card, CardContent, Typography, Box, Stack } from '@mui/material';
 import { useState } from "react";
-import { colors } from '../theme';
+import TimeframeSelector from './chart/TimeframeSelector';
+import ChartLegend from './chart/ChartLegend';
 
 interface LegendItem {
   color: string;
@@ -79,57 +80,17 @@ const ChartCard = ({
             </Typography>
             
             {showTimeframes && onTimeframeChange && (
-              <Stack direction="row" spacing={1}>
-                {timeframes.map((tf) => (
-                  <Button
-                    key={tf}
-                    variant={selectedTimeframe === tf ? 'contained' : 'text'}
-                    sx={{
-                      minWidth: 0,
-                      padding: '6px 12px',
-                      color: selectedTimeframe === tf ? colors.textPrimary : colors.textMuted,
-                      backgroundColor: selectedTimeframe === tf ? colors.primary : 'transparent',
-                      '&:hover': {
-                        backgroundColor: selectedTimeframe === tf ? colors.primaryDark : 'rgba(255, 255, 255, 0.1)',
-                      },
-                    }}
-                    onClick={() => handleTimeframeClick(tf)}
-                  >
-                    {tf}
-                  </Button>
-                ))}
-              </Stack>
+              <TimeframeSelector
+                timeframes={timeframes}
+                selectedTimeframe={selectedTimeframe}
+                onTimeframeChange={handleTimeframeClick}
+              />
             )}
           </Stack>
           
-          {legend && (
-            <Stack 
-              direction="row" 
-              spacing={2} 
-              sx={{ 
-                pl: 0,
-                flexWrap: 'wrap',
-                gap: 1
-              }}
-            >
-              {legend.map((item, index) => (
-                <Stack key={index} direction="row" spacing={1} alignItems="center">
-                  <Box 
-                    sx={{ 
-                      width: '12px', 
-                      height: '12px', 
-                      borderRadius: '2px',
-                      bgcolor: item.color 
-                    }} 
-                  />
-                  <Typography variant="metric-label">
-                    {item.label}
-                  </Typography>
-                </Stack>
-              ))}
-            </Stack>
-          )}
+          {legend && <ChartLegend items={legend} />}
         </Stack>
+
         <Box sx={{ 
           width: '100%',
           flex: 1,
