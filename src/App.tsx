@@ -20,10 +20,13 @@ function App() {
           <Box 
             sx={{ 
               minHeight: "100vh", 
-              width: "100%",
+              width: "100vw",
               display: "flex", 
               flexDirection: "column",
               position: "relative",
+              margin: 0,
+              padding: 0,
+              overflow: "hidden",
               "&::before": {
                 content: '""',
                 position: "fixed",
