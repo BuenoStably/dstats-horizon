@@ -20,12 +20,13 @@ function App() {
           <Box 
             sx={{ 
               minHeight: "100vh", 
+              width: "100%",
               display: "flex", 
               flexDirection: "column",
               position: "relative",
               "&::before": {
                 content: '""',
-                position: "absolute",
+                position: "fixed",
                 top: 0,
                 left: 0,
                 right: 0,
@@ -36,8 +37,16 @@ function App() {
               }
             }}
           >
-            <Box component="main" sx={{ flexGrow: 1, position: "relative", zIndex: 1 }}>
-              <Container maxWidth="lg" sx={{ px: 2, mb: 8 }}>
+            <Box component="main" sx={{ flexGrow: 1, position: "relative", zIndex: 1, width: "100%" }}>
+              <Container 
+                maxWidth="lg" 
+                sx={{ 
+                  px: { xs: 2, sm: 3 },
+                  mb: 8,
+                  mx: "auto",
+                  maxWidth: "1400px !important"
+                }}
+              >
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/dusd" element={<DUSDPage />} />
