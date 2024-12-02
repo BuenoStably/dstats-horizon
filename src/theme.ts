@@ -147,7 +147,6 @@ export const theme = createTheme({
             backgroundColor: colors.card,
             borderColor: colors.border,
             padding: '24px',
-            height: '100%',
             transition: 'background-color 0.2s',
             '&:hover': {
               backgroundColor: colors.cardHover,
@@ -181,7 +180,6 @@ export const theme = createTheme({
             backgroundColor: colors.card,
             borderColor: colors.border,
             padding: '24px',
-            height: '100%',
             transition: 'background-color 0.2s',
             '&:hover': {
               backgroundColor: colors.cardHover,
