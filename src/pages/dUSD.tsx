@@ -124,6 +124,7 @@ const DUSDPage = () => {
               <TVCandlestickChart
                 data={filteredPriceData}
                 valueFormatter={formatPrice}
+                timeframe={priceTimeframe}
               />
             </ChartCard>
           </Grid>
