@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import './theme/types';
 
 export const colors = {
   // Base colors
@@ -78,6 +79,15 @@ export const theme = createTheme({
     h6: {
       fontWeight: 600,
     },
+    'metric-value': {
+      fontSize: '1.5rem',
+      fontWeight: 600,
+      color: colors.primary,
+    } as const,
+    'metric-label': {
+      fontSize: '0.875rem',
+      color: colors.textMuted,
+    } as const,
   },
   components: {
     MuiButton: {
@@ -157,25 +167,6 @@ export const theme = createTheme({
           color: colors.card,
         },
       },
-    },
-    MuiTypography: {
-      variants: [
-        {
-          props: { variant: 'metric-value' },
-          style: {
-            fontSize: '1.5rem',
-            fontWeight: 600,
-            color: colors.primary,
-          },
-        },
-        {
-          props: { variant: 'metric-label' },
-          style: {
-            fontSize: '0.875rem',
-            color: colors.textMuted,
-          },
-        },
-      ],
     },
   },
 });
