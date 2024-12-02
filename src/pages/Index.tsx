@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import { ChartSection } from "@/components/ChartSection";
 import { DollarSign, Wallet, Percent, Gift } from "lucide-react";
 import { useMetrics } from "@/hooks/useMetrics";
@@ -44,17 +43,14 @@ const Index = () => {
   ];
 
   return (
-    <>
-      <Navbar />
-      <PageWrapper title="Key Metrics">
-        <MetricsGrid 
-          metrics={metricsConfig}
-          isLoading={isLoading}
-          error={error instanceof Error ? error : null}
-        />
-        <ChartSection mockData={mockData} />
-      </PageWrapper>
-    </>
+    <PageWrapper title="Key Metrics">
+      <MetricsGrid 
+        metrics={metricsConfig}
+        isLoading={isLoading}
+        error={error instanceof Error ? error : null}
+      />
+      <ChartSection mockData={mockData} />
+    </PageWrapper>
   );
 };
 

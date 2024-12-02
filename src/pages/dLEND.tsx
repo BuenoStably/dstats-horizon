@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import Navbar from "@/components/Navbar";
 import { Box, Grid } from "@mui/material";
 import { Percent, Users, ArrowUpDown, BarChart3, UserMinus } from "lucide-react";
 import ChartCard from "@/components/ChartCard";
@@ -61,11 +60,9 @@ const DLENDPage = () => {
   const formatPercentage = (value: number) => `${value.toFixed(4)}%`;
 
   return (
-    <>
-      <Navbar />
-      <PageWrapper title="dLEND Analytics">
-        <MetricsGrid metrics={metricsConfig} isLoading={isLoading} error={error instanceof Error ? error : null} />
-        <Box sx={{ mt: 4 }}>
+    <PageWrapper title="dLEND Analytics">
+      <MetricsGrid metrics={metricsConfig} isLoading={isLoading} error={error instanceof Error ? error : null} />
+      <Box sx={{ mt: 4 }}>
           <Grid container spacing={3}>
             <Grid container item xs={12} lg={6}>
               <ChartCard 
@@ -93,9 +90,8 @@ const DLENDPage = () => {
               </ChartCard>
             </Grid>
           </Grid>
-        </Box>
-      </PageWrapper>
-    </>
+      </Box>
+    </PageWrapper>
   );
 };
 

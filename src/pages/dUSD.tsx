@@ -1,6 +1,5 @@
 import { DollarSign, Users } from "lucide-react";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import Navbar from "@/components/Navbar";
 import ChartCard from "@/components/ChartCard";
 import LineChartWithGradient from "@/components/charts/LineChartWithGradient";
 import HorizontalBarChart from "@/components/charts/HorizontalBarChart";
@@ -15,6 +14,7 @@ import { useState, useMemo } from "react";
 import { filterDataByTimeframe } from "@/utils/dateUtils";
 import { useMetrics } from "@/hooks/useMetrics";
 import MetricsGrid from "@/components/metrics/MetricsGrid";
+import PageWrapper from "@/components/layout/PageWrapper";
 
 const DUSDPage = () => {
   const { data: metrics, isLoading, error } = useMetrics();
@@ -76,11 +76,8 @@ const DUSDPage = () => {
     return [minValue - padding, maxValue + padding];
   };
 
-  // ... keep existing code (metrics configuration and return JSX)
-
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "transparent" }}>
-      <Navbar />
+    <PageWrapper title="dUSD Analytics">
       <Container sx={{ py: 4, minHeight: "calc(100vh - 73px)" }}>
         <Typography variant="h4" component="h1" sx={{ mb: 3, fontWeight: "bold" }}>
           dUSD Analytics
@@ -217,8 +214,7 @@ const DUSDPage = () => {
             </ChartCard>
           </TableWrapper>
         </Box>
-      </Container>
-    </Box>
+    </PageWrapper>
   );
 };
 
