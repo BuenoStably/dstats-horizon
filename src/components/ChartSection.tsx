@@ -83,7 +83,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       <Grid container spacing={3}>
-        <Grid item xs={12} lg={6} container>
+        <Grid item xs={12} lg={6}>
           <ChartCard 
             title="Total Protocol TVL" 
             onTimeframeChange={setTvlTimeframe}
@@ -91,7 +91,6 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
               { color: "#8702ff", label: "Fraxtal TVL" },
               { color: "#0EA5E9", label: "Ethereum TVL" }
             ]}
-            className="flex flex-col"
           >
             <LineChartWithGradient
               data={filteredTvlData}
@@ -109,7 +108,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
           </ChartCard>
         </Grid>
 
-        <Grid item xs={12} lg={6} container>
+        <Grid item xs={12} lg={6}>
           <ChartCard 
             title="Total dUSD Supply" 
             onTimeframeChange={setSupplyTimeframe}
@@ -125,7 +124,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
           </ChartCard>
         </Grid>
 
-        <Grid item xs={12} lg={6} container>
+        <Grid item xs={12} lg={6}>
           <ChartCard 
             title="Net dUSD Borrow APY" 
             onTimeframeChange={setApyTimeframe}
@@ -141,7 +140,7 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
           </ChartCard>
         </Grid>
 
-        <Grid item xs={12} lg={6} container>
+        <Grid item xs={12} lg={6}>
           <ChartCard 
             title="Total Users" 
             onTimeframeChange={setUsersTimeframe}
@@ -158,8 +157,8 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
         </Grid>
       </Grid>
 
-      <Grid container>
-        <Grid item xs={12} container>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
           <ChartCard 
             title="dUSD Balance Sheet"
             showTimeframes={false}
@@ -177,10 +176,8 @@ export const ChartSection = ({ mockData }: ChartSectionProps) => {
             />
           </ChartCard>
         </Grid>
-      </Grid>
 
-      <Grid container>
-        <Grid item xs={12} container>
+        <Grid item xs={12}>
           <ChartCard 
             title="Protocol Revenue" 
             onTimeframeChange={setRevenueTimeframe}
