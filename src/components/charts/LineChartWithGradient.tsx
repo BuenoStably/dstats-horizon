@@ -111,7 +111,7 @@ const LineChartWithGradient = ({
       <ResponsiveContainer>
         <AreaChart
           data={data}
-          margin={{ top: 10, right: 30, left: 10, bottom: 25 }}
+          margin={{ top: 10, right: 30, left: 30, bottom: 25 }}
         >
           <defs>
             <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
