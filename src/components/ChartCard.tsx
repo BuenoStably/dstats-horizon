@@ -1,7 +1,8 @@
-import { Card, CardContent, Typography, Box, Stack } from '@mui/material';
+import { Card, CardContent, Stack } from '@mui/material';
 import { useState } from "react";
-import TimeframeSelector from './chart/TimeframeSelector';
 import ChartLegend from './chart/ChartLegend';
+import ChartHeader from './chart-card/ChartHeader';
+import ChartContainer from './chart-card/ChartContainer';
 
 interface LegendItem {
   color: string;
@@ -62,48 +63,20 @@ const ChartCard = ({
           spacing={2}
           mb={3}
         >
-          <Stack 
-            direction="row" 
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={2}
-          >
-            <Typography 
-              variant="h6" 
-              sx={{ 
-                fontWeight: 600,
-                pl: 0,
-                textAlign: 'left'
-              }}
-            >
-              {title}
-            </Typography>
-            
-            {showTimeframes && onTimeframeChange && (
-              <TimeframeSelector
-                timeframes={timeframes}
-                selectedTimeframe={selectedTimeframe}
-                onTimeframeChange={handleTimeframeClick}
-              />
-            )}
-          </Stack>
+          <ChartHeader
+            title={title}
+            showTimeframes={showTimeframes}
+            onTimeframeChange={handleTimeframeClick}
+            selectedTimeframe={selectedTimeframe}
+            timeframes={timeframes}
+          />
           
           {legend && <ChartLegend items={legend} />}
         </Stack>
 
-        <Box sx={{ 
-          width: '100%',
-          flex: 1,
-          minHeight: 0,
-          display: 'flex',
-          position: 'relative',
-          '& > *': { 
-            width: '100%',
-            height: '100%'
-          }
-        }}>
+        <ChartContainer>
           {children}
-        </Box>
+        </ChartContainer>
       </CardContent>
     </Card>
   );
