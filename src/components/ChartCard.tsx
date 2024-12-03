@@ -49,11 +49,10 @@ const ChartCard = ({
     >
       <CardContent 
         sx={{ 
-          p: 3,
           display: 'flex', 
           flexDirection: 'column',
           height: '100%',
-          '&:last-child': { pb: 3 }
+          p: '0 !important'
         }}
       >
         <Grid 
