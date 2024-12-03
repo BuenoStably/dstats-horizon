@@ -44,18 +44,16 @@ const ChartCard = ({
         width: '100%',
         height: '100%',
         display: 'flex',
-        flexDirection: 'column',
-        minHeight: '400px'
+        flexDirection: 'column'
       }}
       className={className}
     >
       <CardContent 
         sx={{ 
           p: 3,
-          flex: 1,
+          height: '100%',
           display: 'flex', 
           flexDirection: 'column',
-          minHeight: 0,
           '&:last-child': { pb: 3 }
         }}
       >
