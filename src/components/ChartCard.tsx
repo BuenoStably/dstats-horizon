@@ -42,20 +42,19 @@ const ChartCard = ({
       variant="chart"
       sx={{ 
         width: '100%',
+        height: '100%',
         display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden'
+        flexDirection: 'column'
       }}
       className={className}
     >
       <CardContent 
         sx={{ 
-          p: 0, 
+          p: 3,
+          height: '100%',
           display: 'flex', 
           flexDirection: 'column',
-          height: '100%',
-          '&:last-child': { pb: 0 },
-          overflow: 'hidden'
+          '&:last-child': { pb: 3 }
         }}
       >
         <Stack 

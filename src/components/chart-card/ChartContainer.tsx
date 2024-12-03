@@ -8,8 +8,7 @@ const ChartContainer = ({ children }: ChartContainerProps) => {
   return (
     <Box sx={{ 
       width: '100%',
-      flex: 1,
-      minHeight: 0,
+      height: '400px',
       display: 'flex',
       position: 'relative',
       '& > *': { 
