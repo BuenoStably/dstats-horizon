@@ -107,7 +107,7 @@ const LineChartWithGradient = ({
   };
 
   return (
-    <Box sx={{ width: "100%", height: 400 }}>
+    <Box sx={{ width: "100%", aspectRatio: "16/9" }}>
       <ResponsiveContainer>
         <AreaChart
           data={data}
