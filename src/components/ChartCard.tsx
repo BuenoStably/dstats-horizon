@@ -1,4 +1,4 @@
-import { Card, CardContent, Stack } from '@mui/material';
+import { Card, CardContent, Grid } from '@mui/material';
 import { useState } from "react";
 import ChartLegend from './chart/ChartLegend';
 import ChartHeader from './chart-card/ChartHeader';
@@ -52,28 +52,43 @@ const ChartCard = ({
           p: 3,
           display: 'flex', 
           flexDirection: 'column',
+          height: '100%',
           '&:last-child': { pb: 3 }
         }}
       >
-        <Stack 
+        <Grid 
+          container 
           direction="column"
           spacing={2}
-          mb={3}
+          sx={{ mb: 3 }}
         >
-          <ChartHeader
-            title={title}
-            showTimeframes={showTimeframes}
-            onTimeframeChange={handleTimeframeClick}
-            selectedTimeframe={selectedTimeframe}
-            timeframes={timeframes}
-          />
+          <Grid item>
+            <ChartHeader
+              title={title}
+              showTimeframes={showTimeframes}
+              onTimeframeChange={handleTimeframeClick}
+              selectedTimeframe={selectedTimeframe}
+              timeframes={timeframes}
+            />
+          </Grid>
           
-          {legend && <ChartLegend items={legend} />}
-        </Stack>
+          {legend && (
+            <Grid item>
+              <ChartLegend items={legend} />
+            </Grid>
+          )}
+        </Grid>
 
-        <ChartContainer>
-          {children}
-        </ChartContainer>
+        <Grid 
+          container 
+          sx={{ flexGrow: 1 }}
+        >
+          <Grid item xs={12} sx={{ height: '100%' }}>
+            <ChartContainer>
+              {children}
+            </ChartContainer>
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
   );
