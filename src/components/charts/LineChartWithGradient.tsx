@@ -36,6 +36,7 @@ const LineChartWithGradient = ({
   mainLineLabel = "Value",
   secondLineLabel = "Second Value",
 }: LineChartWithGradientProps) => {
+  
   const getMaxValue = () => {
     const values = data.map(item => item.value);
     if (showSecondLine && secondLineData) {
@@ -111,7 +112,7 @@ const LineChartWithGradient = ({
       <ResponsiveContainer>
         <AreaChart
           data={data}
-          margin={{ top: 10, right: 30, left: 30, bottom: 25 }}
+          margin={{ top: 10, right: 30, left: 16, bottom: 25 }}
         >
           <defs>
             <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
