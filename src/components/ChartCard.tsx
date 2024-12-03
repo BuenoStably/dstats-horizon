@@ -97,9 +97,13 @@ const ChartCard = ({
           minHeight: 0,
           display: 'flex',
           alignItems: 'flex-end',
+          position: 'relative',
           '& > *': { 
             width: '100%',
-            height: '100%'
+            height: '100%',
+            position: 'absolute',
+            left: 0,
+            top: 0
           }
         }}>
           {children}
